@@ -52,7 +52,12 @@ export default function Header() {
         <nav className="hidden md:flex gap-8">
           <Link href="/" className={getMenuClass('/')}>Trang chủ</Link>
           <Link href="/booking" className={getMenuClass('/booking')}>Đặt phòng</Link>
+<<<<<<< HEAD
           <Link href="/profile" className={getMenuClass('/profile')}>Của tôi</Link>
+=======
+          <Link href="/promotions" className={getMenuClass('/promotions')}>Khuyến mãi</Link>
+          <Link href="/contact" className={getMenuClass('/contact')}>Liên hệ</Link>
+>>>>>>> 4a5421c5e6104420f479299418cc74aa944a9ffa
         </nav>
 
         {/* User actions */}
