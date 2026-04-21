@@ -583,7 +583,7 @@ export default function AdminPage() {
 
   if (isChecking) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className=" flex items-center justify-center bg-gray-50">
         <div className="loading-spinner" />
       </div>
     );
@@ -1525,55 +1525,15 @@ export default function AdminPage() {
           </div>
         );
 
-      case "settings":
-        return (
-          <div className="bg-white p-6 rounded-xl dark:bg-gray-800">
-            <h1 className="text-2xl font-bold mb-4">Cài đặt hệ thống</h1>
-            <p className="text-gray-500">Tính năng đang phát triển...</p>
-          </div>
-        );
-
-      case "help":
-        return (
-          <div className="bg-white p-6 rounded-xl dark:bg-gray-800">
-            <h1 className="text-2xl font-bold mb-4">Trung tâm trợ giúp</h1>
-            <p className="text-gray-500">
-              Hướng dẫn sử dụng hệ thống quản trị LORTEL
-            </p>
-            <div className="mt-4 space-y-2">
-              <p>
-                <i className="fas fa-check-circle text-emerald-600 mr-2"></i>
-                Quản lý đặt phòng: Thêm/sửa/xóa đặt phòng
-              </p>
-              <p>
-                <i className="fas fa-check-circle text-emerald-600 mr-2"></i>
-                Quản lý phòng: Thêm/sửa/xóa phòng, cập nhật trạng thái
-              </p>
-              <p>
-                <i className="fas fa-check-circle text-emerald-600 mr-2"></i>
-                Quản lý khách hàng: Thêm/sửa/xóa thông tin khách
-              </p>
-              <p>
-                <i className="fas fa-check-circle text-emerald-600 mr-2"></i>
-                Quản lý nhân viên: Thêm/sửa/xóa nhân viên
-              </p>
-              <p>
-                <i className="fas fa-check-circle text-emerald-600 mr-2"></i>
-                Khuyến mãi: Tạo mã giảm giá
-              </p>
-            </div>
-          </div>
-        );
-
       default:
         return null;
     }
   };
   // ==================== RENDER CHÍNH ====================
   return (
-    <div className={`flex h-screen ${isDarkMode ? "dark-mode" : "bg-gray-50"}`}>
+    <div className={`flex ${isDarkMode ? "dark-mode" : "bg-gray-50"}`}>
       {/* SIDEBAR */}
-      <aside className="w-72 bg-gradient-to-b from-gray-900 to-gray-800 text-white flex flex-col shadow-2xl">
+      {/* <aside className="w-72 bg-gradient-to-b from-gray-900 to-gray-800 text-white flex flex-col shadow-2xl">
         <div className="p-6 border-b border-gray-700">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
@@ -1708,10 +1668,10 @@ export default function AdminPage() {
             <span className="slider"></span>
           </label>
         </div>
-      </aside>
+      </aside> */}
 
       {/* MAIN CONTENT */}
-      <main className="flex-1 flex flex-col h-screen overflow-hidden">
+      <main className="flex-1 flex flex-col overflow-hidden">
         <header className="bg-white shadow-sm z-10 p-4 px-8 flex justify-between items-center border-b dark:bg-gray-800 dark:border-gray-700">
           <div className="flex items-center gap-4 flex-1">
             <button className="lg:hidden text-gray-500" onClick={() => {}}>
@@ -2502,7 +2462,7 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* STYLES */}
+      {/* STYLES
       <style jsx global>{`
         * {
           font-family:
@@ -2681,7 +2641,7 @@ export default function AdminPage() {
         .dark-mode .text-gray-600 {
           color: #cbd5e0;
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }

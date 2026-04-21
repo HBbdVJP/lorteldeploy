@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 * {
     margin: 0;
@@ -15,17 +13,25 @@ body {
     min-height: 100vh;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar Phong Thủy */
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 5px; /* Làm mỏng lại */
 }
+
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: transparent; /* Trong suốt để không bị lộ đường rãnh */
 }
+
 ::-webkit-scrollbar-thumb {
-    background: #10b981;
-    border-radius: 3px;
+    @apply bg-slate-700; /* Màu trầm, chỉ hiện rõ khi rê chuột vào */
+    border-radius: 10px;
+    transition: all 0.3s;
 }
+
+::-webkit-scrollbar-thumb:hover {
+    background: #10b981; /* Chỉ xanh lên khi người dùng thực sự cuộn */
+}
+
 
 @layer components {
     /* Service & Promo Card Hover */
@@ -102,4 +108,81 @@ body {
         background: rgba(255, 255, 255, 0.95);
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
+}
+/* --- Paste vào cuối file globals.css --- */
+/* css trang admin */
+@layer components {
+    /* Sidebar & Navigation */
+    .sidebar-link {
+        @apply relative overflow-hidden transition-all duration-300;
+    }
+    .sidebar-link::before {
+        content: "";
+        @apply absolute left-0 top-0 h-full w-0 bg-white/10 transition-all duration-300;
+    }
+    .sidebar-link:hover::before {
+        @apply w-full;
+    }
+    .sidebar-link.active {
+        @apply border-l-4 border-emerald-500 bg-emerald-500/20;
+    }
+
+    /* Stats & Cards */
+    .stat-card {
+        @apply cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+        @apply h-1.5 overflow-hidden rounded-full bg-gray-200;
+    }
+    .progress-fill {
+        @apply h-full rounded-full bg-emerald-500 transition-all duration-300;
+    }
+
+    /* Badges */
+    .badge {
+        @apply rounded-full px-3 py-1 text-xs font-medium;
+    }
+    .badge-success { @apply bg-emerald-100 text-emerald-800; }
+    .badge-warning { @apply bg-orange-100 text-orange-800; }
+    .badge-danger  { @apply bg-red-100 text-red-800; }
+    .badge-info    { @apply bg-blue-100 text-blue-800; }
+
+    /* Custom Switch */
+    .switch {
+        @apply relative inline-block h-6 w-12;
+    }
+    .switch input { @apply h-0 w-0 opacity-0; }
+    .slider {
+        @apply absolute inset-0 cursor-pointer rounded-full bg-gray-300 transition-all duration-300;
+    }
+    .slider:before {
+        content: "";
+        @apply absolute bottom-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-all duration-300;
+    }
+    input:checked + .slider { @apply bg-emerald-500; }
+    input:checked + .slider:before { @apply translate-x-6; }
+
+    /* Animations & Spinners */
+    .loading-spinner {
+        @apply h-10 w-10 animate-spin rounded-full border-4 border-gray-100 border-t-emerald-500;
+    }
+    .modal-enter {
+        animation: modalFadeIn 0.2s ease-out forwards;
+    }
+}
+
+@layer utilities {
+    @keyframes modalFadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Dark Mode Overrides (Nếu bạn dùng class 'dark-mode' thay vì class 'dark' của Tailwind) */
+    .dark-mode {
+        @apply bg-slate-900 text-slate-50;
+    }
+    .dark-mode .bg-white { @apply bg-slate-800 text-slate-50; }
+    .dark-mode .border { @apply border-slate-700; }
 }

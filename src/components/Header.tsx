@@ -1,5 +1,5 @@
 // =============================================
-// 2. src/components/Header.jsx (đã ghép phiên bản có kiểm tra login)
+// 2. src/components/Header.tsx (đã ghép phiên bản có kiểm tra login)
 // =============================================
 "use client";
 import Link from 'next/link';
@@ -55,7 +55,7 @@ export default function Header() {
           <Link href="/profile" className={getMenuClass('/profile')}>Của tôi</Link>
         </nav>
 
-        {/* User actions */}
+        {/* User actions */}git push origin main
         <div className="flex gap-3">
           {user ? (
             <div className="flex items-center gap-3">

@@ -23,5 +23,10 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.3",
     "tailwindcss": "^4"
-  }
+  },
+    "./css": {
+      "types": "./swiper-css.d.ts",
+      "default": "./swiper.css"
+    }
+
 }

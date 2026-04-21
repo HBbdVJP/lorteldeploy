@@ -6,7 +6,7 @@ import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-import "swiper/css";
+declare module "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 

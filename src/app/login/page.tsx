@@ -1,4 +1,4 @@
-// src/app/login/page.js
+// src/app/login/page.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -285,7 +285,12 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="btn-login w-full text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2"
+                className="relative flex items-center justify-center gap-3 w-full p-3 my-4
+             text-white font-medium
+             bg-emerald-600 hover:bg-emerald-700
+             rounded-lg shadow-md
+             transition duration-150 ease-in-out
+             focus:outline-none focus:ring-4 focus:ring-emerald-300"
               >
                 {isLoading ? (
                   <>
