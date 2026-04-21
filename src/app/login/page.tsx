@@ -310,7 +310,7 @@ export default function LoginPage() {
                 <div className="w-full border-t border-gray-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-gray-500">Hoặc</span>
+                <span className="px-4 text-gray-500">Hoặc</span>
               </div>
             </div>
 
@@ -349,7 +349,7 @@ export default function LoginPage() {
       {/* Modal Đăng ký */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100] p-4"
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-100 p-4"
           onClick={(e) => e.target === e.currentTarget && setIsModalOpen(false)}
         >
           <div className="bg-white rounded-2xl max-w-md w-full mx-4 relative animate-slide-up">
@@ -433,7 +433,7 @@ export default function LoginPage() {
       {/* Toast Notification */}
       {toast.visible && (
         <div
-          className={`fixed bottom-5 right-5 px-6 py-3 rounded-xl text-white shadow-2xl z-[1000] animate-slide-in ${
+          className={`fixed bottom-5 right-5 px-6 py-3 rounded-xl text-white shadow-2xl z-1000 animate-slide-in ${
             toast.type === "error"
               ? "bg-red-500"
               : toast.type === "info"
