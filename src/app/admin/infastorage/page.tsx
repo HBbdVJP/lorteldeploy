@@ -214,163 +214,53 @@ export default function InfastoragePage() {
     setShowImportModal(false);
   };
 
-  const branchData = getCurrentBranchData();
-
   return (
-    <div className={`flex flex-col h-screen ${isDarkMode ? "bg-gray-900" : "bg-gray-100"}`}>
-      {/* Sidebar */}
-      <div
-        className={`fixed inset-y-0 left-0 w-64 bg-slate-900 text-white z-50 shadow-2xl transition-transform ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <div className="p-6 flex flex-col h-full">
-          <div className="flex justify-between items-center mb-10">
-            <h2 className="text-xl font-bold tracking-tighter">LORTEL</h2>
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="text-slate-400 hover:text-white"
-            >
-              ✕
-            </button>
-          </div>
-          <nav className="space-y-4 flex-1">
-            <a
-              href="#"
-              className="flex items-center p-3 hover:bg-slate-800 rounded-lg transition text-sm"
-            >
-              Lễ tân
-            </a>
-            <a
-              href="#"
-              className="flex items-center p-3 hover:bg-slate-800 rounded-lg transition text-sm"
-            >
-              Nhân sự
-            </a>
-            <a
-              href="#"
-              className="flex items-center p-3 bg-blue-600 rounded-lg font-bold text-sm"
-            >
-              Chi nhánh
-            </a>
-            <a
-              href="#"
-              className="flex items-center p-3 hover:bg-slate-800 rounded-lg transition text-sm"
-            >
-              Tài vụ
-            </a>
-          </nav>
-          <div className="text-[10px] text-slate-500 mt-auto uppercase font-bold">
-            Infras Module v0.1
-          </div>
-        </div>
-      </div>
-
-      {sidebarOpen && (
-        <div
-          onClick={() => setSidebarOpen(false)}
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-        />
-      )}
-
-      {/* Header */}
-      <header className="bg-white border-b px-6 py-3 flex justify-between items-center shadow-sm shrink-0">
+    <div className={`${isDarkMode ? "dark" : ""} bg-slate-100 dark:bg-slate-900 transition-colors duration-300 h-screen flex flex-col`}>
+      {/* HEADER */}
+      <header className="bg-slate-900 px-6 py-3 flex sticky top-0 z-50 shadow-md">
         <div className="flex items-center space-x-4">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 hover:bg-gray-100 rounded-md transition"
-          >
-            <svg
-              className="w-6 h-6 text-gray-700"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-          <div className="border-l pl-4">
-            <span className="text-xs font-mono text-gray-500 uppercase tracking-widest">
+          <div className="border-l border-slate-700 pl-4">
+            <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">
               {currentDateTime}
             </span>
-            <h1 className="text-sm font-black text-slate-900 uppercase">
+            <h1 className="text-sm font-black text-white uppercase">
               Quản lý hạ tầng & Dịch vụ
             </h1>
           </div>
         </div>
-        <div className="flex items-center space-x-2">
-          <span className="text-xs font-bold text-slate-700">Admin</span>
-          <div className="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center text-[10px] font-bold">
+        <div className="ml-auto flex items-center space-x-2">
+          <span className="text-xs font-bold text-slate-300">Admin</span>
+          <div className="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center text-[10px] font-bold">
             INF
           </div>
         </div>
       </header>
 
-      {/* Main Body */}
-      <main className="flex-1 flex overflow-hidden">
-        {/* Left Nav */}
-        <aside className="w-64 bg-slate-800 flex flex-col shrink-0">
-          <div className="p-4">
-            <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">
-              Danh mục quản lý
-            </h3>
-            <nav className="space-y-1">
-              <button
-                onClick={() => setActiveTab("overview")}
-                className={`w-full flex items-center p-3 text-[11px] font-bold rounded transition text-left uppercase ${
-                  activeTab === "overview"
-                    ? "bg-slate-900 text-amber-400 border-r-4 border-amber-400"
-                    : "text-slate-300 hover:bg-slate-700"
-                }`}
-              >
-                Tổng quan chi nhánh
-              </button>
-              <button
-                onClick={() => setActiveTab("infrastructure")}
-                className={`w-full flex items-center p-3 text-[11px] font-bold rounded transition text-left uppercase ${
-                  activeTab === "infrastructure"
-                    ? "bg-slate-900 text-amber-400 border-r-4 border-amber-400"
-                    : "text-slate-300 hover:bg-slate-700"
-                }`}
-              >
-                Cơ sở hạ tầng
-              </button>
-              <button
-                onClick={() => setActiveTab("storage")}
-                className={`w-full flex items-center p-3 text-[11px] font-bold rounded transition text-left uppercase ${
-                  activeTab === "storage"
-                    ? "bg-slate-900 text-amber-400 border-r-4 border-amber-400"
-                    : "text-slate-300 hover:bg-slate-700"
-                }`}
-              >
-                Kho bãi / Vật tư
-              </button>
-              <button
-                onClick={() => setActiveTab("services")}
-                className={`w-full flex items-center p-3 text-[11px] font-bold rounded transition text-left uppercase ${
-                  activeTab === "services"
-                    ? "bg-slate-900 text-amber-400 border-r-4 border-amber-400"
-                    : "text-slate-300 hover:bg-slate-700"
-                }`}
-              >
-                Dịch vụ khách sạn
-              </button>
-            </nav>
+      {/* Tab Navigation */}
+      <div className="tab-container overflow-x-auto no-scrollbar bg-slate-800 border-b border-slate-700 px-6 flex">
+        {[
+          { id: "overview", label: "Tổng quan chi nhánh" },
+          { id: "infrastructure", label: "Cơ sở hạ tầng" },
+          { id: "storage", label: "Kho bãi" },
+          { id: "services", label: "Dịch vụ" },
+        ].map((tab) => (
+          <div
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as InfrastorageTab)}
+            className={`tab-item flex items-center gap-2 px-4 py-3 cursor-pointer border-b-2 transition-colors text-[12px] font-bold uppercase whitespace-nowrap ${
+              activeTab === tab.id
+                ? "text-amber-400 border-amber-400 bg-slate-900/30"
+                : "text-slate-400 border-transparent hover:text-slate-300"
+            }`}
+          >
+            {tab.label}
           </div>
-          <div className="mt-auto p-4 bg-slate-900/50">
-            <div className="flex justify-between text-[10px] text-slate-400 font-bold uppercase">
-              <span>Trạng thái hệ thống</span>
-              <span className="text-green-400">Ổn định</span>
-            </div>
-          </div>
-        </aside>
+        ))}
+      </div>
 
-        {/* Right Content */}
+      {/* MAIN BODY */}
+      <main className="flex-1 flex overflow-hidden bg-slate-800/50">
+        {/* CONTENT */}
         <section className="flex-1 overflow-y-auto p-6">
           {/* Branch Selector */}
           <div className="mb-6">
