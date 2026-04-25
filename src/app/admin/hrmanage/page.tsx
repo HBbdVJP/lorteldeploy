@@ -1,35 +1,7 @@
 "use client";
 
-import { useDarkMode } from "@/contexts/DarkModeContext"; // thay useAdminDashboard bằng context
-import { useState, useEffect, useRef, useCallback } from "react";
-import { Line, Bar, Doughnut } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend,
-} from "chart.js";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend,
-);
-import { useAdminDashboard } from "@/components/useAdminDashboard";
+import { useDarkMode } from "@/contexts/DarkModeContext";
+import { useState, useEffect } from "react";
 
 interface Staff {
   id: string;
@@ -40,20 +12,113 @@ interface Staff {
   status: "online" | "offline";
 }
 
-const HRManager: React.FC = () => {
+interface LeaveRequest {
+  id: number;
+  name: string;
+  date: string;
+  days: number;
+  reason: string;
+  status: "pending" | "approved" | "rejected";
+}
+
+interface AttendanceRecord {
+  stt: number;
+  name: string;
+  shift: string;
+  checkin: string;
+  checkout: string;
+  status: "on-time" | "late" | "absent" | "absent-reported";
+}
+
+export default function HRManagePage() {
+  const { isDarkMode } = useDarkMode();
   const [activeTab, setActiveTab] = useState<string>("overview");
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [selectedStaff, setSelectedStaff] = useState<Staff | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [currentTime, setCurrentTime] = useState<string>(
-    "--/--/---- - 00:00:00",
+  const [currentDateTime, setCurrentDateTime] = useState("");
+
+  // Mock data
+  const staffList: Staff[] = [
+    {
+      id: "EMP001",
+      name: "Nguyễn Văn A",
+      dept: "Lễ tân",
+      role: "Lễ tân cấp cao",
+      join: "2020-01-15",
+      status: "online",
+    },
+    {
+      id: "EMP002",
+      name: "Trần Thị B",
+      dept: "Phòng bếp",
+      role: "Đầu bếp",
+      join: "2019-05-10",
+      status: "offline",
+    },
+    {
+      id: "EMP003",
+      name: "Lê Văn C",
+      dept: "Nhân sự",
+      role: "Trưởng phòng",
+      join: "2018-03-20",
+      status: "online",
+    },
+  ];
+
+  const leaveRequests: LeaveRequest[] = [
+    {
+      id: 1,
+      name: "Lê Văn C",
+      date: "2026-05-22",
+      days: 1,
+      reason: "Khám bệnh định kỳ",
+      status: "pending",
+    },
+    {
+      id: 2,
+      name: "Nguyễn Văn A",
+      date: "2026-05-25",
+      days: 3,
+      reason: "Nghỉ hè",
+      status: "approved",
+    },
+  ];
+
+  const attendanceRecords: AttendanceRecord[] = [
+    {
+      stt: 1,
+      name: "Nguyễn Văn A",
+      shift: "SÁNG (08-16)",
+      checkin: "07:55",
+      checkout: "--:--",
+      status: "on-time",
+    },
+    {
+      stt: 2,
+      name: "Trần Thị B",
+      shift: "CHIỀU (14-22)",
+      checkin: "--:--",
+      checkout: "--:--",
+      status: "absent-reported",
+    },
+    {
+      stt: 3,
+      name: "Lê Văn C",
+      shift: "SÁNG (08-16)",
+      checkin: "08:15",
+      checkout: "--:--",
+      status: "late",
+    },
+  ];
+
+  const filteredStaff = staffList.filter(
+    (s) =>
+      s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.id.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  // Load data từ file JSON (Mockup)
-  const staffData: Staff[] = [];
-
   useEffect(() => {
-    const timer = setInterval(() => {
+    const updateDateTime = () => {
       const now = new Date();
       const dateStr = now.toLocaleDateString("vi-VN", {
         day: "2-digit",
@@ -61,397 +126,547 @@ const HRManager: React.FC = () => {
         year: "numeric",
       });
       const timeStr = now.toLocaleTimeString("vi-VN", { hour12: false });
-      setCurrentTime(`${dateStr} - ${timeStr}`);
-    }, 1000);
-    return () => clearInterval(timer);
+      setCurrentDateTime(`${dateStr} - ${timeStr}`);
+    };
+    updateDateTime();
+    const interval = setInterval(updateDateTime, 1000);
+    return () => clearInterval(interval);
   }, []);
 
-  const daysOfWeek = [
-    "Thứ 2",
-    "Thứ 3",
-    "Thứ 4",
-    "Thứ 5",
-    "Thứ 6",
-    "Thứ 7",
-    "CN",
-  ];
-  const filteredStaff = staffData.filter(
-    (s) =>
-      s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      s.id.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  const getStatusBadgeColor = (status: string) => {
+    switch (status) {
+      case "on-time":
+      case "approved":
+      case "online":
+        return "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400";
+      case "late":
+      case "pending":
+        return "bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400";
+      case "absent":
+      case "rejected":
+      case "offline":
+        return "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400";
+      case "absent-reported":
+        return "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400";
+      default:
+        return "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-400";
+    }
+  };
 
-  return (
-    <div className="flex flex-col h-screen bg-gray-100 font-sans overflow-hidden">
-      {/* Sidebar Overlay */}
-      {isSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={() => setIsSidebarOpen(false)}
-        />
-      )}
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case "on-time":
+        return "Đúng giờ";
+      case "late":
+        return "Muộn";
+      case "absent":
+        return "Vắng";
+      case "absent-reported":
+        return "Báo vắng";
+      case "online":
+        return "Trực tuyến";
+      case "offline":
+        return "Ngoại tuyến";
+      case "approved":
+        return "Duyệt";
+      case "pending":
+        return "Chờ";
+      case "rejected":
+        return "Từ chối";
+      default:
+        return status;
+    }
+  };
 
-      {/* Sidebar */}
-      <aside
-        className={`fixed inset-y-0 left-0 w-64 bg-slate-900 text-white z-50 transition-transform duration-300 transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
-      >
-        <div className="p-6 flex flex-col h-full">
-          <div className="flex justify-between items-center mb-10">
-            <h2 className="text-xl font-bold tracking-tighter">LORTEL</h2>
-            <button
-              onClick={() => setIsSidebarOpen(false)}
-              className="text-slate-400 hover:text-white"
-            >
-              ✕
-            </button>
-          </div>
-          <nav className="space-y-4 flex-1">
-            <button className="w-full text-left p-3 hover:bg-slate-800 rounded-lg transition">
-              Lễ tân
-            </button>
-            <button className="w-full text-left p-3 bg-blue-600 rounded-lg font-bold">
-              Nhân sự
-            </button>
-            <button className="w-full text-left p-3 hover:bg-slate-800 rounded-lg transition">
-              Chi nhánh
-            </button>
-            <button className="w-full text-left p-3 hover:bg-slate-800 rounded-lg transition">
-              Tài vụ
-            </button>
-          </nav>
-          <div className="text-xs text-slate-500 mt-auto">Phiên bản 0.26</div>
-        </div>
-      </aside>
-
-      {/* Header */}
-      <header className="bg-white border-b px-6 py-3 flex justify-between items-center shadow-sm shrink-0">
-        <div className="flex items-center space-x-4">
-          <button
-            onClick={() => setIsSidebarOpen(true)}
-            className="p-2 hover:bg-gray-100 rounded-md transition"
-          >
-            <svg
-              className="w-6 h-6 text-gray-700"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-          <div className="border-l pl-4">
-            <span className="text-xs font-mono text-gray-500 uppercase tracking-widest">
-              {currentTime}
-            </span>
-            <h1 className="text-sm font-black text-slate-900 uppercase">
-              Hệ thống nhân sự
-            </h1>
-          </div>
-        </div>
-        <div className="flex items-center space-x-6">
-          <select className="bg-gray-50 border border-gray-200 text-[10px] font-bold uppercase rounded p-1">
-            <option>Riverside Branch</option>
-            <option>City Center Branch</option>
-          </select>
-          <div className="flex items-center space-x-2">
-            <span className="text-xs font-bold text-slate-700">Admin</span>
-            <div className="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center text-[10px] font-bold">
-              HR
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="flex-1 flex overflow-hidden">
-        {/* Left Sub-Nav */}
-        <aside className="w-64 bg-slate-800 flex flex-col shrink-0">
-          <div className="p-4">
-            <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">
-              Tác vụ nhân sự
-            </h3>
-            <nav className="space-y-1">
-              {[
-                "overview",
-                "staff-detail",
-                "attendance",
-                "leave",
-                "schedule",
-              ].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`w-full flex items-center p-3 text-sm text-slate-300 hover:bg-slate-700 rounded transition text-left uppercase ${activeTab === tab ? "bg-slate-900 text-amber-400 border-r-4 border-amber-400" : ""}`}
-                >
-                  {tab.replace("-", " ")}
-                </button>
-              ))}
-            </nav>
-          </div>
-        </aside>
-
-        {/* Content Area */}
-        <section className="flex-1 overflow-hidden p-6 relative">
-          {/* Tab: Overview */}
-          {activeTab === "overview" && (
-            <div className="h-full space-y-6">
-              <div className="grid grid-cols-3 gap-4 shrink-0">
-                <div className="bg-white p-4 rounded shadow-sm border">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase">
-                    Đang trong ca
-                  </p>
-                  <p className="text-2xl font-black text-slate-800">--</p>
-                </div>
-                <div className="bg-white p-4 rounded shadow-sm border border-l-4 border-l-amber-400">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase">
-                    Chính thức / Thử việc
-                  </p>
-                  <p className="text-2xl font-black text-slate-800">-- / --</p>
-                </div>
-                <div className="bg-white p-4 rounded shadow-sm border border-l-4 border-l-red-400">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase">
-                    Báo vắng
-                  </p>
-                  <p className="text-2xl font-black text-red-600">--</p>
-                </div>
+  const renderContent = () => {
+    switch (activeTab) {
+      case "overview":
+        return (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm border border-emerald-200 dark:border-emerald-900/30">
+                <p className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">
+                  Đang trong ca
+                </p>
+                <p className="text-3xl font-black text-emerald-600 dark:text-emerald-400">
+                  {staffList.filter((s) => s.status === "online").length}
+                </p>
+              </div>
+              <div className="bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm border border-blue-200 dark:border-blue-900/30">
+                <p className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">
+                  Tổng nhân viên
+                </p>
+                <p className="text-3xl font-black text-blue-600 dark:text-blue-400">
+                  {staffList.length}
+                </p>
+              </div>
+              <div className="bg-white dark:bg-slate-700 p-6 rounded-xl shadow-sm border border-amber-200 dark:border-amber-900/30">
+                <p className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">
+                  Xin nghỉ phép chờ
+                </p>
+                <p className="text-3xl font-black text-amber-600 dark:text-amber-400">
+                  {leaveRequests.filter((l) => l.status === "pending").length}
+                </p>
               </div>
             </div>
-          )}
-          {/* Tab: Staff Detail */}
-          {activeTab === "staff-detail" && (
-            <div className="grid grid-cols-12 gap-6 h-full overflow-hidden">
-              <div className="col-span-4 bg-white rounded border flex flex-col overflow-hidden">
-                <div className="p-4 border-b bg-gray-50">
+
+            <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm overflow-hidden">
+              <div className="p-6 border-b border-slate-200 dark:border-slate-600">
+                <h3 className="text-lg font-bold">Danh sách nhân viên</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-600">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        ID
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Tên
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Bộ phận
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Vị trí
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Trạng thái
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y dark:divide-slate-600">
+                    {staffList.map((staff) => (
+                      <tr
+                        key={staff.id}
+                        className="hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                      >
+                        <td className="px-6 py-4 text-sm font-mono text-slate-600 dark:text-slate-400">
+                          {staff.id}
+                        </td>
+                        <td className="px-6 py-4 text-sm font-bold text-slate-800 dark:text-slate-100">
+                          {staff.name}
+                        </td>
+                        <td className="px-6 py-4 text-sm text-slate-700 dark:text-slate-300">
+                          {staff.dept}
+                        </td>
+                        <td className="px-6 py-4 text-sm text-slate-700 dark:text-slate-300">
+                          {staff.role}
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${getStatusBadgeColor(staff.status)}`}>
+                            {getStatusText(staff.status)}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        );
+
+      case "staff-detail":
+        return (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-1">
+              <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm overflow-hidden sticky top-6">
+                <div className="p-4 border-b border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-800">
                   <input
                     type="text"
-                    placeholder="Tìm tên hoặc mã nhân viên..."
-                    className="w-full text-xs border rounded-md px-3 py-2 outline-none focus:ring-1 focus:ring-blue-500"
+                    placeholder="Tìm tên hoặc mã..."
+                    value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full text-sm border border-slate-200 dark:border-slate-600 rounded-lg px-4 py-2 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
-                <div className="flex-1 overflow-y-auto">
+                <div className="max-h-96 overflow-y-auto">
                   {filteredStaff.map((staff) => (
-                    <div
+                    <button
                       key={staff.id}
                       onClick={() => setSelectedStaff(staff)}
-                      className={`p-4 border-b cursor-pointer hover:bg-slate-50 flex items-center space-x-3 ${selectedStaff?.id === staff.id ? "bg-blue-50 border-blue-500" : ""}`}
+                      className={`w-full text-left px-4 py-3 border-b border-slate-200 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 transition ${
+                        selectedStaff?.id === staff.id
+                          ? "bg-blue-50 dark:bg-blue-900/20"
+                          : ""
+                      }`}
                     >
-                      <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-400 text-[10px]">
-                        {staff.name.charAt(0)}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex justify-between items-center">
-                          <h4 className="text-[11px] font-bold text-slate-800 uppercase">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-600 flex items-center justify-center font-bold text-slate-700 dark:text-slate-300">
+                          {staff.name.charAt(0)}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate">
                             {staff.name}
-                          </h4>
-                          <span className="text-[8px] font-mono text-slate-400">
+                          </p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400">
                             {staff.id}
-                          </span>
+                          </p>
                         </div>
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>
+            </div>
 
-              <div className="col-span-8 bg-white rounded border flex flex-col overflow-hidden">
-                {!selectedStaff ? (
-                  <div className="flex-1 flex items-center justify-center text-gray-400 italic text-sm">
-                    Chọn nhân viên để xem thông tin
-                  </div>
-                ) : (
-                  <div className="h-full flex flex-col">
-                    <div className="p-6 border-b bg-slate-50 flex items-start space-x-6">
-                      <div className="w-24 h-32 bg-slate-200 rounded border flex items-center justify-center text-slate-400 font-bold text-2xl">
+            <div className="lg:col-span-2">
+              {!selectedStaff ? (
+                <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm p-12 flex items-center justify-center min-h-96">
+                  <p className="text-slate-500 dark:text-slate-400 italic">
+                    Chọn nhân viên để xem chi tiết
+                  </p>
+                </div>
+              ) : (
+                <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm overflow-hidden">
+                  <div className="p-6 border-b border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-800">
+                    <div className="flex items-start gap-6">
+                      <div className="w-20 h-24 bg-slate-200 dark:bg-slate-600 rounded-lg flex items-center justify-center text-4xl font-bold text-slate-700 dark:text-slate-300">
                         {selectedStaff.name.charAt(0)}
                       </div>
                       <div className="flex-1">
-                        <h2 className="text-lg font-black text-slate-800 uppercase">
+                        <h2 className="text-2xl font-black text-slate-800 dark:text-slate-100 uppercase mb-1">
                           {selectedStaff.name}
                         </h2>
-                        <p className="text-[10px] font-bold text-blue-600 uppercase">
+                        <p className="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase mb-4">
                           ID: {selectedStaff.id}
                         </p>
-                        <div className="mt-4 grid grid-cols-2 gap-2 text-[11px]">
-                          <p>
-                            <span className="text-gray-400">Bộ phận:</span>{" "}
-                            <b>{selectedStaff.dept}</b>
-                          </p>
-                          <p>
-                            <span className="text-gray-400">Vị trí:</span>{" "}
-                            <b>{selectedStaff.role}</b>
-                          </p>
+                        <div className="grid grid-cols-2 gap-4 text-sm">
+                          <div>
+                            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">
+                              Bộ phận
+                            </p>
+                            <p className="text-slate-800 dark:text-slate-100 font-bold">
+                              {selectedStaff.dept}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">
+                              Vị trí
+                            </p>
+                            <p className="text-slate-800 dark:text-slate-100 font-bold">
+                              {selectedStaff.role}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">
+                              Ngày vào
+                            </p>
+                            <p className="text-slate-800 dark:text-slate-100 font-bold">
+                              {new Date(selectedStaff.join).toLocaleDateString(
+                                "vi-VN",
+                              )}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">
+                              Trạng thái
+                            </p>
+                            <span
+                              className={`inline-block px-2 py-1 rounded text-xs font-bold ${getStatusBadgeColor(selectedStaff.status)}`}
+                            >
+                              {getStatusText(selectedStaff.status)}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                )}
-              </div>
-            </div>
-          )}
-          <div id="attendance" className="tab-content h-full">
-            <div className="bg-white rounded border h-full flex flex-col overflow-hidden">
-              <div className="p-4 border-b bg-gray-50 flex justify-between items-center">
-                <h3 className="font-bold text-xs uppercase">
-                  Kiểm tra chấm công
-                </h3>
-                <span className="text-[10px] font-mono font-bold bg-slate-200 px-2 py-1 rounded">
-                  20/05/2026
-                </span>
-              </div>
-              <div className="flex-1 overflow-x-auto">
-                <table className="w-full text-[11px] text-left">
-                  <thead className="bg-slate-100 text-slate-600 sticky top-0 uppercase font-black">
-                    <tr>
-                      <th className="p-3 border-b">STT</th>
-                      <th className="p-3 border-b">Nhân viên</th>
-                      <th className="p-3 border-b">Ca</th>
-                      <th className="p-3 border-b">Vào</th>
-                      <th className="p-3 border-b">Tan</th>
-                      <th className="p-3 border-b text-center">Trạng thái</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y">
-                    <tr>
-                      <td className="p-3">01</td>
-                      <td className="p-3 font-bold">Nguyễn Văn A</td>
-                      <td className="p-3">SÁNG (08-16)</td>
-                      <td className="p-3 font-mono">07:55</td>
-                      <td className="p-3 font-mono">--:--</td>
-                      <td className="p-3 text-center">
-                        <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">
-                          ĐÚNG GIỜ
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="p-3">02</td>
-                      <td className="p-3 font-bold">Trần Thị B</td>
-                      <td className="p-3">CHIỀU (14-22)</td>
-                      <td className="p-3 font-mono">--:--</td>
-                      <td className="p-3 font-mono">--:--</td>
-                      <td className="p-3 text-center">
-                        <span className="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">
-                          CHƯA ĐẾN
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          /* Tab: Xin nghỉ phép */
-          <div id="leave" className="tab-content h-full">
-            <div className="bg-white rounded border h-full flex flex-col">
-              <div className="p-4 border-b bg-gray-50">
-                <h3 className="font-bold text-xs uppercase">
-                  Danh sách xin nghỉ phép
-                </h3>
-              </div>
-              <div className="flex-1 overflow-y-auto">
-                <table className="w-full text-[11px] text-left">
-                  <thead className="bg-slate-100 uppercase">
-                    <tr>
-                      <th className="p-3 border-b">STT</th>
-                      <th className="p-3 border-b">Nhân viên</th>
-                      <th className="p-3 border-b">Ngày xin nghỉ</th>
-                      <th className="p-3 border-b">Số ngày</th>
-                      <th className="p-3 border-b">Lý do</th>
-                      <th className="p-3 border-b">Hành động</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="p-3">01</td>
-                      <td className="p-3 font-bold text-blue-600">Lê Văn C</td>
-                      <td className="p-3">22/05/2026</td>
-                      <td className="p-3">01</td>
-                      <td className="p-3 truncate max-w-37.5">
-                        Khám bệnh định kỳ tại bệnh viện ĐK
-                      </td>
-                      <td className="p-3 space-x-2">
-                        <button className="bg-green-600 text-white px-2 py-1 rounded font-bold uppercase text-[9px]">
-                          Duyệt
-                        </button>
-                        <button className="bg-red-600 text-white px-2 py-1 rounded font-bold uppercase text-[9px]">
-                          Từ chối
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          /* Tab: Lịch làm việc */
-          <div id="schedule" className="tab-content h-full">
-            <div className="bg-white rounded border h-full flex flex-col">
-              <div className="p-4 border-b bg-gray-50 flex justify-between items-center">
-                <h3 className="font-bold text-xs uppercase">
-                  Lịch làm việc tuần 21
-                </h3>
-                <select className="text-[10px] border rounded p-1 font-bold">
-                  <option>CA SÁNG</option>
-                  <option>CA CHIỀU</option>
-                  <option>CA TỐI</option>
-                </select>
-              </div>
-              <div className="flex-1 grid grid-cols-8 border-t bg-slate-50">
-                <div className="border-r bg-slate-100 flex flex-col">
-                  <div className="h-10 border-b"></div>
-                  <div className="flex-1 divide-y font-mono text-[9px] text-gray-500">
-                    <div className="h-8 flex items-center px-2">0000</div>
-                    <div className="h-8 flex items-center px-2">0200</div>
-                    <div className="h-8 flex items-center px-2">0400</div>
-                    <div className="h-8 flex items-center px-2">0600</div>
-                    <div className="h-8 flex items-center px-2 font-bold text-blue-600 bg-blue-50">
-                      0800
-                    </div>
-                    <div className="h-8 flex items-center px-2">1000</div>
-                    <div className="h-8 flex items-center px-2">1200</div>
-                    <div className="h-8 flex items-center px-2">1400</div>
-                    <div className="h-8 flex items-center px-2">1600</div>
-                    <div className="h-8 flex items-center px-2 font-bold text-amber-600 bg-amber-50">
-                      1800
-                    </div>
-                    <div className="h-8 flex items-center px-2">2000</div>
-                    <div className="h-8 flex items-center px-2">2200</div>
-                  </div>
                 </div>
-                /* Days of week */
-                {/* Các cột ngày trong tuần */}
-                {daysOfWeek.map((day) => (
-                  <div key={day} className="border-r flex flex-col">
-                    <div className="h-10 border-b flex items-center justify-center font-bold text-[10px] uppercase text-slate-600">
-                      {day}
-                    </div>
-                    <div className="flex-1 relative">
-                      {/* Block làm việc mẫu */}
-                      {day === "Thứ 2" && (
-                        <div className="absolute top-16 left-1 right-1 h-32 bg-blue-500/20 border-l-2 border-blue-600 p-1 text-[8px] font-bold text-blue-800">
-                          CA SÁNG
-                        </div>
-                      )}
-                      {day === "Thứ 7" && (
-                        <div className="absolute top-64 left-1 right-1 h-16 bg-amber-500/20 border-l-2 border-amber-600 p-1 text-[8px] font-bold text-amber-800">
-                          TĂNG CA
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
+              )}
+            </div>
+          </div>
+        );
+
+      case "attendance":
+        return (
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-bold">Chấm công hôm nay</h2>
+              <p className="text-sm font-mono text-slate-600 dark:text-slate-400">
+                {new Date().toLocaleDateString("vi-VN")}
+              </p>
+            </div>
+            <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-600">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        STT
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Nhân viên
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Ca
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Vào
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Tan
+                      </th>
+                      <th className="px-6 py-3 text-center text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Trạng thái
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y dark:divide-slate-600">
+                    {attendanceRecords.map((record) => (
+                      <tr
+                        key={record.stt}
+                        className="hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                      >
+                        <td className="px-6 py-4 text-sm font-mono text-slate-600 dark:text-slate-400">
+                          {String(record.stt).padStart(2, "0")}
+                        </td>
+                        <td className="px-6 py-4 text-sm font-bold text-slate-800 dark:text-slate-100">
+                          {record.name}
+                        </td>
+                        <td className="px-6 py-4 text-sm text-slate-700 dark:text-slate-300">
+                          {record.shift}
+                        </td>
+                        <td className="px-6 py-4 text-sm font-mono text-slate-700 dark:text-slate-300">
+                          {record.checkin}
+                        </td>
+                        <td className="px-6 py-4 text-sm font-mono text-slate-700 dark:text-slate-300">
+                          {record.checkout}
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${getStatusBadgeColor(record.status)}`}>
+                            {getStatusText(record.status)}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-        </section>
+        );
+
+      case "leave":
+        return (
+          <div className="space-y-6">
+            <h2 className="text-lg font-bold">Danh sách xin nghỉ phép</h2>
+            <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-600">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Nhân viên
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Ngày xin
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Số ngày
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Lý do
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Trạng thái
+                      </th>
+                      <th className="px-6 py-3 text-center text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Thao tác
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y dark:divide-slate-600">
+                    {leaveRequests.map((request) => (
+                      <tr
+                        key={request.id}
+                        className="hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                      >
+                        <td className="px-6 py-4 text-sm font-bold text-slate-800 dark:text-slate-100">
+                          {request.name}
+                        </td>
+                        <td className="px-6 py-4 text-sm text-slate-700 dark:text-slate-300">
+                          {new Date(request.date).toLocaleDateString("vi-VN")}
+                        </td>
+                        <td className="px-6 py-4 text-sm text-slate-700 dark:text-slate-300">
+                          {request.days} ngày
+                        </td>
+                        <td className="px-6 py-4 text-sm text-slate-700 dark:text-slate-300 max-w-xs truncate">
+                          {request.reason}
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${getStatusBadgeColor(request.status)}`}>
+                            {getStatusText(request.status)}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          {request.status === "pending" && (
+                            <div className="flex gap-2 justify-center">
+                              <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded text-xs font-bold transition">
+                                Duyệt
+                              </button>
+                              <button className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs font-bold transition">
+                                Từ chối
+                              </button>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        );
+
+      case "schedule":
+        return (
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-bold">Lịch làm việc tuần</h2>
+              <select className="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 text-sm rounded-lg px-4 py-2 outline-none focus:ring-1 focus:ring-blue-500">
+                <option>Tuần 1</option>
+                <option>Tuần 2</option>
+                <option>Tuần 3</option>
+                <option>Tuần 4</option>
+              </select>
+            </div>
+            <div className="bg-white dark:bg-slate-700 rounded-xl shadow-sm overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-600">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Nhân viên
+                      </th>
+                      <th className="px-6 py-3 text-center text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Thứ 2
+                      </th>
+                      <th className="px-6 py-3 text-center text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Thứ 3
+                      </th>
+                      <th className="px-6 py-3 text-center text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Thứ 4
+                      </th>
+                      <th className="px-6 py-3 text-center text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Thứ 5
+                      </th>
+                      <th className="px-6 py-3 text-center text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Thứ 6
+                      </th>
+                      <th className="px-6 py-3 text-center text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        Thứ 7
+                      </th>
+                      <th className="px-6 py-3 text-center text-xs font-bold text-slate-600 dark:text-slate-400 uppercase">
+                        CN
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y dark:divide-slate-600">
+                    {staffList.map((staff) => (
+                      <tr
+                        key={staff.id}
+                        className="hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                      >
+                        <td className="px-6 py-4 text-sm font-bold text-slate-800 dark:text-slate-100">
+                          {staff.name}
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <span className="px-2 py-1 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">
+                            CA S
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <span className="px-2 py-1 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">
+                            CA S
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <span className="px-2 py-1 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">
+                            CA C
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <span className="px-2 py-1 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">
+                            CA S
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <span className="px-2 py-1 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">
+                            CA S
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <span className="px-2 py-1 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">
+                            CA C
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <span className="px-2 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-600 text-slate-700 dark:text-slate-300">
+                            OFF
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div
+      className={`${isDarkMode ? "dark" : ""} bg-slate-100 dark:bg-slate-900 transition-colors duration-300 min-h-screen flex flex-col`}
+    >
+      {/* Header */}
+      <header className="bg-slate-900 px-6 py-3 flex sticky top-0 z-50 shadow-md">
+        <div className="flex items-center space-x-4">
+          <div className="border-l border-slate-700 pl-4">
+            <h1 className="text-sm font-black text-white uppercase">
+              Quản lý nhân sự
+            </h1>
+          </div>
+        </div>
+        <div className="ml-auto flex items-center text-slate-400 text-xs font-mono">
+          {currentDateTime}
+        </div>
+      </header>
+
+      {/* Tab Navigation */}
+      <div className="tab-container overflow-x-auto no-scrollbar bg-slate-800 border-b border-slate-700 px-6 flex sticky top-12 z-40">
+        {[
+          { id: "overview", label: "Tổng quan" },
+          { id: "staff-detail", label: "Chi tiết nhân viên" },
+          { id: "attendance", label: "Chấm công" },
+          { id: "leave", label: "Xin nghỉ phép" },
+          { id: "schedule", label: "Lịch làm việc" },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`tab-item flex items-center gap-2 px-4 py-3 cursor-pointer border-b-2 transition-colors text-[12px] font-bold uppercase whitespace-nowrap ${
+              activeTab === tab.id
+                ? "text-blue-400 border-blue-400 bg-slate-900/30"
+                : "text-slate-400 border-transparent hover:text-slate-300"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Main Content */}
+      <main className="flex-1 overflow-y-auto p-6 bg-slate-800/50">
+        <div className="max-w-7xl mx-auto">{renderContent()}</div>
       </main>
     </div>
   );
-};
-
-export default HRManager;
+}

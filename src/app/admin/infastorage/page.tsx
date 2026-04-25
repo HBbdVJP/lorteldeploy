@@ -34,7 +34,6 @@ import { useAdminDashboard } from "@/components/useAdminDashboard"; // Đảm b�
 // ─── TYPES ───────────────────────────────────────────────────────────────────
 type InfrastorageTab =
   | "overview"
-  | "branch"
   | "infrastructure"
   | "storage"
   | "services";

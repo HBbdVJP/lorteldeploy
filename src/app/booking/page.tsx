@@ -142,7 +142,7 @@ export default function BookingPage() {
       <Header />
 
       {/* HERO + SEARCH FORM */}
-      <section className="relative h-[500px] bg-cover bg-center" style={{ backgroundImage: "url('https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1600')" }}>
+      <section className="relative h-125 bg-cover bg-center" style={{ backgroundImage: "url('https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1600')" }}>
         <div className="hero-overlay absolute inset-0"></div>
         <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center">
           <div className="text-center text-white mb-8">
@@ -234,8 +234,8 @@ export default function BookingPage() {
       <Footer />
 
       {/* CART SIDEBAR */}
-      <div className={`fixed inset-0 bg-black/50 z-[100] transition-opacity ${isCartOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`} onClick={() => setIsCartOpen(false)}></div>
-      <div className={`fixed top-0 right-0 w-96 h-full bg-white shadow-2xl z-[101] cart-sidebar transition-transform ${isCartOpen ? "translate-x-0" : "translate-x-full"}`}>
+      <div className={`fixed inset-0 bg-black/50 z-100 transition-opacity ${isCartOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`} onClick={() => setIsCartOpen(false)}></div>
+      <div className={`fixed top-0 right-0 w-96 h-full bg-white shadow-2xl z-101 cart-sidebar transition-transform ${isCartOpen ? "translate-x-0" : "translate-x-full"}`}>
         <div className="p-6 border-b flex justify-between items-center">
           <h2 className="text-xl font-bold">Giỏ hàng ({cart.length})</h2>
           <button onClick={() => setIsCartOpen(false)} className="text-gray-400 hover:text-gray-600"><i className="fas fa-times text-xl"></i></button>
@@ -270,7 +270,7 @@ export default function BookingPage() {
 
       {/* TOAST */}
       {toast.visible && (
-        <div className={`fixed bottom-6 right-6 px-6 py-4 rounded-xl text-white shadow-2xl z-[200] ${toast.type === "error" ? "bg-red-500" : "bg-emerald-600"}`}>
+        <div className={`fixed bottom-6 right-6 px-6 py-4 rounded-xl text-white shadow-2xl z-200 ${toast.type === "error" ? "bg-red-500" : "bg-emerald-600"}`}>
           {toast.message}
         </div>
       )}
