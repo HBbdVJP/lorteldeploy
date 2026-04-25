@@ -161,7 +161,7 @@ const infraData = data as InfraStorageData;
 export default function InfastoragePage() {
   const { isDarkMode } = useDarkMode();
   const [activeTab, setActiveTab] = useState<InfrastorageTab>("overview");
-  const [selectedBranch, setSelectedBranch] = useState("br-001");
+  const [selectedBranch, setSelectedBranch] = useState(infraData.branches[0]?.id || "");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentDateTime, setCurrentDateTime] = useState("");
   const [pendingImports, setPendingImports] = useState<any[]>([]);
@@ -172,164 +172,15 @@ export default function InfastoragePage() {
   });
   const [showImportModal, setShowImportModal] = useState(false);
 
-  // Branch data
-  const branchesData: Record<string, any> = {
-    "br-001": {
-      name: "Riverside Premium Hotel & Spa",
-      type: "5-Star Luxury Resort",
-      address: "123 Bến Vân Đồn, Phường 6, Quận 4, TP. Hồ Chí Minh",
-      contact: "(+84) 28 3822 1234",
-      staff: "124 (Đang ca: 32)",
-      area: "12,500 m²",
-      floors: "25 Tầng",
-      rooms: "350 Phòng",
-      iot: "Trực tuyến (98% Thiết bị)",
-      status: "Chi nhánh trọng điểm (HQ)",
-      note: "Bảo trì hệ thống lạnh lầu 4 (Dự kiến xong: 16:00)",
-      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400",
-    },
-    "br-002": {
-      name: "City Center Luxury Hotel",
-      type: "Boutique Hotel",
-      address: "45 Lê Thánh Tôn, Quận 1, TP. Hồ Chí Minh",
-      contact: "(+84) 28 3822 5566",
-      staff: "85 (Đang ca: 15)",
-      area: "5,000 m²",
-      floors: "12 Tầng",
-      rooms: "120 Phòng",
-      iot: "Trực tuyến (100% Thiết bị)",
-      status: "Chi nhánh nội đô",
-      note: "Hoạt động bình thường",
-      image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400",
-    },
-    "br-003": {
-      name: "Lortel Beachfront Resort",
-      type: "Coastal Resort",
-      address: "Trần Phú, TP. Nha Trang, Khánh Hòa",
-      contact: "(+84) 258 3822 9999",
-      staff: "210 (Đang ca: 45)",
-      area: "45,000 m²",
-      floors: "05 Tầng (Bungalow)",
-      rooms: "280 Phòng",
-      iot: "Cảnh báo (85% Thiết bị - Mất kết nối khu B)",
-      status: "Resort nghỉ dưỡng",
-      note: "Đang chuẩn bị cho mùa du lịch cao điểm",
-      image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400",
-    },
-  };
-
-  // Infrastructure data
-  const infraData = [
-    {
-      item: "Hệ thống PCCC",
-      area: "Toàn tòa nhà",
-      status: "Hoạt động tốt",
-      time: "18/05/2026 - 09:00",
-    },
-    {
-      item: "Thang máy số 3",
-      area: "Sảnh chính",
-      status: "Đang bảo trì",
-      time: "20/05/2026 - 14:20",
-    },
-    {
-      item: "Máy phát điện dự phòng",
-      area: "Tầng hầm B2",
-      status: "Sẵn sàng",
-      time: "15/05/2026 - 08:30",
-    },
-    {
-      item: "Hệ thống Chiller",
-      area: "Tầng kỹ thuật",
-      status: "Hoạt động tốt",
-      time: "19/05/2026 - 10:00",
-    },
-    {
-      item: "Camera an ninh (CCTV)",
-      area: "Hành lang lầu 1-5",
-      status: "Hoạt động tốt",
-      time: "20/05/2026 - 07:45",
-    },
-    {
-      item: "Hệ thống xử lý nước",
-      area: "Khu vực hồ bơi",
-      status: "Cần kiểm tra",
-      time: "20/05/2026 - 11:30",
-    },
-    {
-      item: "Wifi tầng trệt",
-      area: "Khu vực Cafe",
-      status: "Sự cố kết nối",
-      time: "20/05/2026 - 15:10",
-    },
-  ];
-
-  // Warehouse data
-  const warehouseData = [
-    { name: "Bộ chăn ga Standard", qty: 150, min: 50, rating: "Tốt" },
-    { name: "Khăn tắm loại A", qty: 45, min: 100, rating: "Cần nhập thêm" },
-    { name: "Dầu gội / Sữa tắm (thùng)", qty: 12, min: 5, rating: "Tốt" },
-    { name: "Nước suối đóng chai", qty: 500, min: 200, rating: "Tốt" },
-    {
-      name: "Bộ đồ dùng cá nhân (Amenity)",
-      qty: 30,
-      min: 150,
-      rating: "Cần nhập thêm",
-    },
-    {
-      name: "Giấy vệ sinh cao cấp",
-      qty: 25,
-      min: 30,
-      rating: "Sắp hết",
-    },
-    { name: "Dép đi trong phòng", qty: 80, min: 40, rating: "Tốt" },
-  ];
-
-  // Services data
-  const servicesData = [
-    {
-      name: "Buffet Sáng",
-      price: "350,000 VND",
-      status: "Hoạt động",
-      reason: "-",
-    },
-    {
-      name: "Giặt ủi lấy liền",
-      price: "Theo bảng giá",
-      status: "Hoạt động",
-      reason: "-",
-    },
-    {
-      name: "Hồ bơi vô cực",
-      price: "Miễn phí (Khách lưu trú)",
-      status: "Tạm ngưng",
-      reason: "Thay nước định kỳ",
-    },
-    {
-      name: "Dịch vụ Spa & Massage",
-      price: "800,000 VND",
-      status: "Hoạt động",
-      reason: "-",
-    },
-    {
-      name: "Xe đưa đón sân bay",
-      price: "500,000 VND/lượt",
-      status: "Hoạt động",
-      reason: "-",
-    },
-    {
-      name: "Phòng Gym 24/7",
-      price: "Miễn phí",
-      status: "Hoạt động",
-      reason: "-",
-    },
-    {
-      name: "Bar sân thượng",
-      price: "Theo menu",
-      status: "Tạm ngưng",
-      reason: "Sửa chữa sàn gỗ",
-    },
-  ];
+  // Get data for current branch
+  const getCurrentBranchData = () =>
+    infraData.branches.find((b) => b.id === selectedBranch);
+  const getCurrentInfrastructures = () =>
+    infraData.infrastructures.filter((i) => i.branchId === selectedBranch);
+  const getCurrentStorageItems = () =>
+    infraData.storageItems.filter((s) => s.branchId === selectedBranch);
+  const getCurrentServices = () =>
+    infraData.services.filter((s) => s.branchId === selectedBranch);
 
   // Update date time
   useEffect(() => {
@@ -347,8 +198,6 @@ export default function InfastoragePage() {
     const interval = setInterval(updateDateTime, 1000);
     return () => clearInterval(interval);
   }, []);
-
-  const getCurrentBranchData = () => branchesData[selectedBranch];
 
   const handleImportSubmit = () => {
     if (!importFormData.itemName || !importFormData.itemQty) return;
@@ -533,23 +382,25 @@ export default function InfastoragePage() {
               onChange={(e) => setSelectedBranch(e.target.value)}
               className="w-full bg-slate-900 border border-slate-700 text-slate-200 text-[11px] font-bold uppercase rounded p-2 focus:ring-1 focus:ring-blue-500 outline-none cursor-pointer"
             >
-              <option value="br-001">Riverside Premium</option>
-              <option value="br-002">City Center Luxury</option>
-              <option value="br-003">Beachfront Resort</option>
+              {infraData.branches.map((branch) => (
+                <option key={branch.id} value={branch.id}>
+                  {branch.name}
+                </option>
+              ))}
             </select>
           </div>
 
           {/* Tab: Tổng quan chi nhánh */}
-          {activeTab === "overview" && (
+          {activeTab === "overview" && getCurrentBranchData() && (
             <div className="space-y-4">
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                 <div className="space-y-4 flex-1">
                   <div>
                     <h2 className="text-2xl font-black text-slate-800 uppercase tracking-tight">
-                      {branchData.name}
+                      {getCurrentBranchData()?.name}
                     </h2>
                     <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">
-                      {branchData.status}
+                      {getCurrentBranchData()?.status}
                     </p>
                   </div>
 
@@ -558,90 +409,67 @@ export default function InfastoragePage() {
                       <span className="text-gray-400 font-bold uppercase text-[9px] w-24 shrink-0">
                         Mã số:
                       </span>
-                      <b className="text-slate-700">LR-{selectedBranch.toUpperCase()}-VN</b>
+                      <b className="text-slate-700">{getCurrentBranchData()?.id}</b>
                     </p>
                     <p className="flex items-center">
                       <span className="text-gray-400 font-bold uppercase text-[9px] w-24 shrink-0">
                         Phân loại:
                       </span>
-                      <b className="text-slate-700">{branchData.type}</b>
+                      <b className="text-slate-700">{getCurrentBranchData()?.type}</b>
                     </p>
                     <p className="flex items-center">
                       <span className="text-gray-400 font-bold uppercase text-[9px] w-24 shrink-0">
                         Số tầng:
                       </span>
-                      <b className="text-slate-700 text-blue-600 font-black">
-                        {branchData.floors}
+                      <b className="text-blue-600 font-black">
+                        {getCurrentBranchData()?.totalFloors}
                       </b>
                     </p>
                     <p className="flex items-center">
                       <span className="text-gray-400 font-bold uppercase text-[9px] w-24 shrink-0">
                         Số phòng:
                       </span>
-                      <b className="text-slate-700 text-blue-600 font-black">
-                        {branchData.rooms}
+                      <b className="text-blue-600 font-black">
+                        {getCurrentBranchData()?.totalRooms}
                       </b>
                     </p>
                     <p className="flex items-center">
                       <span className="text-gray-400 font-bold uppercase text-[9px] w-24 shrink-0">
                         Nhân sự:
                       </span>
-                      <b className="text-slate-700">{branchData.staff}</b>
+                      <b className="text-slate-700">{getCurrentBranchData()?.staffCount}</b>
                     </p>
                     <p className="flex items-center">
                       <span className="text-gray-400 font-bold uppercase text-[9px] w-24 shrink-0">
                         Diện tích:
                       </span>
-                      <b className="text-slate-700">{branchData.area}</b>
+                      <b className="text-slate-700">{getCurrentBranchData()?.totalArea} m²</b>
                     </p>
                     <p className="flex items-center col-span-full">
                       <span className="text-gray-400 font-bold uppercase text-[9px] w-24 shrink-0">
-                        Hệ thống IoT:
+                        Người quản lý:
                       </span>
-                      <span
-                        className={`flex items-center font-black uppercase text-[10px] ${
-                          branchData.iot.includes("Cảnh báo")
-                            ? "text-amber-600"
-                            : "text-green-600"
-                        }`}
-                      >
-                        <span
-                          className={`w-2 h-2 rounded-full animate-pulse mr-2 ${
-                            branchData.iot.includes("Cảnh báo")
-                              ? "bg-amber-500"
-                              : "bg-green-500"
-                          }`}
-                        />
-                        {branchData.iot}
+                      <span className="flex items-center font-black uppercase text-[10px] text-green-600">
+                        <span className="w-2 h-2 rounded-full animate-pulse mr-2 bg-green-500" />
+                        {getCurrentBranchData()?.managedBy}
                       </span>
                     </p>
                     <p className="flex items-start col-span-full">
                       <span className="text-gray-400 font-bold uppercase text-[9px] w-24 shrink-0">
                         Địa chỉ:
                       </span>
-                      <b className="text-slate-700">{branchData.address}</b>
+                      <b className="text-slate-700">
+                        {getCurrentBranchData()?.address}, {getCurrentBranchData()?.city},{" "}
+                        {getCurrentBranchData()?.country}
+                      </b>
                     </p>
                   </div>
 
-                  <div
-                    className={`mt-2 p-2 border-l-4 rounded ${
-                      branchData.note.includes("bình thường")
-                        ? "bg-green-50 border-green-500"
-                        : "bg-red-50 border-red-500"
-                    }`}
-                  >
-                    <p
-                      className={`flex items-center ${
-                        branchData.note.includes("bình thường")
-                          ? "text-green-700"
-                          : "text-red-700"
-                      }`}
-                    >
-                      <span className="font-black uppercase text-[9px] mr-3">
-                        Thông báo:
-                      </span>
+                  <div className="mt-2 p-2 border-l-4 bg-green-50 border-green-500 rounded">
+                    <p className="flex items-center text-green-700">
+                      <span className="font-black uppercase text-[9px] mr-3">Ngày khai trương:</span>
                       <span className="font-medium text-[11px]">
-                        {branchData.note}
+                        {getCurrentBranchData()?.openingDate}
                       </span>
                     </p>
                   </div>
@@ -651,8 +479,8 @@ export default function InfastoragePage() {
                 <div className="shrink-0 group relative">
                   <div className="w-64 h-40 bg-slate-200 rounded-lg overflow-hidden border-2 border-slate-300 shadow-inner">
                     <img
-                      src={branchData.image}
-                      alt={branchData.name}
+                      src={`https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&auto=format&fit=crop`}
+                      alt={getCurrentBranchData()?.name}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -687,43 +515,56 @@ export default function InfastoragePage() {
             <div className="bg-white rounded border h-full flex flex-col overflow-hidden">
               <div className="p-4 border-b bg-gray-50 flex justify-between items-center">
                 <h3 className="font-bold text-xs uppercase tracking-tighter">
-                  Kiểm tra cơ sở hạ tầng
+                  Danh sách phòng & cơ sở hạ tầng
                 </h3>
               </div>
               <div className="flex-1 overflow-y-auto">
                 <table className="w-full text-[11px] text-left">
                   <thead className="bg-slate-100 text-slate-600 sticky top-0 uppercase font-black">
                     <tr>
-                      <th className="p-4 border-b">Hạng mục</th>
-                      <th className="p-4 border-b">Vị trí / Khu vực</th>
-                      <th className="p-4 border-b text-center">Trạng thái</th>
-                      <th className="p-4 border-b text-right">Thời gian kiểm tra</th>
+                      <th className="p-4 border-b">Tên phòng</th>
+                      <th className="p-4 border-b">Loại</th>
+                      <th className="p-4 border-b text-center">Sức chứa</th>
+                      <th className="p-4 border-b">Trạng thái</th>
+                      <th className="p-4 border-b text-right">Giá/đêm</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y">
-                    {infraData.map((item, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50 transition">
-                        <td className="p-4 font-bold uppercase text-slate-700">
-                          {item.item}
-                        </td>
-                        <td className="p-4">{item.area}</td>
-                        <td className="p-4 text-center">
-                          <span
-                            className={`px-2 py-0.5 rounded-full text-[9px] font-black uppercase ${
-                              item.status === "Hoạt động tốt" ||
-                              item.status === "Sẵn sàng"
-                                ? "bg-green-100 text-green-700"
-                                : "bg-red-100 text-red-700"
-                            }`}
-                          >
-                            {item.status}
-                          </span>
-                        </td>
-                        <td className="p-4 text-right font-mono text-gray-500">
-                          {item.time}
+                    {getCurrentInfrastructures().length > 0 ? (
+                      getCurrentInfrastructures().map((item) => (
+                        <tr key={item.id} className="hover:bg-slate-50 transition">
+                          <td className="p-4 font-bold uppercase text-slate-700">
+                            {item.name}
+                          </td>
+                          <td className="p-4">{item.type}</td>
+                          <td className="p-4 text-center font-mono">{item.capacity}</td>
+                          <td className="p-4 text-center">
+                            <span
+                              className={`px-2 py-0.5 rounded-full text-[9px] font-black uppercase ${
+                                item.status === "Available"
+                                  ? "bg-green-100 text-green-700"
+                                  : item.status === "Occupied"
+                                    ? "bg-blue-100 text-blue-700"
+                                    : item.status === "Maintenance"
+                                      ? "bg-amber-100 text-amber-700"
+                                      : "bg-gray-100 text-gray-700"
+                              }`}
+                            >
+                              {item.status}
+                            </span>
+                          </td>
+                          <td className="p-4 text-right font-bold text-blue-600">
+                            ${item.pricePerNight}
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={5} className="p-4 text-center text-gray-500">
+                          Không có dữ liệu
                         </td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -784,36 +625,52 @@ export default function InfastoragePage() {
                   <thead className="bg-slate-100 text-slate-600 sticky top-0 uppercase font-black">
                     <tr>
                       <th className="p-4 border-b">Vật phẩm</th>
+                      <th className="p-4 border-b">Danh mục</th>
                       <th className="p-4 border-b text-center">Số lượng</th>
                       <th className="p-4 border-b text-center">Ngưỡng tối thiểu</th>
-                      <th className="p-4 border-b text-center">Đánh giá</th>
+                      <th className="p-4 border-b text-center">Trạng thái</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y">
-                    {warehouseData.map((item, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50 transition">
-                        <td className="p-4 font-bold uppercase text-slate-700">
-                          {item.name}
-                        </td>
-                        <td className="p-4 text-center font-mono text-lg">
-                          {item.qty}
-                        </td>
-                        <td className="p-4 text-center text-gray-400 font-bold uppercase">
-                          {item.min}
-                        </td>
-                        <td className="p-4 text-center">
-                          <span
-                            className={`px-2 py-1 rounded text-[9px] font-black uppercase ${
-                              item.qty >= item.min
-                                ? "bg-blue-100 text-blue-700"
-                                : "bg-amber-100 text-amber-700"
-                            }`}
-                          >
-                            {item.rating}
-                          </span>
+                    {getCurrentStorageItems().length > 0 ? (
+                      getCurrentStorageItems().map((item) => (
+                        <tr key={item.id} className="hover:bg-slate-50 transition">
+                          <td className="p-4 font-bold uppercase text-slate-700">
+                            {item.name}
+                          </td>
+                          <td className="p-4 text-sm">{item.category}</td>
+                          <td className="p-4 text-center font-mono text-lg">
+                            {item.quantity} {item.unit}
+                          </td>
+                          <td className="p-4 text-center text-gray-400 font-bold uppercase">
+                            {item.minThreshold}
+                          </td>
+                          <td className="p-4 text-center">
+                            <span
+                              className={`px-2 py-1 rounded text-[9px] font-black uppercase ${
+                                item.status === "InStock"
+                                  ? "bg-green-100 text-green-700"
+                                  : item.status === "LowStock"
+                                    ? "bg-amber-100 text-amber-700"
+                                    : "bg-red-100 text-red-700"
+                              }`}
+                            >
+                              {item.status === "InStock"
+                                ? "Có sẵn"
+                                : item.status === "LowStock"
+                                  ? "Sắp hết"
+                                  : "Hết"}
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={5} className="p-4 text-center text-gray-500">
+                          Không có dữ liệu
                         </td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -836,36 +693,42 @@ export default function InfastoragePage() {
                   <thead className="bg-slate-100 text-slate-600 sticky top-0 uppercase font-black">
                     <tr>
                       <th className="p-4 border-b">Tên dịch vụ</th>
+                      <th className="p-4 border-b">Danh mục</th>
                       <th className="p-4 border-b">Đơn giá</th>
                       <th className="p-4 border-b text-center">Trạng thái</th>
-                      <th className="p-4 border-b">Lý do (nếu tạm ngưng)</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y">
-                    {servicesData.map((item, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50 transition">
-                        <td className="p-4 font-bold uppercase text-slate-700">
-                          {item.name}
-                        </td>
-                        <td className="p-4 font-bold text-blue-600">
-                          {item.price}
-                        </td>
-                        <td className="p-4 text-center">
-                          <span
-                            className={`px-2 py-0.5 rounded text-[9px] font-black uppercase ${
-                              item.status === "Hoạt động"
-                                ? "bg-green-100 text-green-700"
-                                : "bg-gray-100 text-gray-500"
-                            }`}
-                          >
-                            {item.status}
-                          </span>
-                        </td>
-                        <td className="p-4 italic text-gray-400">
-                          {item.reason}
+                    {getCurrentServices().length > 0 ? (
+                      getCurrentServices().map((item) => (
+                        <tr key={item.id} className="hover:bg-slate-50 transition">
+                          <td className="p-4 font-bold uppercase text-slate-700">
+                            {item.name}
+                          </td>
+                          <td className="p-4 text-sm">{item.category}</td>
+                          <td className="p-4 font-bold text-blue-600">
+                            ${item.price} {item.unit}
+                          </td>
+                          <td className="p-4 text-center">
+                            <span
+                              className={`px-2 py-0.5 rounded text-[9px] font-black uppercase ${
+                                item.status === "Active"
+                                  ? "bg-green-100 text-green-700"
+                                  : "bg-gray-100 text-gray-500"
+                              }`}
+                            >
+                              {item.status === "Active" ? "Hoạt động" : "Ngưng"}
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={4} className="p-4 text-center text-gray-500">
+                          Không có dữ liệu
                         </td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -876,7 +739,7 @@ export default function InfastoragePage() {
 
       {/* Import Modal */}
       {showImportModal && (
-        <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/60 z-100 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden">
             <div className="p-4 border-b bg-slate-50 flex justify-between items-center">
               <h3 className="font-black text-xs uppercase tracking-widest text-slate-800">
