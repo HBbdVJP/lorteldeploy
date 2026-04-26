@@ -190,17 +190,17 @@ export default function ProfilePage() {
                 {
                   action: "Đăng nhập",
                   time: "2 phút trước",
-                  color: "emerald",
+                  colorClass: "bg-emerald-500",
                 },
                 {
                   action: "Cập nhật hồ sơ",
                   time: "1 giờ trước",
-                  color: "blue",
+                  colorClass: "bg-blue-500",
                 },
                 {
                   action: "Đổi mật khẩu",
                   time: "3 ngày trước",
-                  color: "amber",
+                  colorClass: "bg-amber-500",
                 },
               ].map((item, idx) => (
                 <div
@@ -208,9 +208,7 @@ export default function ProfilePage() {
                   className="p-6 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition"
                 >
                   <div className="flex items-center gap-4">
-                    <div
-                      className={`w-2 h-2 rounded-full bg-${item.color}-500`}
-                    ></div>
+                    <div className={`w-2 h-2 rounded-full ${item.colorClass}`}></div>
                     <div>
                       <p className="font-bold text-slate-800 dark:text-slate-100">
                         {item.action}
