@@ -1,10 +1,10 @@
+//src/app/admin/profile/page.tsx
 "use client";
 
-import { useDarkMode } from "@/contexts/DarkModeContext";
 import { useState, useEffect } from "react";
 
 export default function ProfilePage() {
-  const { isDarkMode } = useDarkMode();
+  
   const [currentDateTime, setCurrentDateTime] = useState("");
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function ProfilePage() {
 
   return (
     <div
-      className={`${isDarkMode ? "dark" : ""} bg-slate-100 dark:bg-slate-900 transition-colors duration-300 min-h-screen flex flex-col`}
+      className={`bg-slate-100 dark:bg-slate-900 transition-colors duration-300 min-h-screen flex flex-col`}
     >
       {/* Header */}
       <header className="bg-slate-900 px-6 py-3 flex sticky top-0 z-50 shadow-md">
