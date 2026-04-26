@@ -755,65 +755,44 @@ export default function CommandPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="bg-slate-100 dark:bg-slate-900 transition-colors duration-300 min-h-screen flex flex-col">
       {/* Header */}
-      <div className="bg-white shadow-sm dark:bg-gray-800 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <h1 className="text-3xl font-bold">Bảng điều khiển</h1>
-          <p className="text-gray-500 text-sm mt-1">
-            Quản lý các lệnh đặt phòng và phòng
-          </p>
-        </div>
-
-        {/* Tabs */}
-        <div className="border-b dark:border-gray-700">
-          <div className="max-w-7xl mx-auto px-6 flex gap-6">
-            <button
-              onClick={() => setActiveTab("bookings")}
-              className={`py-4 px-1 border-b-2 font-medium transition ${
-                activeTab === "bookings"
-                  ? "border-emerald-600 text-emerald-600"
-                  : "border-transparent text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              <i className="fas fa-calendar mr-2"></i>Đặt phòng
-            </button>
-            <button
-              onClick={() => setActiveTab("rooms")}
-              className={`py-4 px-1 border-b-2 font-medium transition ${
-                activeTab === "rooms"
-                  ? "border-emerald-600 text-emerald-600"
-                  : "border-transparent text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              <i className="fas fa-door-open mr-2"></i>Phòng
-            </button>
-            <button
-              onClick={() => setActiveTab("promotions")}
-              className={`py-4 px-1 border-b-2 font-medium transition ${
-                activeTab === "promotions"
-                  ? "border-amber-600 text-amber-600"
-                  : "border-transparent text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              <i className="fas fa-tag mr-2"></i>Khuyến mãi
-            </button>
-            <button
-              onClick={() => setActiveTab("construction")}
-              className={`py-4 px-1 border-b-2 font-medium transition ${
-                activeTab === "construction"
-                  ? "border-purple-600 text-purple-600"
-                  : "border-transparent text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              <i className="fas fa-building mr-2"></i>Chi nhánh
-            </button>
+      <header className="bg-slate-900 px-6 py-3 flex sticky top-0 z-50 shadow-md">
+        <div className="flex items-center space-x-4">
+          <div className="border-l border-slate-700 pl-4">
+            <h1 className="text-sm font-black text-white uppercase">
+              Bảng điều khiển lệnh
+            </h1>
           </div>
         </div>
+      </header>
+
+      {/* Tab Navigation */}
+      <div className="tab-container overflow-x-auto no-scrollbar bg-slate-800 border-b border-slate-700 px-6 flex sticky top-12 z-40">
+        {[
+          { id: "bookings", label: "Đặt phòng" },
+          { id: "rooms", label: "Phòng" },
+          { id: "promotions", label: "Khuyến mãi" },
+          { id: "construction", label: "Chi nhánh" },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as "bookings" | "rooms" | "promotions" | "construction")}
+            className={`tab-item flex items-center gap-2 px-4 py-3 cursor-pointer border-b-2 transition-colors text-[12px] font-bold uppercase whitespace-nowrap ${
+              activeTab === tab.id
+                ? "text-blue-400 border-blue-400 bg-slate-900/30"
+                : "text-slate-400 border-transparent hover:text-slate-300"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-6 py-8">{renderContent()}</div>
+      <main className="flex-1 overflow-y-auto p-6 bg-slate-800/50">
+        <div className="max-w-7xl mx-auto">{renderContent()}</div>
+      </main>
 
       {/* BOOKING MODAL */}
       {isBookingModalOpen && (
