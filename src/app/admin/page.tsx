@@ -48,19 +48,13 @@ export default function AdminPage() {
     showSearchResults,
     setShowSearchResults,
     bookings,
-    setBookings,
     rooms,
-    setRooms,
     customers,
     staffs,
     promotions,
     messages,
     notifications,
     activities,
-    isBookingModalOpen,
-    setIsBookingModalOpen,
-    isRoomModalOpen,
-    setIsRoomModalOpen,
     isCustomerModalOpen,
     setIsCustomerModalOpen,
     isStaffModalOpen,
@@ -71,16 +65,10 @@ export default function AdminPage() {
     setIsDeleteModalOpen,
     deleteModalData,
     setDeleteModalData,
-    editBookingId,
-    setEditBookingId,
-    editRoomId,
-    setEditRoomId,
     editCustomerId,
     setEditCustomerId,
     editStaffId,
     setEditStaffId,
-    bookingFormRef,
-    roomFormRef,
     customerFormRef,
     staffFormRef,
     setCustomers,
@@ -690,38 +678,6 @@ export default function AdminPage() {
           </div>
         );
 
-      case "bookings":
-        // Booking management moved to /admin/command/page.tsx
-        return (
-          <div className="space-y-6">
-            <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quáº£n lÃ½ Ä‘áº·t phÃ²ng</h1>
-              <button
-                onClick={() => router.push("/admin/command")}
-                className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
-              >
-                <i className="fas fa-external-link-alt mr-2"></i>Äi tá»›i Báº£ng Ä‘iá»u khiá»ƒn
-              </button>
-            </div>
-          </div>
-        );
-
-      case "rooms":
-        // Room management moved to /admin/command/page.tsx
-        return (
-          <div className="space-y-6">
-            <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quáº£n lÃ½ phÃ²ng</h1>
-              <button
-                onClick={() => router.push("/admin/command")}
-                className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
-              >
-                <i className="fas fa-external-link-alt mr-2"></i>Äi tá»›i Báº£ng Ä‘iá»u khiá»ƒn
-              </button>
-            </div>
-          </div>
-        );
-
       case "customers":
         return (
           <div className="space-y-6">
@@ -1167,8 +1123,6 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* Booking and Room modals moved to /admin/command/page.tsx */}
-
       {/* CUSTOMER MODAL */}
       {isCustomerModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -1510,6 +1464,7 @@ export default function AdminPage() {
     </div>
   );
 }
+
 
 
 
