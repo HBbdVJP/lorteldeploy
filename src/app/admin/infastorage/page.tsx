@@ -1,37 +1,9 @@
-﻿"use client";
+﻿// src/app/admin/infastorage/page.tsx
+"use client";
 
-import { useDarkMode } from "@/contexts/DarkModeContext"; // thay useAdminDashboard báº±ng context
-import { useState, useEffect, useRef, useCallback } from "react";
-import { Line, Bar, Doughnut } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend,
-} from "chart.js";
+import { useState, useEffect } from "react";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend,
-);
-import { useAdminDashboard } from "@/components/useAdminDashboard"; // Äáº£m báº£o Ä‘Ãºng Ä‘Æ°á»ng dáº«n
-
-// â”€â”€â”€ TYPES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── TYPES ───────────────────────────────────────────────────────────────
 type InfrastorageTab =
   | "overview"
   | "infrastructure"
@@ -107,7 +79,7 @@ interface Storage {
   branchId: string; // FK -> Branch
 
   name: string;
-  category: string; // khÄƒn, chÄƒn, minibar, vá»‡ sinh...
+  category: string; // khăn, chăn, minibar, vệ sinh...
 
   quantity: number;
   unit: string; // pcs, box, set...
@@ -146,18 +118,16 @@ interface InfraStorageData {
   services: Service[];
 }
 
-// â”€â”€â”€ STATIC DATA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── STATIC DATA ─────────────────────────────────────────────────────────
 import data from "@/data/infrastorageDummyData.json";
 
 const infraData = data as InfraStorageData;
-// â”€â”€â”€ MAIN COMPONENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── MAIN COMPONENT ──────────────────────────────────────────────────────
 export default function InfastoragePage() {
-  const { isDarkMode } = useDarkMode();
   const [activeTab, setActiveTab] = useState<InfrastorageTab>("overview");
   const [selectedBranch, setSelectedBranch] = useState(
     infraData.branches[0]?.id || "",
   );
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentDateTime, setCurrentDateTime] = useState("");
   const [pendingImports, setPendingImports] = useState<any[]>([]);
   const [importFormData, setImportFormData] = useState({
@@ -218,7 +188,7 @@ export default function InfastoragePage() {
         <div className="flex items-center space-x-4">
           <div className="border-l border-slate-700 pl-4">
             <h1 className="text-sm font-black text-white uppercase">
-              Quáº£n lÃ½ háº¡ táº§ng & Dá»‹ch vá»¥
+              Quản lý hạ tầng & Dịch vụ
             </h1>
           </div>
         </div>
@@ -227,10 +197,10 @@ export default function InfastoragePage() {
       {/* Tab Navigation */}
       <div className="tab-container overflow-x-auto no-scrollbar bg-slate-800 border-b border-slate-700 px-6 flex">
         {[
-          { id: "overview", label: "Tá»•ng quan chi nhÃ¡nh" },
-          { id: "infrastructure", label: "CÆ¡ sá»Ÿ háº¡ táº§ng" },
-          { id: "storage", label: "Kho bÃ£i" },
-          { id: "services", label: "Dá»‹ch vá»¥" },
+          { id: "overview", label: "Tổng quan chi nhánh" },
+          { id: "infrastructure", label: "Cơ sở hạ tầng" },
+          { id: "storage", label: "Kho bãi" },
+          { id: "services", label: "Dịch vụ" },
         ].map((tab) => (
           <div
             key={tab.id}
@@ -253,7 +223,7 @@ export default function InfastoragePage() {
           {/* Branch Selector */}
           <div className="mb-6">
             <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
-              Chi nhÃ¡nh Ä‘ang xem
+              Chi nhánh đang xem
             </h3>
             <select
               value={selectedBranch}
@@ -268,7 +238,7 @@ export default function InfastoragePage() {
             </select>
           </div>
 
-          {/* Tab: Tá»•ng quan chi nhÃ¡nh */}
+          {/* Tab: Tổng quan chi nhánh */}
           {activeTab === "overview" && getCurrentBranchData() && (
             <div className="space-y-6 max-w-5xl">
               {/* Branch Header Card */}
@@ -298,7 +268,7 @@ export default function InfastoragePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="bg-slate-800 p-4 rounded-xl shadow-sm">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase block mb-2">
-                    MÃ£ sá»‘
+                    Mã số
                   </label>
                   <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100">
                     {getCurrentBranchData()?.id}
@@ -307,7 +277,7 @@ export default function InfastoragePage() {
 
                 <div className="bg-slate-800 p-4 rounded-xl shadow-sm">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase block mb-2">
-                    PhÃ¢n loáº¡i
+                    Phân loại
                   </label>
                   <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100">
                     {getCurrentBranchData()?.type}
@@ -316,7 +286,7 @@ export default function InfastoragePage() {
 
                 <div className="bg-slate-800 p-4 rounded-xl shadow-sm">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase block mb-2">
-                    Sá»‘ táº§ng
+                    Số tầng
                   </label>
                   <p className="text-[13px] font-bold text-blue-600 dark:text-blue-400">
                     {getCurrentBranchData()?.totalFloors}
@@ -325,7 +295,7 @@ export default function InfastoragePage() {
 
                 <div className="bg-slate-800 p-4 rounded-xl shadow-sm">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase block mb-2">
-                    Sá»‘ phÃ²ng
+                    Số phòng
                   </label>
                   <p className="text-[13px] font-bold text-blue-600 dark:text-blue-400">
                     {getCurrentBranchData()?.totalRooms}
@@ -334,7 +304,7 @@ export default function InfastoragePage() {
 
                 <div className="bg-slate-800 p-4 rounded-xl shadow-sm">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase block mb-2">
-                    NhÃ¢n sá»±
+                    Nhân sự
                   </label>
                   <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100">
                     {getCurrentBranchData()?.staffCount}
@@ -343,10 +313,10 @@ export default function InfastoragePage() {
 
                 <div className="bg-slate-800 p-4 rounded-xl shadow-sm">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase block mb-2">
-                    Diá»‡n tÃ­ch
+                    Diện tích
                   </label>
                   <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100">
-                    {getCurrentBranchData()?.totalArea} mÂ²
+                    {getCurrentBranchData()?.totalArea} m²
                   </p>
                 </div>
               </div>
@@ -355,7 +325,7 @@ export default function InfastoragePage() {
               <div className="space-y-4">
                 <div className="bg-slate-800 p-4 rounded-xl shadow-sm">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase block mb-2">
-                    NgÆ°á»i quáº£n lÃ½
+                    Người quản lý
                   </label>
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full animate-pulse bg-green-500" />
@@ -367,7 +337,7 @@ export default function InfastoragePage() {
 
                 <div className="bg-slate-800 p-4 rounded-xl shadow-sm">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase block mb-2">
-                    Äá»‹a chá»‰
+                    Địa chỉ
                   </label>
                   <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100">
                     {getCurrentBranchData()?.address},{" "}
@@ -378,7 +348,7 @@ export default function InfastoragePage() {
 
                 <div className="bg-slate-800 p-4 rounded-xl shadow-sm border-l-4 border-green-500">
                   <label className="text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase block mb-2">
-                    NgÃ y khai trÆ°Æ¡ng
+                    Ngày khai trương
                   </label>
                   <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100">
                     {getCurrentBranchData()?.openingDate}
@@ -388,12 +358,12 @@ export default function InfastoragePage() {
             </div>
           )}
 
-          {/* Tab: CÆ¡ sá»Ÿ háº¡ táº§ng */}
+          {/* Tab: Cơ sở hạ tầng */}
           {activeTab === "infrastructure" && (
             <div className="bg-slate-800 rounded border dark:border-slate-600 h-full flex flex-col overflow-hidden">
               <div className="p-4 border-b dark:border-slate-600 bg-slate-800 flex justify-between items-center">
                 <h3 className="font-bold text-xs uppercase tracking-tighter text-slate-800 dark:text-slate-100">
-                  Danh sÃ¡ch phÃ²ng & cÆ¡ sá»Ÿ háº¡ táº§ng
+                  Danh sách phòng & cơ sở hạ tầng
                 </h3>
               </div>
               <div className="flex-1 overflow-y-auto">
@@ -401,19 +371,19 @@ export default function InfastoragePage() {
                   <thead className="bg-slate-800 text-slate-300 sticky top-0 uppercase font-black">
                     <tr>
                       <th className="p-4 border-b dark:border-slate-600">
-                        TÃªn phÃ²ng
+                        Tên phòng
                       </th>
                       <th className="p-4 border-b dark:border-slate-600">
-                        Loáº¡i
+                        Loại
                       </th>
                       <th className="p-4 border-b dark:border-slate-600 text-center">
-                        Sá»©c chá»©a
+                        Sức chứa
                       </th>
                       <th className="p-4 border-b dark:border-slate-600">
-                        Tráº¡ng thÃ¡i
+                        Trạng thái
                       </th>
                       <th className="p-4 border-b dark:border-slate-600 text-right">
-                        GiÃ¡/Ä‘Ãªm
+                        Giá/đêm
                       </th>
                     </tr>
                   </thead>
@@ -459,7 +429,7 @@ export default function InfastoragePage() {
                           colSpan={5}
                           className="p-4 text-center text-gray-500 dark:text-gray-400"
                         >
-                          KhÃ´ng cÃ³ dá»¯ liá»‡u
+                          Không có dữ liệu
                         </td>
                       </tr>
                     )}
@@ -469,22 +439,22 @@ export default function InfastoragePage() {
             </div>
           )}
 
-          {/* Tab: Kho bÃ£i */}
+          {/* Tab: Kho bãi */}
           {activeTab === "storage" && (
             <div className="bg-slate-800 rounded border dark:border-slate-600 h-full flex flex-col overflow-hidden">
               <div className="p-4 border-b dark:border-slate-600 bg-slate-800 flex justify-between items-center">
                 <h3 className="font-bold text-xs uppercase tracking-tighter text-slate-800 dark:text-slate-100">
-                  Quáº£n lÃ½ váº­t pháº©m & Kho bÃ£i
+                  Quản lý vật phẩm & Kho bãi
                 </h3>
                 <div className="space-x-2">
                   <button
                     onClick={() => setShowImportModal(true)}
                     className="bg-slate-700 text-white px-3 py-1.5 rounded text-[10px] font-bold uppercase hover:bg-slate-700 dark:hover:bg-slate-500"
                   >
-                    Nháº­p kho
+                    Nhập kho
                   </button>
                   <button className="bg-slate-600 text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded text-[10px] font-bold uppercase hover:bg-slate-500">
-                    Xuáº¥t bÃ¡o cÃ¡o
+                    Xuất báo cáo
                   </button>
                 </div>
               </div>
@@ -492,7 +462,7 @@ export default function InfastoragePage() {
               {pendingImports.length > 0 && (
                 <div className="p-4 space-y-2 bg-slate-800 border-b dark:border-slate-600">
                   <h4 className="text-[9px] font-black text-slate-400 dark:text-slate-400 uppercase mb-2">
-                    YÃªu cáº§u nháº­p kho Ä‘ang chá»
+                    Yêu cầu nhập kho đang chờ
                   </h4>
                   {pendingImports.map((item) => (
                     <div
@@ -506,7 +476,7 @@ export default function InfastoragePage() {
                             {item.name}
                           </h4>
                           <p className="text-[9px] text-amber-700 dark:text-amber-400 font-bold uppercase">
-                            Sá»‘ lÆ°á»£ng: {item.qty} | NCC: {item.supplier}
+                            Số lượng: {item.qty} | NCC: {item.supplier}
                           </p>
                         </div>
                       </div>
@@ -523,19 +493,19 @@ export default function InfastoragePage() {
                   <thead className="bg-slate-800 text-slate-300 sticky top-0 uppercase font-black">
                     <tr>
                       <th className="p-4 border-b dark:border-slate-600">
-                        Váº­t pháº©m
+                        Vật phẩm
                       </th>
                       <th className="p-4 border-b dark:border-slate-600">
-                        Danh má»¥c
+                        Danh mục
                       </th>
                       <th className="p-4 border-b dark:border-slate-600 text-center">
-                        Sá»‘ lÆ°á»£ng
+                        Số lượng
                       </th>
                       <th className="p-4 border-b dark:border-slate-600 text-center">
-                        NgÆ°á»¡ng tá»‘i thiá»ƒu
+                        Ngưỡng tối thiểu
                       </th>
                       <th className="p-4 border-b dark:border-slate-600 text-center">
-                        Tráº¡ng thÃ¡i
+                        Trạng thái
                       </th>
                     </tr>
                   </thead>
@@ -569,10 +539,10 @@ export default function InfastoragePage() {
                               }`}
                             >
                               {item.status === "InStock"
-                                ? "CÃ³ sáºµn"
+                                ? "Có sẵn"
                                 : item.status === "LowStock"
-                                  ? "Sáº¯p háº¿t"
-                                  : "Háº¿t"}
+                                  ? "Sắp hết"
+                                  : "Hết"}
                             </span>
                           </td>
                         </tr>
@@ -583,7 +553,7 @@ export default function InfastoragePage() {
                           colSpan={5}
                           className="p-4 text-center text-gray-500 dark:text-gray-400"
                         >
-                          KhÃ´ng cÃ³ dá»¯ liá»‡u
+                          Không có dữ liệu
                         </td>
                       </tr>
                     )}
@@ -593,15 +563,15 @@ export default function InfastoragePage() {
             </div>
           )}
 
-          {/* Tab: Dá»‹ch vá»¥ */}
+          {/* Tab: Dịch vụ */}
           {activeTab === "services" && (
             <div className="bg-slate-800 rounded border dark:border-slate-600 h-full flex flex-col overflow-hidden">
               <div className="p-4 border-b dark:border-slate-600 bg-slate-800 flex justify-between items-center">
                 <h3 className="font-bold text-xs uppercase tracking-tighter text-slate-800 dark:text-slate-100">
-                  Danh sÃ¡ch dá»‹ch vá»¥ hoáº¡t Ä‘á»™ng
+                  Danh sách dịch vụ hoạt động
                 </h3>
                 <button className="bg-blue-600 dark:bg-blue-600 text-white px-3 py-1.5 rounded text-[10px] font-bold uppercase hover:bg-blue-700 dark:hover:bg-blue-700">
-                  Cáº­p nháº­t dá»‹ch vá»¥
+                  Cập nhật dịch vụ
                 </button>
               </div>
               <div className="flex-1 overflow-y-auto">
@@ -609,16 +579,16 @@ export default function InfastoragePage() {
                   <thead className="bg-slate-800 text-slate-300 sticky top-0 uppercase font-black">
                     <tr>
                       <th className="p-4 border-b dark:border-slate-600">
-                        TÃªn dá»‹ch vá»¥
+                        Tên dịch vụ
                       </th>
                       <th className="p-4 border-b dark:border-slate-600">
-                        Danh má»¥c
+                        Danh mục
                       </th>
                       <th className="p-4 border-b dark:border-slate-600">
-                        ÄÆ¡n giÃ¡
+                        Đơn giá
                       </th>
                       <th className="p-4 border-b dark:border-slate-600 text-center">
-                        Tráº¡ng thÃ¡i
+                        Trạng thái
                       </th>
                     </tr>
                   </thead>
@@ -646,7 +616,7 @@ export default function InfastoragePage() {
                                   : "bg-slate-700 text-slate-400"
                               }`}
                             >
-                              {item.status === "Active" ? "Hoáº¡t Ä‘á»™ng" : "NgÆ°ng"}
+                              {item.status === "Active" ? "Hoạt động" : "Ngưng"}
                             </span>
                           </td>
                         </tr>
@@ -657,7 +627,7 @@ export default function InfastoragePage() {
                           colSpan={4}
                           className="p-4 text-center text-gray-500 dark:text-gray-400"
                         >
-                          KhÃ´ng cÃ³ dá»¯ liá»‡u
+                          Không có dữ liệu
                         </td>
                       </tr>
                     )}
@@ -675,19 +645,19 @@ export default function InfastoragePage() {
           <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-md overflow-hidden">
             <div className="p-4 border-b dark:border-slate-600 bg-slate-800 flex justify-between items-center">
               <h3 className="font-black text-xs uppercase tracking-widest text-slate-800 dark:text-slate-100">
-                Phiáº¿u nháº­p kho má»›i
+                Phiếu nhập kho mới
               </h3>
               <button
                 onClick={() => setShowImportModal(false)}
                 className="text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
               >
-                âœ•
+                ✕
               </button>
             </div>
             <div className="p-6 space-y-4">
               <div>
                 <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase mb-1">
-                  TÃªn váº­t pháº©m
+                  Tên vật phẩm
                 </label>
                 <input
                   type="text"
@@ -699,13 +669,13 @@ export default function InfastoragePage() {
                     })
                   }
                   className="w-full border border-slate-700 bg-slate-700 text-slate-900 dark:text-slate-100 rounded p-2 text-sm outline-none focus:ring-1 focus:ring-blue-500"
-                  placeholder="VD: KhÄƒn táº¯m loáº¡i A"
+                  placeholder="VD: Khăn tắm loại A"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase mb-1">
-                    Sá»‘ lÆ°á»£ng
+                    Số lượng
                   </label>
                   <input
                     type="number"
@@ -722,7 +692,7 @@ export default function InfastoragePage() {
                 </div>
                 <div>
                   <label className="block text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase mb-1">
-                    NhÃ  phÃ¢n phá»‘i
+                    Nhà phân phối
                   </label>
                   <input
                     type="text"
@@ -734,7 +704,7 @@ export default function InfastoragePage() {
                       })
                     }
                     className="w-full border border-slate-700 bg-slate-700 text-slate-900 dark:text-slate-100 rounded p-2 text-sm outline-none focus:ring-1 focus:ring-blue-500"
-                    placeholder="TÃªn NCC"
+                    placeholder="Tên NCC"
                   />
                 </div>
               </div>
@@ -742,7 +712,7 @@ export default function InfastoragePage() {
                 onClick={handleImportSubmit}
                 className="w-full bg-blue-600 dark:bg-blue-600 text-white font-black py-3 rounded uppercase text-xs tracking-widest hover:bg-blue-700 dark:hover:bg-blue-700 transition"
               >
-                XÃ¡c nháº­n nháº­p kho
+                Xác nhận nhập kho
               </button>
             </div>
           </div>
@@ -751,6 +721,3 @@ export default function InfastoragePage() {
     </div>
   );
 }
-
-
-
