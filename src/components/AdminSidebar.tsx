@@ -11,8 +11,6 @@ interface SidebarProps {
   isUserMenuOpen: boolean;
   setIsUserMenuOpen: (open: boolean) => void;
   handleLogout: () => void;
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
 }
 interface NavItem {
   href: string;
@@ -28,8 +26,6 @@ export default function AdminSidebar({
   isUserMenuOpen,
   setIsUserMenuOpen,
   handleLogout,
-  isDarkMode,
-  toggleDarkMode,
 }: SidebarProps) {
   const pathname = usePathname();
 

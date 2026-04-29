@@ -3,7 +3,6 @@
 
 import AdminSidebar from "@/components/AdminSidebar";
 import { useAdminDashboard } from "@/components/useAdminDashboard";
-import { DarkModeContext } from "@/contexts/DarkModeContext"; // thêm import context
 
 export default function AdminLayout({
   children,
@@ -18,11 +17,9 @@ export default function AdminLayout({
     isUserMenuOpen,
     setIsUserMenuOpen,
     handleLogout,
-    isDarkMode,
-    toggleDarkMode,
   } = useAdminDashboard();
   return (
-    <div className={`flex h-screen overflow-hidden ${isDarkMode ? "dark-mode" : ""}`}>
+    <div className="flex h-screen overflow-hidden">
       {/* Sidebar mới đã tách file */}
       <AdminSidebar
         admin={admin}
@@ -31,8 +28,6 @@ export default function AdminLayout({
         isUserMenuOpen={isUserMenuOpen}
         setIsUserMenuOpen={setIsUserMenuOpen}
         handleLogout={handleLogout}
-        isDarkMode={isDarkMode}
-        toggleDarkMode={toggleDarkMode}
       />
 
       <main className="flex-1 flex flex-col bg-slate-950 overflow-y-auto">

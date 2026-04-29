@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useEffect } from "react";
 import { useAdminDashboard } from "@/components/useAdminDashboard";
@@ -96,7 +96,7 @@ export default function CommandPage() {
     }).format(value);
   };
 
-  // ─── BOOKING CRUD ───────────────────────────────────────────────────────────
+  // â”€â”€â”€ BOOKING CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const openBookingModal = (id: number | null = null) => {
     setEditBookingId(id);
     setIsBookingModalOpen(true);
@@ -135,7 +135,7 @@ export default function CommandPage() {
     const note = notesInput?.value || "";
 
     if (!customerId || !roomId || !checkin || !checkout) {
-      showToast("Vui lòng điền đầy đủ thông tin", "error");
+      showToast("Vui lÃ²ng Ä‘iá»n Ä‘áº§y Ä‘á»§ thÃ´ng tin", "error");
       return;
     }
 
@@ -171,7 +171,7 @@ export default function CommandPage() {
             : b,
         ),
       );
-      showToast("Cập nhật đặt phòng thành công");
+      showToast("Cáº­p nháº­t Ä‘áº·t phÃ²ng thÃ nh cÃ´ng");
     } else {
       const newId = Math.max(...bookings.map((b) => b.id), 0) + 1;
       const newBooking = {
@@ -189,23 +189,23 @@ export default function CommandPage() {
         status: "pending" as const,
       };
       setBookings((prev) => [...prev, newBooking]);
-      showToast("Thêm đặt phòng thành công");
+      showToast("ThÃªm Ä‘áº·t phÃ²ng thÃ nh cÃ´ng");
     }
     closeBookingModal();
   };
 
   const deleteBooking = (id: number) => {
     openDeleteModal(
-      "Xóa đặt phòng",
-      "Bạn có chắc chắn muốn xóa đặt phòng này?",
+      "XÃ³a Ä‘áº·t phÃ²ng",
+      "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a Ä‘áº·t phÃ²ng nÃ y?",
       () => {
         setBookings((prev) => prev.filter((b) => b.id !== id));
-        showToast("Đã xóa đặt phòng");
+        showToast("ÄÃ£ xÃ³a Ä‘áº·t phÃ²ng");
       },
     );
   };
 
-  // ─── ROOM CRUD ────────────────────────────────────────────────────────────
+  // â”€â”€â”€ ROOM CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const openRoomModal = (id: number | null = null) => {
     setEditRoomId(id);
     setIsRoomModalOpen(true);
@@ -239,7 +239,7 @@ export default function CommandPage() {
     const price = parseInt(priceInput?.value || "0");
 
     if (!name || !number || !price) {
-      showToast("Vui lòng điền đầy đủ thông tin", "error");
+      showToast("Vui lÃ²ng Ä‘iá»n Ä‘áº§y Ä‘á»§ thÃ´ng tin", "error");
       return;
     }
 
@@ -265,23 +265,23 @@ export default function CommandPage() {
       setRooms((prev) =>
         prev.map((r) => (r.id === editRoomId ? { ...r, ...roomData } : r)),
       );
-      showToast("Cập nhật phòng thành công");
+      showToast("Cáº­p nháº­t phÃ²ng thÃ nh cÃ´ng");
     } else {
       const newId = Math.max(...rooms.map((r) => r.id), 0) + 1;
       setRooms((prev) => [...prev, { id: newId, ...roomData }]);
-      showToast("Thêm phòng thành công");
+      showToast("ThÃªm phÃ²ng thÃ nh cÃ´ng");
     }
     closeRoomModal();
   };
 
   const deleteRoom = (id: number) => {
-    openDeleteModal("Xóa phòng", "Bạn có chắc chắn muốn xóa phòng này?", () => {
+    openDeleteModal("XÃ³a phÃ²ng", "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a phÃ²ng nÃ y?", () => {
       setRooms((prev) => prev.filter((r) => r.id !== id));
-      showToast("Đã xóa phòng");
+      showToast("ÄÃ£ xÃ³a phÃ²ng");
     });
   };
 
-  // ─── PROMOTION CRUD ─────────────────────────────────────────────────────────
+  // â”€â”€â”€ PROMOTION CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const openPromotionModal = (id: number | null = null) => {
     setEditPromotionId(id);
     setIsPromotionModalOpen(true);
@@ -313,7 +313,7 @@ export default function CommandPage() {
     const status = statusSelect?.value || "active";
 
     if (!name || !code || !value || !start || !end) {
-      showToast("Vui lòng điền đầy đủ thông tin", "error");
+      showToast("Vui lÃ²ng Ä‘iá»n Ä‘áº§y Ä‘á»§ thÃ´ng tin", "error");
       return;
     }
 
@@ -323,23 +323,23 @@ export default function CommandPage() {
       setPromotions((prev) =>
         prev.map((p) => (p.id === editPromotionId ? { ...p, ...promotionData } : p)),
       );
-      showToast("Cập nhật khuyến mãi thành công");
+      showToast("Cáº­p nháº­t khuyáº¿n mÃ£i thÃ nh cÃ´ng");
     } else {
       const newId = Math.max(...promotions.map((p) => p.id), 0) + 1;
       setPromotions((prev) => [...prev, { id: newId, ...promotionData }]);
-      showToast("Thêm khuyến mãi thành công");
+      showToast("ThÃªm khuyáº¿n mÃ£i thÃ nh cÃ´ng");
     }
     closePromotionModal();
   };
 
   const deletePromotion = (id: number) => {
-    openDeleteModal("Xóa khuyến mãi", "Bạn có chắc chắn muốn xóa khuyến mãi này?", () => {
+    openDeleteModal("XÃ³a khuyáº¿n mÃ£i", "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a khuyáº¿n mÃ£i nÃ y?", () => {
       setPromotions((prev) => prev.filter((p) => p.id !== id));
-      showToast("Đã xóa khuyến mãi");
+      showToast("ÄÃ£ xÃ³a khuyáº¿n mÃ£i");
     });
   };
 
-  // ─── BRANCH CRUD ────────────────────────────────────────────────────────────
+  // â”€â”€â”€ BRANCH CRUD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const openBranchModal = (id: string | null = null) => {
     setEditBranchId(id);
     setIsBranchModalOpen(true);
@@ -387,7 +387,7 @@ export default function CommandPage() {
     const openingDate = openingDateInput?.value || "";
 
     if (!name || !address || !city || !country) {
-      showToast("Vui lòng điền đầy đủ thông tin", "error");
+      showToast("Vui lÃ²ng Ä‘iá»n Ä‘áº§y Ä‘á»§ thÃ´ng tin", "error");
       return;
     }
 
@@ -413,72 +413,72 @@ export default function CommandPage() {
       setBranches((prev) =>
         prev.map((b) => (b.id === editBranchId ? { ...b, ...branchData } : b)),
       );
-      showToast("Cập nhật chi nhánh thành công");
+      showToast("Cáº­p nháº­t chi nhÃ¡nh thÃ nh cÃ´ng");
     } else {
       const newId = `branch-${Math.max(...branches.map((b) => parseInt(b.id.split("-")[1] || "0")), 0) + 1}`;
       setBranches((prev) => [...prev, { id: newId, ...branchData } as Branch]);
-      showToast("Thêm chi nhánh thành công");
+      showToast("ThÃªm chi nhÃ¡nh thÃ nh cÃ´ng");
     }
     closeBranchModal();
   };
 
   const deleteBranch = (id: string) => {
-    openDeleteModal("Xóa chi nhánh", "Bạn có chắc chắn muốn xóa chi nhánh này?", () => {
+    openDeleteModal("XÃ³a chi nhÃ¡nh", "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a chi nhÃ¡nh nÃ y?", () => {
       setBranches((prev) => prev.filter((b) => b.id !== id));
-      showToast("Đã xóa chi nhánh");
+      showToast("ÄÃ£ xÃ³a chi nhÃ¡nh");
     });
   };
 
-  // ─── RENDER CONTENT ──────────────────────────────────────────────────────────
+  // â”€â”€â”€ RENDER CONTENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const renderContent = () => {
     switch (activeTab) {
       case "bookings":
         return (
           <div className="space-y-6">
             <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quản lý đặt phòng</h1>
+              <h1 className="text-2xl font-bold">Quáº£n lÃ½ Ä‘áº·t phÃ²ng</h1>
               <button
                 onClick={() => openBookingModal(null)}
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
               >
-                <i className="fas fa-plus mr-2"></i>Thêm đặt phòng
+                <i className="fas fa-plus mr-2"></i>ThÃªm Ä‘áº·t phÃ²ng
               </button>
             </div>
-            <div className="bg-white p-4 rounded-xl shadow-sm dark:bg-gray-800">
+            <div className="bg-slate-800 p-4 rounded-xl shadow-sm">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <select className="border rounded-lg px-4 py-2 text-sm dark:bg-gray-700 dark:border-gray-600">
-                  <option value="all">Tất cả</option>
-                  <option value="pending">Chờ</option>
-                  <option value="confirmed">Đã xác nhận</option>
-                  <option value="completed">Hoàn thành</option>
+                <select className="border border-slate-700 rounded-lg px-4 py-2 text-sm bg-slate-700 text-slate-100">
+                  <option value="all">Táº¥t cáº£</option>
+                  <option value="pending">Chá»</option>
+                  <option value="confirmed">ÄÃ£ xÃ¡c nháº­n</option>
+                  <option value="completed">HoÃ n thÃ nh</option>
                 </select>
                 <input
                   type="date"
-                  className="border rounded-lg px-4 py-2 text-sm dark:bg-gray-700 dark:border-gray-600"
+                  className="border border-slate-700 rounded-lg px-4 py-2 text-sm bg-slate-700 text-slate-100"
                 />
                 <input
                   type="date"
-                  className="border rounded-lg px-4 py-2 text-sm dark:bg-gray-700 dark:border-gray-600"
+                  className="border border-slate-700 rounded-lg px-4 py-2 text-sm bg-slate-700 text-slate-100"
                 />
               </div>
             </div>
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden dark:bg-gray-800">
+            <div className="bg-slate-800 rounded-xl shadow-sm overflow-hidden">
               <table className="w-full">
-                <thead className="bg-gray-50 dark:bg-gray-700">
+                <thead className="bg-slate-700">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs">Mã</th>
-                    <th className="px-6 py-3 text-left text-xs">Khách hàng</th>
-                    <th className="px-6 py-3 text-left text-xs">Phòng</th>
-                    <th className="px-6 py-3 text-left text-xs">Ngày nhận</th>
-                    <th className="px-6 py-3 text-left text-xs">Ngày trả</th>
-                    <th className="px-6 py-3 text-left text-xs">Trạng thái</th>
-                    <th className="px-6 py-3 text-right text-xs">Tổng</th>
-                    <th className="px-6 py-3 text-center text-xs">Thao tác</th>
+                    <th className="px-6 py-3 text-left text-xs">MÃ£</th>
+                    <th className="px-6 py-3 text-left text-xs">KhÃ¡ch hÃ ng</th>
+                    <th className="px-6 py-3 text-left text-xs">PhÃ²ng</th>
+                    <th className="px-6 py-3 text-left text-xs">NgÃ y nháº­n</th>
+                    <th className="px-6 py-3 text-left text-xs">NgÃ y tráº£</th>
+                    <th className="px-6 py-3 text-left text-xs">Tráº¡ng thÃ¡i</th>
+                    <th className="px-6 py-3 text-right text-xs">Tá»•ng</th>
+                    <th className="px-6 py-3 text-center text-xs">Thao tÃ¡c</th>
                   </tr>
                 </thead>
                 <tbody>
                   {bookings.map((b) => (
-                    <tr key={b.id} className="border-b dark:border-gray-700">
+                    <tr key={b.id} className="border-b border-slate-700">
                       <td className="px-6 py-3">{b.code}</td>
                       <td className="px-6 py-3">{b.customer}</td>
                       <td className="px-6 py-3">{b.room}</td>
@@ -489,10 +489,10 @@ export default function CommandPage() {
                           className={`badge ${b.status === "confirmed" ? "badge-success" : b.status === "pending" ? "badge-warning" : "badge-info"}`}
                         >
                           {b.status === "confirmed"
-                            ? "Đã xác nhận"
+                            ? "ÄÃ£ xÃ¡c nháº­n"
                             : b.status === "pending"
-                              ? "Chờ"
-                              : "Hoàn thành"}
+                              ? "Chá»"
+                              : "HoÃ n thÃ nh"}
                         </span>
                       </td>
                       <td className="px-6 py-3 text-right">
@@ -524,33 +524,33 @@ export default function CommandPage() {
         return (
           <div className="space-y-6">
             <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quản lý phòng</h1>
+              <h1 className="text-2xl font-bold">Quáº£n lÃ½ phÃ²ng</h1>
               <button
                 onClick={() => openRoomModal(null)}
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
               >
-                <i className="fas fa-plus mr-2"></i>Thêm phòng
+                <i className="fas fa-plus mr-2"></i>ThÃªm phÃ²ng
               </button>
             </div>
             <div className="grid grid-cols-4 gap-4">
               <div className="bg-white p-4 rounded-lg dark:bg-gray-800">
-                <p className="text-gray-500">Tổng số</p>
+                <p className="text-gray-500">Tá»•ng sá»‘</p>
                 <p className="text-2xl font-bold">{rooms.length}</p>
               </div>
               <div className="bg-white p-4 rounded-lg dark:bg-gray-800">
-                <p className="text-gray-500">Phòng trống</p>
+                <p className="text-gray-500">PhÃ²ng trá»‘ng</p>
                 <p className="text-2xl font-bold text-green-600">
                   {rooms.filter((r) => r.status === "available").length}
                 </p>
               </div>
               <div className="bg-white p-4 rounded-lg dark:bg-gray-800">
-                <p className="text-gray-500">Đang có khách</p>
+                <p className="text-gray-500">Äang cÃ³ khÃ¡ch</p>
                 <p className="text-2xl font-bold text-yellow-600">
                   {rooms.filter((r) => r.status === "occupied").length}
                 </p>
               </div>
               <div className="bg-white p-4 rounded-lg dark:bg-gray-800">
-                <p className="text-gray-500">Bảo trì</p>
+                <p className="text-gray-500">Báº£o trÃ¬</p>
                 <p className="text-2xl font-bold text-red-600">
                   {rooms.filter((r) => r.status === "maintenance").length}
                 </p>
@@ -560,9 +560,9 @@ export default function CommandPage() {
               {rooms.map((r) => (
                 <div
                   key={r.id}
-                  className="room-card bg-white rounded-xl shadow-sm border overflow-hidden dark:bg-gray-800 dark:border-gray-700"
+                  className="room-card bg-slate-800 rounded-xl shadow-sm border border-slate-700 overflow-hidden"
                 >
-                  <div className="relative h-40 bg-gray-200">
+                  <div className="relative h-40 bg-slate-700">
                     <img
                       src={`https://picsum.photos/id/${164 + r.id}/400/200`}
                       className="w-full h-full object-cover"
@@ -578,10 +578,10 @@ export default function CommandPage() {
                       }`}
                     >
                       {r.status === "available"
-                        ? "Trống"
+                        ? "Trá»‘ng"
                         : r.status === "occupied"
-                          ? "Đã đặt"
-                          : "Bảo trì"}
+                          ? "ÄÃ£ Ä‘áº·t"
+                          : "Báº£o trÃ¬"}
                     </span>
                   </div>
                   <div className="p-4">
@@ -592,13 +592,13 @@ export default function CommandPage() {
                       </span>
                     </div>
                     <p className="text-sm text-gray-500">
-                      Phòng {r.number} • {r.area}m² • {r.capacity} người
+                      PhÃ²ng {r.number} â€¢ {r.area}mÂ² â€¢ {r.capacity} ngÆ°á»i
                     </p>
                     <div className="flex gap-1 mt-2">
                       {r.amenities.map((a) => (
                         <span
                           key={a}
-                          className="bg-gray-100 text-xs px-2 py-1 rounded dark:bg-gray-700"
+                          className="bg-slate-700 text-xs px-2 py-1 rounded text-slate-100"
                         >
                           <i
                             className={`fas fa-${a === "wifi" ? "wifi" : a === "tv" ? "tv" : a === "ac" ? "wind" : "bath"}`}
@@ -607,18 +607,18 @@ export default function CommandPage() {
                         </span>
                       ))}
                     </div>
-                    <div className="flex justify-between mt-3 pt-3 border-t dark:border-gray-700">
+                    <div className="flex justify-between mt-3 pt-3 border-t border-slate-700">
                       <button
                         className="text-blue-600"
                         onClick={() => openRoomModal(r.id)}
                       >
-                        <i className="fas fa-edit mr-1"></i>Sửa
+                        <i className="fas fa-edit mr-1"></i>Sá»­a
                       </button>
                       <button
                         className="text-red-600"
                         onClick={() => deleteRoom(r.id)}
                       >
-                        <i className="fas fa-trash mr-1"></i>Xóa
+                        <i className="fas fa-trash mr-1"></i>XÃ³a
                       </button>
                     </div>
                   </div>
@@ -632,17 +632,17 @@ export default function CommandPage() {
         return (
           <div className="space-y-6">
             <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quản lý khuyến mãi</h1>
+              <h1 className="text-2xl font-bold">Quáº£n lÃ½ khuyáº¿n mÃ£i</h1>
               <button
                 onClick={() => openPromotionModal(null)}
                 className="bg-amber-600 text-white px-4 py-2 rounded-lg"
               >
-                <i className="fas fa-plus mr-2"></i>Thêm khuyến mãi
+                <i className="fas fa-plus mr-2"></i>ThÃªm khuyáº¿n mÃ£i
               </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {promotions.map((promo) => (
-                <div key={promo.id} className="bg-white rounded-lg p-4 shadow-sm dark:bg-gray-800">
+                <div key={promo.id} className="bg-slate-800 rounded-lg p-4 shadow-sm border border-slate-700">
                   <div className="flex justify-between items-start mb-2">
                     <div>
                       <h3 className="font-bold text-lg">{promo.name}</h3>
@@ -653,11 +653,11 @@ export default function CommandPage() {
                     </span>
                   </div>
                   <div className="space-y-1 text-sm mb-3">
-                    <p className="text-gray-600 dark:text-gray-300">
-                      <span className="font-medium">Giá trị:</span> {promo.type === "percent" ? `${promo.value}%` : formatCurrency(promo.value)}
+                    <p className="text-slate-400">
+                      <span className="font-medium">GiÃ¡ trá»‹:</span> {promo.type === "percent" ? `${promo.value}%` : formatCurrency(promo.value)}
                     </p>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      <span className="font-medium">Từ:</span> {formatDate(promo.start)} đến {formatDate(promo.end)}
+                    <p className="text-slate-400">
+                      <span className="font-medium">Tá»«:</span> {formatDate(promo.start)} Ä‘áº¿n {formatDate(promo.end)}
                     </p>
                   </div>
                   <div className="flex gap-2">
@@ -665,13 +665,13 @@ export default function CommandPage() {
                       onClick={() => openPromotionModal(promo.id)}
                       className="flex-1 bg-blue-600 text-white px-3 py-2 rounded text-sm"
                     >
-                      <i className="fas fa-edit mr-1"></i>Sửa
+                      <i className="fas fa-edit mr-1"></i>Sá»­a
                     </button>
                     <button
                       onClick={() => deletePromotion(promo.id)}
                       className="flex-1 bg-red-600 text-white px-3 py-2 rounded text-sm"
                     >
-                      <i className="fas fa-trash mr-1"></i>Xóa
+                      <i className="fas fa-trash mr-1"></i>XÃ³a
                     </button>
                   </div>
                 </div>
@@ -684,30 +684,30 @@ export default function CommandPage() {
         return (
           <div className="space-y-6">
             <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quản lý chi nhánh</h1>
+              <h1 className="text-2xl font-bold">Quáº£n lÃ½ chi nhÃ¡nh</h1>
               <button
                 onClick={() => openBranchModal(null)}
                 className="bg-purple-600 text-white px-4 py-2 rounded-lg"
               >
-                <i className="fas fa-plus mr-2"></i>Thêm chi nhánh
+                <i className="fas fa-plus mr-2"></i>ThÃªm chi nhÃ¡nh
               </button>
             </div>
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden dark:bg-gray-800">
+            <div className="bg-slate-800 rounded-xl shadow-sm overflow-hidden">
               <table className="w-full">
-                <thead className="bg-gray-50 dark:bg-gray-700">
+                <thead className="bg-slate-700">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-bold">Tên chi nhánh</th>
-                    <th className="px-6 py-3 text-left text-xs font-bold">Loại</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold">TÃªn chi nhÃ¡nh</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold">Loáº¡i</th>
                     <th className="px-6 py-3 text-left text-xs font-bold">Sao</th>
-                    <th className="px-6 py-3 text-left text-xs font-bold">Địa chỉ</th>
-                    <th className="px-6 py-3 text-left text-xs font-bold">Trạng thái</th>
-                    <th className="px-6 py-3 text-left text-xs font-bold">Phòng</th>
-                    <th className="px-6 py-3 text-center text-xs font-bold">Thao tác</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold">Äá»‹a chá»‰</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold">Tráº¡ng thÃ¡i</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold">PhÃ²ng</th>
+                    <th className="px-6 py-3 text-center text-xs font-bold">Thao tÃ¡c</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y dark:divide-gray-700">
+                <tbody className="divide-y divide-slate-700">
                   {branches.map((branch) => (
-                    <tr key={branch.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <tr key={branch.id} className="hover:bg-slate-700">
                       <td className="px-6 py-4 text-sm font-medium">{branch.name}</td>
                       <td className="px-6 py-4 text-sm">{branch.type}</td>
                       <td className="px-6 py-4 text-sm">
@@ -718,10 +718,10 @@ export default function CommandPage() {
                       <td className="px-6 py-4 text-sm">{branch.address}</td>
                       <td className="px-6 py-4 text-sm">
                         <span className={`px-2 py-1 rounded text-xs font-bold ${
-                          branch.status === "Active" ? "bg-green-100 text-green-700" :
-                          branch.status === "Maintenance" ? "bg-yellow-100 text-yellow-700" :
-                          branch.status === "Reconstruction" ? "bg-blue-100 text-blue-700" :
-                          "bg-red-100 text-red-700"
+                          branch.status === "Active" ? "bg-green-900 text-green-200" :
+                          branch.status === "Maintenance" ? "bg-yellow-900 text-yellow-200" :
+                          branch.status === "Reconstruction" ? "bg-blue-900 text-blue-200" :
+                          "bg-red-900 text-red-200"
                         }`}>
                           {branch.status}
                         </span>
@@ -755,13 +755,13 @@ export default function CommandPage() {
   };
 
   return (
-    <div className="bg-slate-100 dark:bg-slate-900 transition-colors duration-300 min-h-screen flex flex-col">
+    <div className="bg-slate-900 transition-colors duration-300 min-h-screen flex flex-col">
       {/* Header */}
       <header className="bg-slate-900 px-6 py-3 flex sticky top-0 z-50 shadow-md">
         <div className="flex items-center space-x-4">
           <div className="border-l border-slate-700 pl-4">
             <h1 className="text-sm font-black text-white uppercase">
-              Bảng điều khiển lệnh
+              Báº£ng Ä‘iá»u khiá»ƒn lá»‡nh
             </h1>
           </div>
         </div>
@@ -770,10 +770,10 @@ export default function CommandPage() {
       {/* Tab Navigation */}
       <div className="tab-container overflow-x-auto no-scrollbar bg-slate-800 border-b border-slate-700 px-6 flex sticky top-12 z-40">
         {[
-          { id: "bookings", label: "Đặt phòng" },
-          { id: "rooms", label: "Phòng" },
-          { id: "promotions", label: "Khuyến mãi" },
-          { id: "construction", label: "Chi nhánh" },
+          { id: "bookings", label: "Äáº·t phÃ²ng" },
+          { id: "rooms", label: "PhÃ²ng" },
+          { id: "promotions", label: "Khuyáº¿n mÃ£i" },
+          { id: "construction", label: "Chi nhÃ¡nh" },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -798,7 +798,7 @@ export default function CommandPage() {
       {isBookingModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div
-            className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative modal-enter dark:bg-gray-800"
+            className="bg-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative modal-enter border border-slate-700"
             ref={bookingFormRef}
           >
             <button
@@ -807,9 +807,9 @@ export default function CommandPage() {
             >
               <i className="fas fa-times text-2xl"></i>
             </button>
-            <div className="p-6 border-b dark:border-gray-700">
+            <div className="p-6 border-b border-slate-700">
               <h2 className="text-xl font-bold">
-                {editBookingId ? "Sửa đặt phòng" : "Thêm đặt phòng mới"}
+                {editBookingId ? "Sá»­a Ä‘áº·t phÃ²ng" : "ThÃªm Ä‘áº·t phÃ²ng má»›i"}
               </h2>
             </div>
             <div className="p-6 space-y-4">
@@ -822,14 +822,14 @@ export default function CommandPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Khách hàng *
+                          KhÃ¡ch hÃ ng *
                         </label>
                         <select
                           id="bookingCustomer"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={booking?.customerId || ""}
                         >
-                          <option value="">Chọn khách hàng</option>
+                          <option value="">Chá»n khÃ¡ch hÃ ng</option>
                           {customers.map((c) => (
                             <option key={c.id} value={c.id}>
                               {c.name}
@@ -839,14 +839,14 @@ export default function CommandPage() {
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Phòng *
+                          PhÃ²ng *
                         </label>
                         <select
                           id="bookingRoom"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={booking?.roomId || ""}
                         >
-                          <option value="">Chọn phòng</option>
+                          <option value="">Chá»n phÃ²ng</option>
                           {rooms
                             .filter(
                               (r) =>
@@ -868,23 +868,23 @@ export default function CommandPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Ngày nhận *
+                          NgÃ y nháº­n *
                         </label>
                         <input
                           type="date"
                           id="bookingCheckin"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={booking?.checkin || ""}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Ngày trả *
+                          NgÃ y tráº£ *
                         </label>
                         <input
                           type="date"
                           id="bookingCheckout"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={booking?.checkout || ""}
                         />
                       </div>
@@ -892,35 +892,35 @@ export default function CommandPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Số khách
+                          Sá»‘ khÃ¡ch
                         </label>
                         <input
                           type="number"
                           id="bookingGuests"
                           defaultValue={booking?.guests || 2}
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Mã khuyến mãi
+                          MÃ£ khuyáº¿n mÃ£i
                         </label>
                         <input
                           type="text"
                           id="bookingPromo"
-                          placeholder="Nhập mã"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          placeholder="Nháº­p mÃ£"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                         />
                       </div>
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Ghi chú
+                        Ghi chÃº
                       </label>
                       <textarea
                         id="bookingNotes"
                         rows={2}
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                         defaultValue={booking?.note || ""}
                       ></textarea>
                     </div>
@@ -933,13 +933,13 @@ export default function CommandPage() {
                 onClick={closeBookingModal}
                 className="px-4 py-2 border rounded-lg dark:border-gray-600"
               >
-                Hủy
+                Há»§y
               </button>
               <button
                 onClick={saveBooking}
                 className="px-4 py-2 bg-emerald-600 text-white rounded-lg"
               >
-                Lưu
+                LÆ°u
               </button>
             </div>
           </div>
@@ -950,7 +950,7 @@ export default function CommandPage() {
       {isRoomModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div
-            className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative modal-enter dark:bg-gray-800"
+            className="bg-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative modal-enter border border-slate-700"
             ref={roomFormRef}
           >
             <button
@@ -959,9 +959,9 @@ export default function CommandPage() {
             >
               <i className="fas fa-times text-2xl"></i>
             </button>
-            <div className="p-6 border-b dark:border-gray-700">
+            <div className="p-6 border-b border-slate-700">
               <h2 className="text-xl font-bold">
-                {editRoomId ? "Sửa phòng" : "Thêm phòng mới"}
+                {editRoomId ? "Sá»­a phÃ²ng" : "ThÃªm phÃ²ng má»›i"}
               </h2>
             </div>
             <div className="p-6 space-y-4">
@@ -974,23 +974,23 @@ export default function CommandPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Tên phòng *
+                          TÃªn phÃ²ng *
                         </label>
                         <input
                           type="text"
                           id="roomName"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={room?.name || ""}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Số phòng *
+                          Sá»‘ phÃ²ng *
                         </label>
                         <input
                           type="text"
                           id="roomNumber"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={room?.number || ""}
                         />
                       </div>
@@ -998,11 +998,11 @@ export default function CommandPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Loại phòng
+                          Loáº¡i phÃ²ng
                         </label>
                         <select
                           id="roomType"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={room?.type || "Standard"}
                         >
                           <option>Standard</option>
@@ -1013,12 +1013,12 @@ export default function CommandPage() {
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Giá/đêm *
+                          GiÃ¡/Ä‘Ãªm *
                         </label>
                         <input
                           type="number"
                           id="roomPrice"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={room?.price || ""}
                         />
                       </div>
@@ -1026,30 +1026,30 @@ export default function CommandPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Diện tích (m²)
+                          Diá»‡n tÃ­ch (mÂ²)
                         </label>
                         <input
                           type="number"
                           id="roomArea"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={room?.area || ""}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Sức chứa
+                          Sá»©c chá»©a
                         </label>
                         <input
                           type="number"
                           id="roomCapacity"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={room?.capacity || 2}
                         />
                       </div>
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Tiện ích
+                        Tiá»‡n Ã­ch
                       </label>
                       <div className="flex gap-4">
                         <label>
@@ -1080,7 +1080,7 @@ export default function CommandPage() {
                               room?.amenities.includes("ac") ?? true
                             }
                           />{" "}
-                          Điều hòa
+                          Äiá»u hÃ²a
                         </label>
                         <label>
                           <input
@@ -1090,32 +1090,32 @@ export default function CommandPage() {
                               room?.amenities.includes("bath") ?? false
                             }
                           />{" "}
-                          Bồn tắm
+                          Bá»“n táº¯m
                         </label>
                       </div>
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Trạng thái
+                        Tráº¡ng thÃ¡i
                       </label>
                       <select
                         id="roomStatus"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                         defaultValue={room?.status || "available"}
                       >
-                        <option value="available">Phòng trống</option>
-                        <option value="occupied">Đang có khách</option>
-                        <option value="maintenance">Đang bảo trì</option>
+                        <option value="available">PhÃ²ng trá»‘ng</option>
+                        <option value="occupied">Äang cÃ³ khÃ¡ch</option>
+                        <option value="maintenance">Äang báº£o trÃ¬</option>
                       </select>
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Mô tả
+                        MÃ´ táº£
                       </label>
                       <textarea
                         id="roomDesc"
                         rows={2}
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                         defaultValue={room?.desc || ""}
                       ></textarea>
                     </div>
@@ -1128,13 +1128,13 @@ export default function CommandPage() {
                 onClick={closeRoomModal}
                 className="px-4 py-2 border rounded-lg dark:border-gray-600"
               >
-                Hủy
+                Há»§y
               </button>
               <button
                 onClick={saveRoom}
                 className="px-4 py-2 bg-emerald-600 text-white rounded-lg"
               >
-                Lưu
+                LÆ°u
               </button>
             </div>
           </div>
@@ -1145,7 +1145,7 @@ export default function CommandPage() {
       {isPromotionModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div
-            className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative modal-enter dark:bg-gray-800"
+            className="bg-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative modal-enter border border-slate-700"
             ref={promotionFormRef}
           >
             <button
@@ -1154,9 +1154,9 @@ export default function CommandPage() {
             >
               <i className="fas fa-times text-2xl"></i>
             </button>
-            <div className="p-6 border-b dark:border-gray-700">
+            <div className="p-6 border-b border-slate-700">
               <h2 className="text-xl font-bold">
-                {editPromotionId ? "Sửa khuyến mãi" : "Thêm khuyến mãi mới"}
+                {editPromotionId ? "Sá»­a khuyáº¿n mÃ£i" : "ThÃªm khuyáº¿n mÃ£i má»›i"}
               </h2>
             </div>
             <div className="p-6 space-y-4">
@@ -1169,23 +1169,23 @@ export default function CommandPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Tên khuyến mãi *
+                          TÃªn khuyáº¿n mÃ£i *
                         </label>
                         <input
                           type="text"
                           id="promoName"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={promo?.name || ""}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Mã khuyến mãi *
+                          MÃ£ khuyáº¿n mÃ£i *
                         </label>
                         <input
                           type="text"
                           id="promoCode"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={promo?.code || ""}
                         />
                       </div>
@@ -1193,25 +1193,25 @@ export default function CommandPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Loại
+                          Loáº¡i
                         </label>
                         <select
                           id="promoType"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={promo?.type || "percent"}
                         >
-                          <option value="percent">Phần trăm (%)</option>
-                          <option value="fixed">Cố định (VND)</option>
+                          <option value="percent">Pháº§n trÄƒm (%)</option>
+                          <option value="fixed">Cá»‘ Ä‘á»‹nh (VND)</option>
                         </select>
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Giá trị *
+                          GiÃ¡ trá»‹ *
                         </label>
                         <input
                           type="number"
                           id="promoValue"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={promo?.value || ""}
                         />
                       </div>
@@ -1219,38 +1219,38 @@ export default function CommandPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Ngày bắt đầu *
+                          NgÃ y báº¯t Ä‘áº§u *
                         </label>
                         <input
                           type="date"
                           id="promoStart"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={promo?.start || ""}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Ngày kết thúc *
+                          NgÃ y káº¿t thÃºc *
                         </label>
                         <input
                           type="date"
                           id="promoEnd"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={promo?.end || ""}
                         />
                       </div>
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Trạng thái
+                        Tráº¡ng thÃ¡i
                       </label>
                       <select
                         id="promoStatus"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                         defaultValue={promo?.status || "active"}
                       >
-                        <option value="active">Kích hoạt</option>
-                        <option value="inactive">Vô hiệu</option>
+                        <option value="active">KÃ­ch hoáº¡t</option>
+                        <option value="inactive">VÃ´ hiá»‡u</option>
                       </select>
                     </div>
                   </>
@@ -1262,13 +1262,13 @@ export default function CommandPage() {
                 onClick={closePromotionModal}
                 className="px-4 py-2 border rounded-lg dark:border-gray-600"
               >
-                Hủy
+                Há»§y
               </button>
               <button
                 onClick={savePromotion}
                 className="px-4 py-2 bg-amber-600 text-white rounded-lg"
               >
-                Lưu
+                LÆ°u
               </button>
             </div>
           </div>
@@ -1279,7 +1279,7 @@ export default function CommandPage() {
       {isBranchModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div
-            className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative modal-enter dark:bg-gray-800"
+            className="bg-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative modal-enter border border-slate-700"
             ref={branchFormRef}
           >
             <button
@@ -1288,9 +1288,9 @@ export default function CommandPage() {
             >
               <i className="fas fa-times text-2xl"></i>
             </button>
-            <div className="p-6 border-b dark:border-gray-700">
+            <div className="p-6 border-b border-slate-700">
               <h2 className="text-xl font-bold">
-                {editBranchId ? "Sửa chi nhánh" : "Thêm chi nhánh mới"}
+                {editBranchId ? "Sá»­a chi nhÃ¡nh" : "ThÃªm chi nhÃ¡nh má»›i"}
               </h2>
             </div>
             <div className="p-6 space-y-4 max-h-[calc(90vh-200px)] overflow-y-auto">
@@ -1303,29 +1303,29 @@ export default function CommandPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Tên chi nhánh *
+                          TÃªn chi nhÃ¡nh *
                         </label>
                         <input
                           type="text"
                           id="branchName"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.name || ""}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Loại
+                          Loáº¡i
                         </label>
                         <select
                           id="branchType"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.type || "Hotel"}
                         >
-                          <option value="Hotel">Khách sạn</option>
-                          <option value="Resort">Khu nghỉ dưỡng</option>
-                          <option value="Villa">Biệt thự</option>
-                          <option value="Apartment">Căn hộ</option>
-                          <option value="MixedUse">Hỗn hợp</option>
+                          <option value="Hotel">KhÃ¡ch sáº¡n</option>
+                          <option value="Resort">Khu nghá»‰ dÆ°á»¡ng</option>
+                          <option value="Villa">Biá»‡t thá»±</option>
+                          <option value="Apartment">CÄƒn há»™</option>
+                          <option value="MixedUse">Há»—n há»£p</option>
                         </select>
                       </div>
                     </div>
@@ -1339,57 +1339,57 @@ export default function CommandPage() {
                           id="branchStar"
                           min="1"
                           max="5"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.starRating || 3}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Trạng thái
+                          Tráº¡ng thÃ¡i
                         </label>
                         <select
                           id="branchStatus"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.status || "Active"}
                         >
-                          <option value="Active">Hoạt động</option>
-                          <option value="Maintenance">Bảo trì</option>
-                          <option value="Reconstruction">Tái xây dựng</option>
-                          <option value="Unavailable">Không khả dụng</option>
+                          <option value="Active">Hoáº¡t Ä‘á»™ng</option>
+                          <option value="Maintenance">Báº£o trÃ¬</option>
+                          <option value="Reconstruction">TÃ¡i xÃ¢y dá»±ng</option>
+                          <option value="Unavailable">KhÃ´ng kháº£ dá»¥ng</option>
                         </select>
                       </div>
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Địa chỉ *
+                        Äá»‹a chá»‰ *
                       </label>
                       <input
                         type="text"
                         id="branchAddress"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                         defaultValue={branch?.address || ""}
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Thành phố *
+                          ThÃ nh phá»‘ *
                         </label>
                         <input
                           type="text"
                           id="branchCity"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.city || ""}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Quốc gia *
+                          Quá»‘c gia *
                         </label>
                         <input
                           type="text"
                           id="branchCountry"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.country || ""}
                         />
                       </div>
@@ -1397,34 +1397,34 @@ export default function CommandPage() {
                     <div className="grid grid-cols-3 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Tầng
+                          Táº§ng
                         </label>
                         <input
                           type="number"
                           id="branchFloors"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.totalFloors || 1}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Số phòng
+                          Sá»‘ phÃ²ng
                         </label>
                         <input
                           type="number"
                           id="branchRooms"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.totalRooms || 0}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Diện tích (m²)
+                          Diá»‡n tÃ­ch (mÂ²)
                         </label>
                         <input
                           type="number"
                           id="branchArea"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.totalArea || 0}
                         />
                       </div>
@@ -1432,34 +1432,34 @@ export default function CommandPage() {
                     <div className="grid grid-cols-3 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Thang máy
+                          Thang mÃ¡y
                         </label>
                         <input
                           type="number"
                           id="branchElevators"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.elevatorCount || 0}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Chỗ đỗ xe
+                          Chá»— Ä‘á»— xe
                         </label>
                         <input
                           type="number"
                           id="branchParking"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.parkingCapacity || 0}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Nhân viên
+                          NhÃ¢n viÃªn
                         </label>
                         <input
                           type="number"
                           id="branchStaff"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.staffCount || 0}
                         />
                       </div>
@@ -1467,23 +1467,23 @@ export default function CommandPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Quản lý bởi
+                          Quáº£n lÃ½ bá»Ÿi
                         </label>
                         <input
                           type="text"
                           id="branchManager"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.managedBy || ""}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Ngày khai trương
+                          NgÃ y khai trÆ°Æ¡ng
                         </label>
                         <input
                           type="date"
                           id="branchOpeningDate"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700"
                           defaultValue={branch?.openingDate || ""}
                         />
                       </div>
@@ -1497,13 +1497,13 @@ export default function CommandPage() {
                 onClick={closeBranchModal}
                 className="px-4 py-2 border rounded-lg dark:border-gray-600"
               >
-                Hủy
+                Há»§y
               </button>
               <button
                 onClick={saveBranch}
                 className="px-4 py-2 bg-purple-600 text-white rounded-lg"
               >
-                Lưu
+                LÆ°u
               </button>
             </div>
           </div>
@@ -1513,7 +1513,7 @@ export default function CommandPage() {
       {/* DELETE CONFIRMATION MODAL */}
       {isDeleteModalOpen && deleteModalData && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-6 max-w-md w-full dark:bg-gray-800">
+          <div className="bg-slate-800 rounded-2xl p-6 max-w-md w-full border border-slate-700">
             <h2 className="text-xl font-bold mb-2">{deleteModalData.title}</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6">{deleteModalData.message}</p>
             <div className="flex gap-3 justify-end">
@@ -1521,13 +1521,13 @@ export default function CommandPage() {
                 onClick={closeDeleteModal}
                 className="px-4 py-2 border rounded-lg dark:border-gray-600"
               >
-                Hủy
+                Há»§y
               </button>
               <button
                 onClick={confirmDelete}
                 className="px-4 py-2 bg-red-600 text-white rounded-lg"
               >
-                Xóa
+                XÃ³a
               </button>
             </div>
           </div>
@@ -1536,3 +1536,5 @@ export default function CommandPage() {
     </div>
   );
 }
+
+

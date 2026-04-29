@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
@@ -38,8 +38,6 @@ export default function AdminPage() {
     isChecking,
     activeTab,
     setActiveTab,
-    isDarkMode,
-    toggleDarkMode,
     isUserMenuOpen,
     setIsUserMenuOpen,
     isNotifDropdownOpen,
@@ -105,7 +103,7 @@ export default function AdminPage() {
     formatDate,
   } = useAdminDashboard();
 
-  // ---------- Dữ liệu mẫu ----------
+  // ---------- Dá»¯ liá»‡u máº«u ----------
 
   // ---------- Modal handlers ----------
   const openDeleteModal = (
@@ -156,7 +154,7 @@ export default function AdminPage() {
     const email = emailInput?.value || "";
 
     if (!name || !email) {
-      showToast("Vui lòng điền họ tên và email", "error");
+      showToast("Vui lÃ²ng Ä‘iá»n há» tÃªn vÃ  email", "error");
       return;
     }
 
@@ -174,7 +172,7 @@ export default function AdminPage() {
             : c,
         ),
       );
-      showToast("Cập nhật khách hàng thành công");
+      showToast("Cáº­p nháº­t khÃ¡ch hÃ ng thÃ nh cÃ´ng");
     } else {
       const newId = Math.max(...customers.map((c) => c.id), 0) + 1;
       setCustomers((prev) => [
@@ -190,18 +188,18 @@ export default function AdminPage() {
           joinDate: new Date().toISOString().split("T")[0],
         },
       ]);
-      showToast("Thêm khách hàng thành công");
+      showToast("ThÃªm khÃ¡ch hÃ ng thÃ nh cÃ´ng");
     }
     closeCustomerModal();
   };
 
   const deleteCustomer = (id: number) => {
     openDeleteModal(
-      "Xóa khách hàng",
-      "Bạn có chắc chắn muốn xóa khách hàng này?",
+      "XÃ³a khÃ¡ch hÃ ng",
+      "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a khÃ¡ch hÃ ng nÃ y?",
       () => {
         setCustomers((prev) => prev.filter((c) => c.id !== id));
-        showToast("Đã xóa khách hàng");
+        showToast("ÄÃ£ xÃ³a khÃ¡ch hÃ ng");
       },
     );
   };
@@ -232,7 +230,7 @@ export default function AdminPage() {
     const email = emailInput?.value || "";
 
     if (!name || !email) {
-      showToast("Vui lòng điền đầy đủ thông tin", "error");
+      showToast("Vui lÃ²ng Ä‘iá»n Ä‘áº§y Ä‘á»§ thÃ´ng tin", "error");
       return;
     }
 
@@ -250,10 +248,10 @@ export default function AdminPage() {
             : s,
         ),
       );
-      showToast("Cập nhật nhân viên thành công");
+      showToast("Cáº­p nháº­t nhÃ¢n viÃªn thÃ nh cÃ´ng");
     } else {
       if (!passwordInput?.value) {
-        showToast("Vui lòng nhập mật khẩu", "error");
+        showToast("Vui lÃ²ng nháº­p máº­t kháº©u", "error");
         return;
       }
       const newId = Math.max(...staffs.map((s) => s.id), 0) + 1;
@@ -269,18 +267,18 @@ export default function AdminPage() {
           joinDate: new Date().toISOString().split("T")[0],
         },
       ]);
-      showToast("Thêm nhân viên thành công");
+      showToast("ThÃªm nhÃ¢n viÃªn thÃ nh cÃ´ng");
     }
     closeStaffModal();
   };
 
   const deleteStaff = (id: number) => {
     openDeleteModal(
-      "Xóa nhân viên",
-      "Bạn có chắc chắn muốn xóa nhân viên này?",
+      "XÃ³a nhÃ¢n viÃªn",
+      "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a nhÃ¢n viÃªn nÃ y?",
       () => {
         setStaffs((prev) => prev.filter((s) => s.id !== id));
-        showToast("Đã xóa nhân viên");
+        showToast("ÄÃ£ xÃ³a nhÃ¢n viÃªn");
       },
     );
   };
@@ -314,7 +312,7 @@ export default function AdminPage() {
     const end = endInput?.value || "";
 
     if (!name || !code || !value) {
-      showToast("Vui lòng điền đầy đủ thông tin", "error");
+      showToast("Vui lÃ²ng Ä‘iá»n Ä‘áº§y Ä‘á»§ thÃ´ng tin", "error");
       return;
     }
 
@@ -337,7 +335,7 @@ export default function AdminPage() {
             : p,
         ),
       );
-      showToast("Cập nhật khuyến mãi thành công");
+      showToast("Cáº­p nháº­t khuyáº¿n mÃ£i thÃ nh cÃ´ng");
     } else {
       const newId = Math.max(...promotions.map((p) => p.id), 0) + 1;
       setPromotions((prev) => [
@@ -353,18 +351,18 @@ export default function AdminPage() {
           status,
         },
       ]);
-      showToast("Thêm khuyến mãi thành công");
+      showToast("ThÃªm khuyáº¿n mÃ£i thÃ nh cÃ´ng");
     }
     closePromoModal();
   };
 
   const deletePromotion = (id: number) => {
     openDeleteModal(
-      "Xóa khuyến mãi",
-      "Bạn có chắc chắn muốn xóa khuyến mãi này?",
+      "XÃ³a khuyáº¿n mÃ£i",
+      "Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n xÃ³a khuyáº¿n mÃ£i nÃ y?",
       () => {
         setPromotions((prev) => prev.filter((p) => p.id !== id));
-        showToast("Đã xóa khuyến mãi");
+        showToast("ÄÃ£ xÃ³a khuyáº¿n mÃ£i");
       },
     );
   };
@@ -401,14 +399,14 @@ export default function AdminPage() {
 
   if (isChecking) {
     return (
-      <div className=" flex items-center justify-center bg-gray-50">
+      <div className=" flex items-center justify-center bg-slate-900">
         <div className="loading-spinner" />
       </div>
     );
   }
   if (!admin) return null;
 
-  // Tính toán cho dashboard
+  // TÃ­nh toÃ¡n cho dashboard
   const totalRevenue = bookings.reduce(
     (sum, b) =>
       sum +
@@ -426,7 +424,7 @@ export default function AdminPage() {
     labels: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"],
     datasets: [
       {
-        label: "Doanh thu (triệu)",
+        label: "Doanh thu (triá»‡u)",
         data: [45, 52, 48, 70, 65, 58, 62],
         borderColor: "#10b981",
         backgroundColor: "rgba(16,185,129,0.1)",
@@ -453,82 +451,82 @@ export default function AdminPage() {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <div>
-                <h1 className="text-2xl font-bold">Tổng quan</h1>
+                <h1 className="text-2xl font-bold">Tá»•ng quan</h1>
                 <p className="text-gray-500 text-sm">
-                  Xem tổng quan hoạt động kinh doanh
+                  Xem tá»•ng quan hoáº¡t Ä‘á»™ng kinh doanh
                 </p>
               </div>
               <button
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm"
                 onClick={() => {
-                  showToast("Đã làm mới dữ liệu");
+                  showToast("ÄÃ£ lÃ m má»›i dá»¯ liá»‡u");
                 }}
               >
-                <i className="fas fa-sync-alt mr-2"></i>Làm mới
+                <i className="fas fa-sync-alt mr-2"></i>LÃ m má»›i
               </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="stat-card bg-white p-5 rounded-xl shadow-sm border dark:bg-gray-800">
+              <div className="stat-card bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-700">
                 <div className="flex justify-between">
                   <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                     <i className="fas fa-dollar-sign text-blue-600"></i>
                   </div>
                   <span className="text-green-600 text-sm">+12.5%</span>
                 </div>
-                <p className="text-gray-500 text-sm mt-2 dark:text-gray-400">
-                  Doanh thu hôm nay
+                <p className="text-slate-400 text-sm mt-2">
+                  Doanh thu hÃ´m nay
                 </p>
-                <p className="text-2xl font-bold">
+                <p className="text-2xl font-bold text-slate-100">
                   {formatCurrency(totalRevenue)}
                 </p>
               </div>
-              <div className="stat-card bg-white p-5 rounded-xl shadow-sm border dark:bg-gray-800">
+              <div className="stat-card bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-700">
                 <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                   <i className="fas fa-calendar-check text-green-600"></i>
                 </div>
-                <p className="text-gray-500 text-sm mt-2 dark:text-gray-400">
-                  Đặt phòng mới
+                <p className="text-slate-400 text-sm mt-2">
+                  Äáº·t phÃ²ng má»›i
                 </p>
-                <p className="text-2xl font-bold">{bookings.length}</p>
+                <p className="text-2xl font-bold text-slate-100">{bookings.length}</p>
                 <p className="text-xs text-yellow-600">
-                  Chờ: {pendingBookings}
+                  Chá»: {pendingBookings}
                 </p>
               </div>
-              <div className="stat-card bg-white p-5 rounded-xl shadow-sm border dark:bg-gray-800">
+              <div className="stat-card bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-700">
                 <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
                   <i className="fas fa-bed text-yellow-600"></i>
                 </div>
-                <p className="text-gray-500 text-sm mt-2 dark:text-gray-400">
-                  Phòng trống
+                <p className="text-slate-400 text-sm mt-2">
+                  PhÃ²ng trá»‘ng
                 </p>
-                <p className="text-2xl font-bold">{availableRooms}</p>
-                <p className="text-xs text-gray-400">Tổng: {rooms.length}</p>
+                <p className="text-2xl font-bold text-slate-100">{availableRooms}</p>
+                <p className="text-xs text-slate-400">Tá»•ng: {rooms.length}</p>
               </div>
-              <div className="stat-card bg-white p-5 rounded-xl shadow-sm border dark:bg-gray-800">
+              <div className="stat-card bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-700">
                 <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
                   <i className="fas fa-users text-purple-600"></i>
                 </div>
-                <p className="text-gray-500 text-sm mt-2 dark:text-gray-400">
-                  Khách hàng mới
+                <p className="text-slate-400 text-sm mt-2">
+                  KhÃ¡ch hÃ ng má»›i
                 </p>
-                <p className="text-2xl font-bold">{newCustomers}</p>
-                <p className="text-xs text-gray-400">
-                  Tổng: {customers.length}
+                <p className="text-2xl font-bold text-slate-100">{newCustomers}</p>
+                <p className="text-xs text-slate-400">
+                  Tá»•ng: {customers.length}
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-white p-5 rounded-xl shadow-sm dark:bg-gray-800">
+              <div className="bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-700">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-bold">Biểu đồ doanh thu</h3>
+                  <h3 className="font-bold text-slate-100">Biá»ƒu Ä‘á»“ doanh thu</h3>
                   <div className="flex gap-1">
                     <button className="text-xs px-3 py-1 rounded bg-emerald-600 text-white">
-                      7 ngày
+                      7 ngÃ y
                     </button>
-                    <button className="text-xs px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
-                      30 ngày
+                    <button className="text-xs px-3 py-1 rounded hover:bg-slate-700 text-slate-100 border border-slate-700">
+                      30 ngÃ y
                     </button>
                   </div>
                 </div>
@@ -543,14 +541,14 @@ export default function AdminPage() {
                   />
                 </div>
               </div>
-              <div className="bg-white p-5 rounded-xl shadow-sm dark:bg-gray-800">
-                <h3 className="font-bold mb-4">Phòng được đặt nhiều nhất</h3>
+              <div className="bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-700">
+                <h3 className="font-bold mb-4 text-slate-100">PhÃ²ng Ä‘Æ°á»£c Ä‘áº·t nhiá»u nháº¥t</h3>
                 <div className="space-y-3">
                   {rooms.slice(0, 4).map((r, idx) => (
                     <div key={r.id}>
                       <div className="flex justify-between text-sm">
                         <span>{r.name}</span>
-                        <span>{Math.floor(Math.random() * 50)} lượt</span>
+                        <span>{Math.floor(Math.random() * 50)} lÆ°á»£t</span>
                       </div>
                       <div className="progress-bar mt-1">
                         <div
@@ -564,11 +562,11 @@ export default function AdminPage() {
                   ))}
                 </div>
                 <div className="mt-4 pt-4 border-t">
-                  <h4 className="font-medium text-sm mb-2">Tỉ lệ lấp đầy</h4>
+                  <h4 className="font-medium text-sm mb-2">Tá»‰ lá»‡ láº¥p Ä‘áº§y</h4>
                   <div className="flex gap-4">
                     <div className="flex-1">
                       <div className="flex justify-between text-xs">
-                        <span>Hôm nay</span>
+                        <span>HÃ´m nay</span>
                         <span>
                           {Math.round((occupiedRooms / rooms.length) * 100)}%
                         </span>
@@ -588,28 +586,28 @@ export default function AdminPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-white rounded-xl shadow-sm dark:bg-gray-800">
+              <div className="bg-slate-800 rounded-xl shadow-sm border border-slate-700">
                 <div className="px-6 py-4 border-b flex justify-between">
-                  <h3 className="font-bold">Đặt phòng gần đây</h3>
+                  <h3 className="font-bold">Äáº·t phÃ²ng gáº§n Ä‘Ã¢y</h3>
                   <a
                     href="#"
                     onClick={() => setActiveTab("bookings")}
                     className="text-emerald-600 text-sm"
                   >
-                    Xem tất cả
+                    Xem táº¥t cáº£
                   </a>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="bg-gray-50 dark:bg-gray-700">
+                    <thead className="bg-slate-800">
                       <tr>
-                        <th className="px-4 py-3 text-left text-xs">Mã</th>
-                        <th className="px-4 py-3 text-left text-xs">Khách</th>
-                        <th className="px-4 py-3 text-left text-xs">Phòng</th>
+                        <th className="px-4 py-3 text-left text-xs">MÃ£</th>
+                        <th className="px-4 py-3 text-left text-xs">KhÃ¡ch</th>
+                        <th className="px-4 py-3 text-left text-xs">PhÃ²ng</th>
                         <th className="px-4 py-3 text-left text-xs">
-                          Trạng thái
+                          Tráº¡ng thÃ¡i
                         </th>
-                        <th className="px-4 py-3 text-right text-xs">Tổng</th>
+                        <th className="px-4 py-3 text-right text-xs">Tá»•ng</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -626,10 +624,10 @@ export default function AdminPage() {
                               className={`badge ${b.status === "confirmed" ? "badge-success" : b.status === "pending" ? "badge-warning" : "badge-info"}`}
                             >
                               {b.status === "confirmed"
-                                ? "Đã xác nhận"
+                                ? "ÄÃ£ xÃ¡c nháº­n"
                                 : b.status === "pending"
-                                  ? "Chờ"
-                                  : "Hoàn thành"}
+                                  ? "Chá»"
+                                  : "HoÃ n thÃ nh"}
                             </span>
                           </td>
                           <td className="px-4 py-2 text-right">
@@ -641,9 +639,9 @@ export default function AdminPage() {
                   </table>
                 </div>
               </div>
-              <div className="bg-white rounded-xl shadow-sm dark:bg-gray-800">
+              <div className="bg-slate-800 rounded-xl shadow-sm border border-slate-700">
                 <div className="px-6 py-4 border-b">
-                  <h3 className="font-bold">Hoạt động gần đây</h3>
+                  <h3 className="font-bold">Hoáº¡t Ä‘á»™ng gáº§n Ä‘Ã¢y</h3>
                 </div>
                 <div className="p-4 space-y-3">
                   {activities.map((a, idx) => (
@@ -662,31 +660,31 @@ export default function AdminPage() {
             <div className="grid grid-cols-4 gap-4">
               <button
                 onClick={() => router.push("/admin/command")}
-                className="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md text-center dark:bg-gray-800"
+                className="bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-700 hover:shadow-md text-center"
               >
                 <i className="fas fa-plus-circle text-emerald-600 text-2xl mb-2 block"></i>
-                <span className="text-sm">Tạo đặt phòng</span>
+                <span className="text-sm">Táº¡o Ä‘áº·t phÃ²ng</span>
               </button>
               <button
                 onClick={() => router.push("/admin/command")}
-                className="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md text-center dark:bg-gray-800"
+                className="bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-700 hover:shadow-md text-center"
               >
                 <i className="fas fa-bed text-emerald-600 text-2xl mb-2 block"></i>
-                <span className="text-sm">Thêm phòng</span>
+                <span className="text-sm">ThÃªm phÃ²ng</span>
               </button>
               <button
                 onClick={() => openCustomerModal(null)}
-                className="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md text-center dark:bg-gray-800"
+                className="bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-700 hover:shadow-md text-center"
               >
                 <i className="fas fa-user-plus text-emerald-600 text-2xl mb-2 block"></i>
-                <span className="text-sm">Thêm khách</span>
+                <span className="text-sm">ThÃªm khÃ¡ch</span>
               </button>
               <button
                 onClick={() => setActiveTab("reports")}
-                className="bg-white p-4 rounded-xl shadow-sm border hover:shadow-md text-center dark:bg-gray-800"
+                className="bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-700 hover:shadow-md text-center"
               >
                 <i className="fas fa-chart-line text-emerald-600 text-2xl mb-2 block"></i>
-                <span className="text-sm">Xem báo cáo</span>
+                <span className="text-sm">Xem bÃ¡o cÃ¡o</span>
               </button>
             </div>
           </div>
@@ -697,12 +695,12 @@ export default function AdminPage() {
         return (
           <div className="space-y-6">
             <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quản lý đặt phòng</h1>
+              <h1 className="text-2xl font-bold">Quáº£n lÃ½ Ä‘áº·t phÃ²ng</h1>
               <button
                 onClick={() => router.push("/admin/command")}
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
               >
-                <i className="fas fa-external-link-alt mr-2"></i>Đi tới Bảng điều khiển
+                <i className="fas fa-external-link-alt mr-2"></i>Äi tá»›i Báº£ng Ä‘iá»u khiá»ƒn
               </button>
             </div>
           </div>
@@ -713,12 +711,12 @@ export default function AdminPage() {
         return (
           <div className="space-y-6">
             <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quản lý phòng</h1>
+              <h1 className="text-2xl font-bold">Quáº£n lÃ½ phÃ²ng</h1>
               <button
                 onClick={() => router.push("/admin/command")}
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
               >
-                <i className="fas fa-external-link-alt mr-2"></i>Đi tới Bảng điều khiển
+                <i className="fas fa-external-link-alt mr-2"></i>Äi tá»›i Báº£ng Ä‘iá»u khiá»ƒn
               </button>
             </div>
           </div>
@@ -728,35 +726,35 @@ export default function AdminPage() {
         return (
           <div className="space-y-6">
             <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quản lý khách hàng</h1>
+              <h1 className="text-2xl font-bold">Quáº£n lÃ½ khÃ¡ch hÃ ng</h1>
               <button
                 onClick={() => openCustomerModal(null)}
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
               >
-                <i className="fas fa-plus mr-2"></i>Thêm khách hàng
+                <i className="fas fa-plus mr-2"></i>ThÃªm khÃ¡ch hÃ ng
               </button>
             </div>
-            <div className="bg-white p-4 rounded-xl shadow-sm dark:bg-gray-800">
+            <div className="bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-700">
               <input
                 type="text"
-                placeholder="Tìm kiếm khách hàng..."
-                className="w-full md:w-1/3 border rounded-lg px-4 py-2 text-sm dark:bg-gray-700 dark:border-gray-600"
+                placeholder="TÃ¬m kiáº¿m khÃ¡ch hÃ ng..."
+                className="w-full md:w-1/3 border rounded-lg px-4 py-2 text-sm bg-slate-700 border-slate-600"
               />
             </div>
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden dark:bg-gray-800">
+            <div className="bg-slate-800 rounded-xl shadow-sm overflow-hidden border border-slate-700">
               <table className="w-full">
-                <thead className="bg-gray-50 dark:bg-gray-700">
+                <thead className="bg-slate-700">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs">Khách hàng</th>
+                    <th className="px-6 py-3 text-left text-xs">KhÃ¡ch hÃ ng</th>
                     <th className="px-6 py-3 text-left text-xs">Email</th>
-                    <th className="px-6 py-3 text-left text-xs">Điện thoại</th>
+                    <th className="px-6 py-3 text-left text-xs">Äiá»‡n thoáº¡i</th>
                     <th className="px-6 py-3 text-left text-xs">
-                      Số đặt phòng
+                      Sá»‘ Ä‘áº·t phÃ²ng
                     </th>
                     <th className="px-6 py-3 text-right text-xs">
-                      Tổng chi tiêu
+                      Tá»•ng chi tiÃªu
                     </th>
-                    <th className="px-6 py-3 text-center text-xs">Thao tác</th>
+                    <th className="px-6 py-3 text-center text-xs">Thao tÃ¡c</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -802,27 +800,27 @@ export default function AdminPage() {
         return (
           <div className="space-y-6">
             <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quản lý nhân viên</h1>
+              <h1 className="text-2xl font-bold">Quáº£n lÃ½ nhÃ¢n viÃªn</h1>
               <button
                 onClick={() => openStaffModal(null)}
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
               >
-                <i className="fas fa-plus mr-2"></i>Thêm nhân viên
+                <i className="fas fa-plus mr-2"></i>ThÃªm nhÃ¢n viÃªn
               </button>
             </div>
-            <div className="bg-white p-4 rounded-xl shadow-sm dark:bg-gray-800">
+            <div className="bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-700">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <input
                   type="text"
-                  placeholder="Tìm kiếm..."
-                  className="border rounded-lg px-4 py-2 text-sm dark:bg-gray-700 dark:border-gray-600"
+                  placeholder="TÃ¬m kiáº¿m..."
+                  className="border rounded-lg px-4 py-2 text-sm bg-slate-700 border-slate-600"
                 />
-                <select className="border rounded-lg px-4 py-2 text-sm dark:bg-gray-700 dark:border-gray-600">
-                  <option value="all">Tất cả vai trò</option>
+                <select className="border rounded-lg px-4 py-2 text-sm bg-slate-700 border-slate-600">
+                  <option value="all">Táº¥t cáº£ vai trÃ²</option>
                   <option value="admin">Admin</option>
-                  <option value="receptionist">Lễ tân</option>
-                  <option value="housekeeping">Dọn phòng</option>
-                  <option value="manager">Quản lý</option>
+                  <option value="receptionist">Lá»… tÃ¢n</option>
+                  <option value="housekeeping">Dá»n phÃ²ng</option>
+                  <option value="manager">Quáº£n lÃ½</option>
                 </select>
               </div>
             </div>
@@ -830,7 +828,7 @@ export default function AdminPage() {
               {staffs.map((s) => (
                 <div
                   key={s.id}
-                  className="bg-white p-6 rounded-xl shadow-sm border dark:bg-gray-800 dark:border-gray-700"
+                  className="bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-700"
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-2xl font-bold text-emerald-600">
@@ -840,17 +838,17 @@ export default function AdminPage() {
                       <h3 className="font-bold">{s.name}</h3>
                       <p className="text-sm text-gray-500">
                         {s.role === "admin"
-                          ? "Quản trị viên"
+                          ? "Quáº£n trá»‹ viÃªn"
                           : s.role === "receptionist"
-                            ? "Lễ tân"
+                            ? "Lá»… tÃ¢n"
                             : s.role === "manager"
-                              ? "Quản lý"
-                              : "Dọn phòng"}
+                              ? "Quáº£n lÃ½"
+                              : "Dá»n phÃ²ng"}
                       </p>
                       <span
                         className={`badge ${s.status === "active" ? "badge-success" : "badge-warning"} text-xs`}
                       >
-                        {s.status === "active" ? "Đang làm việc" : "Tạm nghỉ"}
+                        {s.status === "active" ? "Äang lÃ m viá»‡c" : "Táº¡m nghá»‰"}
                       </span>
                     </div>
                   </div>
@@ -892,25 +890,25 @@ export default function AdminPage() {
         return (
           <div className="space-y-6">
             <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quản lý khuyến mãi</h1>
+              <h1 className="text-2xl font-bold">Quáº£n lÃ½ khuyáº¿n mÃ£i</h1>
               <button
                 onClick={() => openPromoModal(null)}
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
               >
-                <i className="fas fa-plus mr-2"></i>Tạo khuyến mãi
+                <i className="fas fa-plus mr-2"></i>Táº¡o khuyáº¿n mÃ£i
               </button>
             </div>
-            <div className="bg-white p-4 rounded-xl shadow-sm dark:bg-gray-800">
+            <div className="bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-700">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <input
                   type="text"
-                  placeholder="Tìm kiếm..."
-                  className="border rounded-lg px-4 py-2 text-sm dark:bg-gray-700 dark:border-gray-600"
+                  placeholder="TÃ¬m kiáº¿m..."
+                  className="border rounded-lg px-4 py-2 text-sm bg-slate-700 border-slate-600"
                 />
-                <select className="border rounded-lg px-4 py-2 text-sm dark:bg-gray-700 dark:border-gray-600">
-                  <option value="all">Tất cả</option>
-                  <option value="active">Đang hoạt động</option>
-                  <option value="expired">Hết hạn</option>
+                <select className="border rounded-lg px-4 py-2 text-sm bg-slate-700 border-slate-600">
+                  <option value="all">Táº¥t cáº£</option>
+                  <option value="active">Äang hoáº¡t Ä‘á»™ng</option>
+                  <option value="expired">Háº¿t háº¡n</option>
                 </select>
               </div>
             </div>
@@ -920,23 +918,23 @@ export default function AdminPage() {
                   key={p.id}
                   className={`bg-linear-to-r ${p.type === "percent" ? "from-purple-500 to-pink-500" : "from-blue-500 to-cyan-500"} rounded-xl p-5 text-white`}
                 >
-                  <span className="text-xs bg-white/20 px-2 py-1 rounded">
+                  <span className="text-xs bg-slate-700/20 px-2 py-1 rounded">
                     {p.code}
                   </span>
                   <h3 className="text-xl font-bold mt-2">{p.name}</h3>
                   <p className="text-sm mt-1">
                     {p.type === "percent"
-                      ? `Giảm ${p.value}%`
-                      : `Giảm ${formatCurrency(p.value)}`}
+                      ? `Giáº£m ${p.value}%`
+                      : `Giáº£m ${formatCurrency(p.value)}`}
                   </p>
                   <div className="flex justify-between text-xs mt-3">
                     <span>
-                      {formatDate(p.start)} → {formatDate(p.end)}
+                      {formatDate(p.start)} â†’ {formatDate(p.end)}
                     </span>
                     <span
-                      className={`badge ${p.status === "active" ? "bg-green-500" : "bg-gray-500"} text-white`}
+                      className={`badge ${p.status === "active" ? "bg-green-500" : "bg-slate-700"} text-white`}
                     >
-                      {p.status === "active" ? "Đang hoạt động" : "Hết hạn"}
+                      {p.status === "active" ? "Äang hoáº¡t Ä‘á»™ng" : "Háº¿t háº¡n"}
                     </span>
                   </div>
                   <div className="flex justify-end gap-2 mt-3">
@@ -963,22 +961,22 @@ export default function AdminPage() {
         const currentChat = messages.find((m) => m.id === currentChatId);
         return (
           <div className="space-y-6">
-            <h1 className="text-2xl font-bold">Tin nhắn</h1>
-            <div className="bg-white rounded-xl shadow-sm border h-150 dark:bg-gray-800 dark:border-gray-700">
+            <h1 className="text-2xl font-bold">Tin nháº¯n</h1>
+            <div className="bg-slate-800 rounded-xl shadow-sm border border-slate-700 h-150">
               <div className="grid grid-cols-3 h-full">
                 <div className="border-r dark:border-gray-700">
                   <div className="p-4 border-b dark:border-gray-700">
                     <input
                       type="text"
-                      placeholder="Tìm kiếm..."
-                      className="w-full border rounded-lg px-4 py-2 text-sm dark:bg-gray-700 dark:border-gray-600"
+                      placeholder="TÃ¬m kiáº¿m..."
+                      className="w-full border rounded-lg px-4 py-2 text-sm bg-slate-700 border-slate-600"
                     />
                   </div>
                   <div className="overflow-y-auto h-[calc(100%-73px)]">
                     {messages.map((m) => (
                       <div
                         key={m.id}
-                        className={`p-4 hover:bg-gray-50 cursor-pointer border-b dark:hover:bg-gray-700 dark:border-gray-700 ${m.unread > 0 ? "bg-blue-50 dark:bg-blue-900/20" : ""}`}
+                        className={`p-4 hover:bg-slate-800 cursor-pointer border-b border-slate-700 ${m.unread > 0 ? "bg-blue-900/30" : ""}`}
                         onClick={() => loadChat(m.id)}
                       >
                         <div className="flex items-center gap-3">
@@ -1009,7 +1007,7 @@ export default function AdminPage() {
                 <div className="col-span-2 flex flex-col">
                   <div className="p-4 border-b dark:border-gray-700">
                     <h3 className="font-bold">
-                      {currentChat ? currentChat.sender : "Chọn người để chat"}
+                      {currentChat ? currentChat.sender : "Chá»n ngÆ°á»i Ä‘á»ƒ chat"}
                     </h3>
                   </div>
                   <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -1019,7 +1017,7 @@ export default function AdminPage() {
                         className={`flex ${msg.from === "admin" ? "justify-end" : "justify-start"}`}
                       >
                         <div
-                          className={`${msg.from === "admin" ? "bg-emerald-600 text-white" : "bg-gray-100 dark:bg-gray-700"} p-3 rounded-lg max-w-md`}
+                          className={`${msg.from === "admin" ? "bg-emerald-600 text-white" : "bg-slate-700"} p-3 rounded-lg max-w-md`}
                         >
                           <p className="text-sm">{msg.text}</p>
                           <p
@@ -1035,8 +1033,8 @@ export default function AdminPage() {
                     <div className="flex gap-2">
                       <input
                         type="text"
-                        placeholder="Nhập tin nhắn..."
-                        className="flex-1 border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        placeholder="Nháº­p tin nháº¯n..."
+                        className="flex-1 border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                         value={chatInput}
                         onChange={(e) => setChatInput(e.target.value)}
                         onKeyPress={(e) => e.key === "Enter" && sendMessage()}
@@ -1059,13 +1057,13 @@ export default function AdminPage() {
         return null;
     }
   };
-  // ==================== RENDER CHÍNH ====================
+  // ==================== RENDER CHÃNH ====================
   return (
-    <div className={`flex ${isDarkMode ? "dark-mode" : "bg-gray-50"}`}>
+    <div className="flex bg-slate-950">
      
       {/* MAIN CONTENT */}
       <main className="flex-1 flex flex-col overflow-hidden">
-        <header className="bg-white shadow-sm z-10 p-4 px-8 flex justify-between items-center border-b dark:bg-gray-800 dark:border-gray-700">
+        <header className="bg-slate-800 shadow-sm z-10 p-4 px-8 flex justify-between items-center border-b border-slate-700">
           <div className="flex items-center gap-4 flex-1">
             <button className="lg:hidden text-gray-500" onClick={() => {}}>
               <i className="fas fa-bars text-xl"></i>
@@ -1074,8 +1072,8 @@ export default function AdminPage() {
               <i className="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
               <input
                 type="text"
-                placeholder="Tìm kiếm..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:border-emerald-500 outline-none text-sm bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
+                placeholder="TÃ¬m kiáº¿m..."
+                className="w-full pl-10 pr-4 py-2 border border-slate-700 rounded-lg focus:border-emerald-500 outline-none text-sm bg-slate-800 text-slate-100"
                 value={globalSearch}
                 onChange={(e) => {
                   setGlobalSearch(e.target.value);
@@ -1087,15 +1085,15 @@ export default function AdminPage() {
                 }
               />
               {showSearchResults && searchResults.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg border max-h-96 overflow-y-auto z-20 dark:bg-gray-800 dark:border-gray-700">
+                <div className="absolute top-full left-0 right-0 mt-1 bg-slate-800 rounded-lg shadow-lg border border-slate-700 max-h-96 overflow-y-auto z-20">
                   {searchResults.map((res, idx) => (
                     <div
                       key={idx}
-                      className="p-3 hover:bg-gray-50 border-b cursor-pointer dark:hover:bg-gray-700 dark:border-gray-700"
+                      className="p-3 hover:bg-slate-800 border-b border-slate-700 cursor-pointer"
                       onClick={() => {
                         setGlobalSearch(res.title);
                         setShowSearchResults(false);
-                        showToast(`Tìm thấy: ${res.title}`, "info");
+                        showToast(`TÃ¬m tháº¥y: ${res.title}`, "info");
                       }}
                     >
                       <span className="text-xs text-gray-400">{res.type}</span>
@@ -1109,7 +1107,7 @@ export default function AdminPage() {
           <div className="flex items-center gap-4">
             <div className="relative">
               <button
-                className="text-gray-500 hover:text-emerald-600 dark:text-gray-300"
+                className="text-gray-500 hover:text-emerald-600 text-slate-100-300"
                 onClick={() => setIsNotifDropdownOpen(!isNotifDropdownOpen)}
               >
                 <i className="fas fa-bell text-xl"></i>
@@ -1120,19 +1118,19 @@ export default function AdminPage() {
                 )}
               </button>
               {isNotifDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border z-20 dark:bg-gray-800 dark:border-gray-700">
+                <div className="absolute right-0 mt-2 w-80 bg-slate-800 rounded-lg shadow-xl border border-slate-700 z-20">
                   <div className="p-3 border-b flex justify-between dark:border-gray-700">
-                    <span className="font-bold">Thông báo</span>
+                    <span className="font-bold">ThÃ´ng bÃ¡o</span>
                     <button
                       className="text-xs text-emerald-600"
                       onClick={() => {
                         setNotifications((prev) =>
                           prev.map((n) => ({ ...n, read: true })),
                         );
-                        showToast("Đã đánh dấu tất cả đã đọc");
+                        showToast("ÄÃ£ Ä‘Ã¡nh dáº¥u táº¥t cáº£ Ä‘Ã£ Ä‘á»c");
                       }}
                     >
-                      Đánh dấu đã đọc
+                      ÄÃ¡nh dáº¥u Ä‘Ã£ Ä‘á»c
                     </button>
                   </div>
                   <div className="max-h-96 overflow-y-auto">
@@ -1149,13 +1147,13 @@ export default function AdminPage() {
                 </div>
               )}
             </div>
-            <div className="text-sm font-medium text-gray-600 border-l pl-4 dark:text-gray-300 dark:border-gray-600">
+            <div className="text-sm font-medium text-gray-600 border-l pl-4 text-slate-100-300 dark:border-gray-600">
               {currentTime}
             </div>
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-6 bg-gray-50 dark:bg-gray-900">
+        <div className="flex-1 overflow-y-auto p-6 bg-slate-900">
           {renderContent()}
         </div>
       </main>
@@ -1175,7 +1173,7 @@ export default function AdminPage() {
       {isCustomerModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div
-            className="bg-white rounded-2xl max-w-md w-full relative modal-enter dark:bg-gray-800"
+            className="bg-slate-800 rounded-2xl max-w-md w-full relative modal-enter border border-slate-700"
             ref={customerFormRef}
           >
             <button
@@ -1186,7 +1184,7 @@ export default function AdminPage() {
             </button>
             <div className="p-6 border-b dark:border-gray-700">
               <h2 className="text-xl font-bold">
-                {editCustomerId ? "Sửa khách hàng" : "Thêm khách hàng"}
+                {editCustomerId ? "Sá»­a khÃ¡ch hÃ ng" : "ThÃªm khÃ¡ch hÃ ng"}
               </h2>
             </div>
             <div className="p-6 space-y-4">
@@ -1198,12 +1196,12 @@ export default function AdminPage() {
                   <>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Họ tên *
+                        Há» tÃªn *
                       </label>
                       <input
                         type="text"
                         id="customerName"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                         defaultValue={customer?.name || ""}
                       />
                     </div>
@@ -1214,29 +1212,29 @@ export default function AdminPage() {
                       <input
                         type="email"
                         id="customerEmail"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                         defaultValue={customer?.email || ""}
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Số điện thoại
+                        Sá»‘ Ä‘iá»‡n thoáº¡i
                       </label>
                       <input
                         type="tel"
                         id="customerPhone"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                         defaultValue={customer?.phone || ""}
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Địa chỉ
+                        Äá»‹a chá»‰
                       </label>
                       <input
                         type="text"
                         id="customerAddress"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                         defaultValue={customer?.address || ""}
                       />
                     </div>
@@ -1249,13 +1247,13 @@ export default function AdminPage() {
                 onClick={closeCustomerModal}
                 className="px-4 py-2 border rounded-lg dark:border-gray-600"
               >
-                Hủy
+                Há»§y
               </button>
               <button
                 onClick={saveCustomer}
                 className="px-4 py-2 bg-emerald-600 text-white rounded-lg"
               >
-                Lưu
+                LÆ°u
               </button>
             </div>
           </div>
@@ -1266,7 +1264,7 @@ export default function AdminPage() {
       {isStaffModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div
-            className="bg-white rounded-2xl max-w-md w-full relative modal-enter dark:bg-gray-800"
+            className="bg-slate-800 rounded-2xl max-w-md w-full relative modal-enter border border-slate-700"
             ref={staffFormRef}
           >
             <button
@@ -1276,7 +1274,7 @@ export default function AdminPage() {
               <i className="fas fa-times text-xl"></i>
             </button>
             <div className="p-6 border-b dark:border-gray-700">
-              <h2 className="text-xl font-bold">Thêm nhân viên</h2>
+              <h2 className="text-xl font-bold">ThÃªm nhÃ¢n viÃªn</h2>
             </div>
             <div className="p-6 space-y-4">
               {(() => {
@@ -1287,12 +1285,12 @@ export default function AdminPage() {
                   <>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Họ tên *
+                        Há» tÃªn *
                       </label>
                       <input
                         type="text"
                         id="staffName"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                         defaultValue={staff?.name || ""}
                       />
                     </div>
@@ -1303,44 +1301,44 @@ export default function AdminPage() {
                       <input
                         type="email"
                         id="staffEmail"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                         defaultValue={staff?.email || ""}
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Số điện thoại
+                        Sá»‘ Ä‘iá»‡n thoáº¡i
                       </label>
                       <input
                         type="tel"
                         id="staffPhone"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                         defaultValue={staff?.phone || ""}
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Vai trò
+                        Vai trÃ²
                       </label>
                       <select
                         id="staffRole"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                         defaultValue={staff?.role || "receptionist"}
                       >
-                        <option value="receptionist">Lễ tân</option>
-                        <option value="housekeeping">Dọn phòng</option>
-                        <option value="manager">Quản lý</option>
+                        <option value="receptionist">Lá»… tÃ¢n</option>
+                        <option value="housekeeping">Dá»n phÃ²ng</option>
+                        <option value="manager">Quáº£n lÃ½</option>
                       </select>
                     </div>
                     {!editStaffId && (
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Mật khẩu *
+                          Máº­t kháº©u *
                         </label>
                         <input
                           type="password"
                           id="staffPassword"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                         />
                       </div>
                     )}
@@ -1353,13 +1351,13 @@ export default function AdminPage() {
                 onClick={closeStaffModal}
                 className="px-4 py-2 border rounded-lg dark:border-gray-600"
               >
-                Hủy
+                Há»§y
               </button>
               <button
                 onClick={saveStaff}
                 className="px-4 py-2 bg-emerald-600 text-white rounded-lg"
               >
-                Lưu
+                LÆ°u
               </button>
             </div>
           </div>
@@ -1370,7 +1368,7 @@ export default function AdminPage() {
       {isPromoModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div
-            className="bg-white rounded-2xl max-w-md w-full relative modal-enter dark:bg-gray-800"
+            className="bg-slate-800 rounded-2xl max-w-md w-full relative modal-enter border border-slate-700"
             ref={promoFormRef}
           >
             <button
@@ -1380,7 +1378,7 @@ export default function AdminPage() {
               <i className="fas fa-times text-xl"></i>
             </button>
             <div className="p-6 border-b dark:border-gray-700">
-              <h2 className="text-xl font-bold">Thêm khuyến mãi</h2>
+              <h2 className="text-xl font-bold">ThÃªm khuyáº¿n mÃ£i</h2>
             </div>
             <div className="p-6 space-y-4">
               {(() => {
@@ -1391,48 +1389,48 @@ export default function AdminPage() {
                   <>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Tên khuyến mãi *
+                        TÃªn khuyáº¿n mÃ£i *
                       </label>
                       <input
                         type="text"
                         id="promoName"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                         defaultValue={promo?.name || ""}
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Mã code
+                        MÃ£ code
                       </label>
                       <input
                         type="text"
                         id="promoCode"
-                        className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                        className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                         defaultValue={promo?.code || ""}
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Loại
+                          Loáº¡i
                         </label>
                         <select
                           id="promoType"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                           defaultValue={promo?.type || "percent"}
                         >
-                          <option value="percent">Giảm %</option>
-                          <option value="fixed">Giảm tiền</option>
+                          <option value="percent">Giáº£m %</option>
+                          <option value="fixed">Giáº£m tiá»n</option>
                         </select>
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Giá trị
+                          GiÃ¡ trá»‹
                         </label>
                         <input
                           type="number"
                           id="promoValue"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                           defaultValue={promo?.value || ""}
                         />
                       </div>
@@ -1440,23 +1438,23 @@ export default function AdminPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Ngày bắt đầu
+                          NgÃ y báº¯t Ä‘áº§u
                         </label>
                         <input
                           type="date"
                           id="promoStart"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                           defaultValue={promo?.start || ""}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Ngày kết thúc
+                          NgÃ y káº¿t thÃºc
                         </label>
                         <input
                           type="date"
                           id="promoEnd"
-                          className="w-full border rounded-lg px-4 py-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-600"
                           defaultValue={promo?.end || ""}
                         />
                       </div>
@@ -1470,13 +1468,13 @@ export default function AdminPage() {
                 onClick={closePromoModal}
                 className="px-4 py-2 border rounded-lg dark:border-gray-600"
               >
-                Hủy
+                Há»§y
               </button>
               <button
                 onClick={savePromotion}
                 className="px-4 py-2 bg-emerald-600 text-white rounded-lg"
               >
-                Lưu
+                LÆ°u
               </button>
             </div>
           </div>
@@ -1486,7 +1484,7 @@ export default function AdminPage() {
       {/* DELETE CONFIRM MODAL */}
       {isDeleteModalOpen && deleteModalData && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 text-center dark:bg-gray-800">
+          <div className="bg-slate-800 rounded-2xl max-w-md w-full p-6 text-center border border-slate-700">
             <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <i className="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
             </div>
@@ -1497,13 +1495,13 @@ export default function AdminPage() {
                 onClick={closeDeleteModal}
                 className="px-4 py-2 border rounded-lg dark:border-gray-600"
               >
-                Hủy
+                Há»§y
               </button>
               <button
                 onClick={confirmDelete}
                 className="px-4 py-2 bg-red-600 text-white rounded-lg"
               >
-                Xóa
+                XÃ³a
               </button>
             </div>
           </div>
@@ -1512,3 +1510,6 @@ export default function AdminPage() {
     </div>
   );
 }
+
+
+

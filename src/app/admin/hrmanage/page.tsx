@@ -148,7 +148,7 @@ export default function HRManagePage() {
       case "absent-reported":
         return "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400";
       default:
-        return "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-400";
+        return "bg-slate-700 text-slate-400";
     }
   };
 
@@ -622,9 +622,7 @@ export default function HRManagePage() {
   };
 
   return (
-    <div
-      className={`${isDarkMode ? "dark" : ""} bg-slate-100 dark:bg-slate-900 transition-colors duration-300 min-h-screen flex flex-col`}
-    >
+    <div className="bg-slate-100 dark:bg-slate-900 transition-colors duration-300 min-h-screen flex flex-col">
       <header className="bg-slate-900 px-6 py-3 flex sticky top-0 z-50 shadow-md">
         <div className="flex items-center space-x-4">
           <div className="border-l border-slate-700 pl-4">
@@ -666,3 +664,4 @@ export default function HRManagePage() {
     </div>
   );
 }
+
