@@ -4,7 +4,6 @@
 import { useState, useEffect } from "react";
 
 export default function ProfilePage() {
-  
   const [currentDateTime, setCurrentDateTime] = useState("");
 
   useEffect(() => {
@@ -24,15 +23,13 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <div
-      className={`bg-slate-900 transition-colors duration-300 min-h-screen flex flex-col`}
-    >
+    <div className="bg-slate-900 transition-colors duration-300 min-h-screen flex flex-col">
       {/* Header */}
       <header className="bg-slate-900 px-6 py-3 flex sticky top-0 z-50 shadow-md">
         <div className="flex items-center space-x-4">
           <div className="border-l border-slate-700 pl-4">
             <h1 className="text-sm font-black text-white uppercase">
-              Há»“ sÆ¡ cÃ¡ nhÃ¢n
+              Hồ sơ cá nhân
             </h1>
           </div>
         </div>
@@ -50,14 +47,14 @@ export default function ProfilePage() {
             <div className="px-6 py-6 relative">
               <div className="flex items-end gap-6 -mt-20 mb-6">
                 <div className="w-32 h-32 rounded-xl bg-slate-600 border-4 border-slate-700 flex items-center justify-center shadow-md">
-                  <span className="text-5xl font-black text-slate-500">ðŸ‘¤</span>
+                  <span className="text-5xl font-black text-slate-500">👤</span>
                 </div>
                 <div className="flex-1 pb-2">
                   <h2 className="text-2xl font-black text-slate-100">
                     Admin User
                   </h2>
                   <p className="text-sm text-slate-400">
-                    Quáº£n trá»‹ viÃªn há»‡ thá»‘ng
+                    Quản trị viên hệ thống
                   </p>
                 </div>
               </div>
@@ -68,26 +65,26 @@ export default function ProfilePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-slate-800 p-6 rounded-xl shadow-sm border border-blue-900/30">
               <p className="text-[9px] font-bold text-slate-400 uppercase mb-2">
-                TÃ i khoáº£n
+                Tài khoản
               </p>
               <p className="text-2xl font-black text-blue-400">
-                Hoáº¡t Ä‘á»™ng
+                Hoạt động
               </p>
             </div>
             <div className="bg-slate-800 p-6 rounded-xl shadow-sm border border-emerald-900/30">
               <p className="text-[9px] font-bold text-slate-400 uppercase mb-2">
-                ÄÄƒng nháº­p cuá»‘i
+                Đăng nhập cuối
               </p>
               <p className="text-sm font-black text-emerald-400">
-                HÃ´m nay
+                Hôm nay
               </p>
             </div>
             <div className="bg-slate-800 p-6 rounded-xl shadow-sm border border-amber-900/30">
               <p className="text-[9px] font-bold text-slate-400 uppercase mb-2">
-                Quyá»n háº¡n
+                Quyền hạn
               </p>
               <p className="text-sm font-black text-amber-400">
-                Cao nháº¥t
+                Cao nhất
               </p>
             </div>
           </div>
@@ -96,7 +93,7 @@ export default function ProfilePage() {
           <div className="bg-slate-800 rounded-xl shadow-sm overflow-hidden">
             <div className="p-6 border-b border-slate-700 bg-slate-800">
               <h3 className="text-lg font-bold text-slate-100">
-                ThÃ´ng tin tÃ i khoáº£n
+                Thông tin tài khoản
               </h3>
             </div>
             <div className="p-6 space-y-4">
@@ -111,7 +108,7 @@ export default function ProfilePage() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-slate-400 uppercase mb-2">
-                    Sá»‘ Ä‘iá»‡n thoáº¡i
+                    Số điện thoại
                   </p>
                   <p className="text-slate-100 font-medium">
                     +84 (0)123 456 789
@@ -119,15 +116,15 @@ export default function ProfilePage() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-slate-400 uppercase mb-2">
-                    TÃªn Ä‘áº§y Ä‘á»§
+                    Tên đầy đủ
                   </p>
                   <p className="text-slate-100 font-medium">
-                    Nguyá»…n VÄƒn Admin
+                    Nguyễn Văn Admin
                   </p>
                 </div>
                 <div>
                   <p className="text-xs font-bold text-slate-400 uppercase mb-2">
-                    NgÃ y tham gia
+                    Ngày tham gia
                   </p>
                   <p className="text-slate-100 font-medium">
                     15/01/2020
@@ -141,39 +138,23 @@ export default function ProfilePage() {
           <div className="bg-slate-800 rounded-xl shadow-sm overflow-hidden">
             <div className="p-6 border-b border-slate-700 bg-slate-800">
               <h3 className="text-lg font-bold text-slate-100">
-                CÃ i Ä‘áº·t
+                Cài đặt
               </h3>
             </div>
             <div className="p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-bold text-slate-100">
-                    ThÃ´ng bÃ¡o email
-                  </p>
-                  <p className="text-sm text-slate-400">
-                    Nháº­n thÃ´ng bÃ¡o qua email
-                  </p>
+                  <p className="font-bold text-slate-100">Thông báo email</p>
+                  <p className="text-sm text-slate-400">Nhận thông báo qua email</p>
                 </div>
-                <input
-                  type="checkbox"
-                  defaultChecked
-                  className="w-5 h-5 rounded cursor-pointer"
-                />
+                <input type="checkbox" defaultChecked className="w-5 h-5 rounded cursor-pointer" />
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-bold text-slate-100">
-                    Cháº¿ Ä‘á»™ tá»‘i
-                  </p>
-                  <p className="text-sm text-slate-400">
-                    Tá»± Ä‘á»™ng theo há»‡ thá»‘ng
-                  </p>
+                  <p className="font-bold text-slate-100">Chế độ tối</p>
+                  <p className="text-sm text-slate-400">Tự động theo hệ thống</p>
                 </div>
-                <input
-                  type="checkbox"
-                  defaultChecked
-                  className="w-5 h-5 rounded cursor-pointer"
-                />
+                <input type="checkbox" defaultChecked className="w-5 h-5 rounded cursor-pointer" />
               </div>
             </div>
           </div>
@@ -182,40 +163,21 @@ export default function ProfilePage() {
           <div className="bg-slate-800 rounded-xl shadow-sm overflow-hidden">
             <div className="p-6 border-b border-slate-700 bg-slate-800">
               <h3 className="text-lg font-bold text-slate-100">
-                Hoáº¡t Ä‘á»™ng gáº§n Ä‘Ã¢y
+                Hoạt động gần đây
               </h3>
             </div>
-            <div className="divide-y dark:divide-slate-600">
+            <div className="divide-y divide-slate-700">
               {[
-                {
-                  action: "ÄÄƒng nháº­p",
-                  time: "2 phÃºt trÆ°á»›c",
-                  colorClass: "bg-emerald-500",
-                },
-                {
-                  action: "Cáº­p nháº­t há»“ sÆ¡",
-                  time: "1 giá» trÆ°á»›c",
-                  colorClass: "bg-blue-500",
-                },
-                {
-                  action: "Äá»•i máº­t kháº©u",
-                  time: "3 ngÃ y trÆ°á»›c",
-                  colorClass: "bg-amber-500",
-                },
+                { action: "Đăng nhập", time: "2 phút trước", colorClass: "bg-emerald-500" },
+                { action: "Cập nhật hồ sơ", time: "1 giờ trước", colorClass: "bg-blue-500" },
+                { action: "Đổi mật khẩu", time: "3 ngày trước", colorClass: "bg-amber-500" },
               ].map((item, idx) => (
-                <div
-                  key={idx}
-                  className="p-6 flex items-center justify-between hover:bg-slate-800/50 transition"
-                >
+                <div key={idx} className="p-6 flex items-center justify-between hover:bg-slate-800/50 transition">
                   <div className="flex items-center gap-4">
                     <div className={`w-2 h-2 rounded-full ${item.colorClass}`}></div>
                     <div>
-                      <p className="font-bold text-slate-100">
-                        {item.action}
-                      </p>
-                      <p className="text-sm text-slate-400">
-                        {item.time}
-                      </p>
+                      <p className="font-bold text-slate-100">{item.action}</p>
+                      <p className="text-sm text-slate-400">{item.time}</p>
                     </div>
                   </div>
                 </div>
@@ -227,7 +189,3 @@ export default function ProfilePage() {
     </div>
   );
 }
-
-
-
-

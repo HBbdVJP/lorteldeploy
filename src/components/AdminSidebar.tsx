@@ -43,7 +43,7 @@ export default function AdminSidebar({
 ];
 
   return (
-    <aside className="w-72 bg-linear-to-b from-gray-900 to-gray-800 text-white flex flex-col shadow-2xl h-screen sticky top-0">
+    <aside className="w-72  bg-slate-950 text-white flex flex-col shadow-2xl h-screen sticky top-0">
       {/* LOGO */}
       <div className="p-6 border-b border-gray-700">
         <div className="flex items-center gap-3">

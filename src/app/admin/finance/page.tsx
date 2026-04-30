@@ -527,7 +527,7 @@ export default function FinancePage() {
         </div>
       </header>
       {/* Tabs Navigation - Fixed dưới header */}
-      
+
       <div className="tab-container overflow-x-auto no-scrollbar">
         {[
           { id: "overview", label: "Báo cáo tài chính", icon: "fa-chart-line" },
@@ -578,13 +578,13 @@ export default function FinancePage() {
               <h1 className="text-2xl font-bold">Báo cáo & Thống kê</h1>
               <div className="bg-white p-4 rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                  <select className="border border-slate-700">
+                  <select className="border border-slate-700 rounded-lg px-2">
                     <option value="revenue">Doanh thu</option>
                     <option value="bookings">Đặt phòng</option>
                   </select>
                   <select
                     defaultValue="month"
-                    className="border border-slate-700"
+                    className="border border-slate-700 rounded-lg px-2"
                   >
                     <option value="week">Tuần này</option>
                     <option value="month">Tháng này</option>
@@ -1214,8 +1214,3 @@ export default function FinancePage() {
     </div>
   );
 }
-
-
-
-
-
