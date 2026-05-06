@@ -27,10 +27,6 @@ const MOCK_BOOKINGS = [
   }
 ];
 
-const ACTIVE_PROMOS = [
-  { code: "SUMMER30", name: "Giảm 30% Mùa Hè", expiry: "2026-06-30", desc: "Áp dụng cho các hạng phòng Deluxe" },
-  { code: "WELCOME20", name: "Ưu đãi Thành viên", expiry: "2026-12-31", desc: "Giảm 20% cho lần đặt tiếp theo" }
-];
 
 const formatCurrency = (amount: number) => new Intl.NumberFormat("vi-VN").format(amount) + "đ";
 
@@ -39,6 +35,7 @@ export default function ProfilePage() {
   const [user, setUser] = useState<any>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeTab, setActiveTab] = useState<"bookings" | "promos">("bookings");
+  const [coupons, setCoupons] = useState<any[]>([]);
 
   useEffect(() => {
     // Logic check y hệt Header của bạn
@@ -51,6 +48,30 @@ export default function ProfilePage() {
       }
     }
     setIsLoaded(true);
+  }, []);
+
+  // Load coupons from masterdata
+  useEffect(() => {
+    const loadCoupons = async () => {
+      try {
+        const response = await fetch('/api/masterdata');
+        const data = await response.json();
+        const couponList = (data.Coupon ?? []).map((coupon: any) => {
+          const promo = (data.Promo ?? []).find((p: any) => p.PromoID === coupon.PromoID);
+          return {
+            code: coupon.CouponCode,
+            name: promo?.PromoName || 'Ưu đãi đặc biệt',
+            expiry: promo?.EndDate || '2026-12-31',
+            desc: promo?.Description || 'Giảm giá đặc biệt cho khách hàng thân thiết'
+          };
+        });
+        setCoupons(couponList);
+      } catch (error) {
+        console.error('Error loading coupons:', error);
+      }
+    };
+
+    loadCoupons();
   }, []);
 
   // Hàm xử lý Logout đồng bộ với Header
@@ -192,7 +213,7 @@ export default function ProfilePage() {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {ACTIVE_PROMOS.map((promo) => (
+                    {coupons.map((promo) => (
                       <div
                         key={promo.code}
                         className="border-2 border-dashed border-emerald-200 rounded-2xl p-5 bg-emerald-50/50"

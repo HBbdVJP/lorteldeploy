@@ -37,7 +37,7 @@ export default function AdminSidebar({
   const mainNav: NavItem[] = [
   { href: "/admin", icon: "fa-home", label: "Dashboard" },
   { href: "/admin/finance", icon: "fa-file-invoice-dollar", label: "Tài vụ & Kế toán" },
-  { href: "/admin/infastorage", icon: "fa-building", label: "Hạ tầng & Kho bãi" },
+  { href: "/admin/infrastorage", icon: "fa-building", label: "Hạ tầng & Kho bãi" },
   { href: "/admin/hrmanage", icon: "fa-user-tie", label: "Nhân sự" },
   { href: "/admin/command", icon: "fa-bullhorn", label: "Điều lệnh" },
 ];

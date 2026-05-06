@@ -1,24 +1,21 @@
 // src/app/booking/page.tsx
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef, FormEvent } from "react";
 import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import * as L from "leaflet";
+import "leaflet/dist/leaflet.css";
 declare module "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-const ROOMS_DATA = [
-  { id: 1, number: "501", name: "Deluxe Forest View", type: "Deluxe", price: 1200000, area: 35, capacity: 2, floor: 5, rating: 4.5, reviewCount: 128, status: "available", images: ["https://picsum.photos/id/164/800/500", "https://picsum.photos/id/20/800/500", "https://picsum.photos/id/29/800/500"], amenities: ["wifi", "tv", "ac", "bath"], description: "Phòng Deluxe với view rừng thông thoáng, đầy đủ tiện nghi cao cấp, ban công riêng nhìn ra khu vườn nhiệt đới." },
-  { id: 2, number: "502", name: "Deluxe Ocean View", type: "Deluxe", price: 1500000, area: 38, capacity: 2, floor: 6, rating: 4.8, reviewCount: 95, status: "available", images: ["https://picsum.photos/id/20/800/500", "https://picsum.photos/id/104/800/500", "https://picsum.photos/id/29/800/500"], amenities: ["wifi", "tv", "ac", "bath", "minibar"], description: "View biển tuyệt đẹp từ ban công, phòng rộng rãi với giường king size và bồn tắm massage." },
-  { id: 3, number: "503", name: "Standard Garden", type: "Standard", price: 850000, area: 25, capacity: 2, floor: 3, rating: 4.2, reviewCount: 210, status: "available", images: ["https://picsum.photos/id/166/800/500", "https://picsum.photos/id/169/800/500"], amenities: ["wifi", "tv", "ac"], description: "Phòng tiêu chuẩn ấm cúng với view vườn, phù hợp cho du khách muốn tiết kiệm chi phí." },
-  { id: 4, number: "504", name: "Standard Twin", type: "Standard", price: 900000, area: 28, capacity: 2, floor: 4, rating: 4.3, reviewCount: 156, status: "available", images: ["https://picsum.photos/id/169/800/500", "https://picsum.photos/id/157/800/500"], amenities: ["wifi", "tv", "ac"], description: "2 giường đơn tiện nghi, phù hợp cho bạn bè hoặc đồng nghiệp đi công tác." },
-  { id: 5, number: "505", name: "Suite Premium", type: "Suite", price: 2200000, area: 52, capacity: 4, floor: 7, rating: 4.9, reviewCount: 67, status: "available", images: ["https://picsum.photos/id/29/800/500", "https://picsum.photos/id/42/800/500", "https://picsum.photos/id/104/800/500"], amenities: ["wifi", "tv", "ac", "bath", "minibar", "view"], description: "Suite cao cấp với phòng khách riêng, view toàn cảnh resort, bồn tắm ngoài trời." },
-  { id: 6, number: "506", name: "Family Room", type: "Family", price: 1800000, area: 45, capacity: 4, floor: 5, rating: 4.6, reviewCount: 89, status: "available", images: ["https://picsum.photos/id/42/800/500", "https://picsum.photos/id/164/800/500"], amenities: ["wifi", "tv", "ac", "bath", "minibar"], description: "Phòng gia đình rộng rãi với 2 giường lớn, phù hợp cho gia đình 4 người." },
-  { id: 7, number: "507", name: "Executive Suite", type: "Suite", price: 2800000, area: 65, capacity: 4, floor: 8, rating: 5.0, reviewCount: 42, status: "available", images: ["https://picsum.photos/id/104/800/500", "https://picsum.photos/id/29/800/500"], amenities: ["wifi", "tv", "ac", "bath", "minibar", "view"], description: "Suite hạng sang với đầy đủ tiện nghi cao cấp, phòng khách lớn, bếp nhỏ và ban công rộng." },
-  { id: 8, number: "508", name: "Standard Single", type: "Standard", price: 750000, area: 20, capacity: 1, floor: 2, rating: 4.1, reviewCount: 178, status: "available", images: ["https://picsum.photos/id/157/800/500", "https://picsum.photos/id/166/800/500"], amenities: ["wifi", "tv", "ac"], description: "Phòng đơn ấm cúng, phù hợp cho khách du lịch một mình hoặc công tác ngắn ngày." }
+const generateRoomImages = (roomId: number): string[] => [
+  `https://picsum.photos/id/${(roomId * 13) % 300}/800/500`,
+  `https://picsum.photos/id/${(roomId * 19) % 300}/800/500`,
+  `https://picsum.photos/id/${(roomId * 23) % 300}/800/500`
 ];
 
 const PROMOTIONS: Record<string, { type: "percent" | "fixed"; value: number; name: string }> = {
@@ -49,6 +46,8 @@ export default function BookingPage() {
     notes: ""
   });
 
+  const [rooms, setRooms] = useState<any[]>([]);
+
   const [promoCode, setPromoCode] = useState<string>("");
   const [appliedPromo, setAppliedPromo] = useState<any>(null);
 
@@ -68,12 +67,65 @@ export default function BookingPage() {
 
     const savedCart = localStorage.getItem("lortel_cart");
     if (savedCart) setCart(JSON.parse(savedCart));
+
+    // Load rooms from masterdata
+    const loadRooms = async () => {
+      try {
+        const response = await fetch('/api/masterdata');
+        const data = await response.json();
+        const roomTypes = data.RoomType ?? [];
+        const roomList = (data.Room ?? []).map((room: any) => {
+          const roomType = roomTypes.find((type: any) => type.RoomTypeID === room.RoomTypeID);
+          return {
+            id: room.RoomID,
+            number: room.RoomNumber,
+            name: roomType?.TypeName || 'Standard Room',
+            type: roomType?.TypeName || 'Standard',
+            price: Math.round((roomType?.StandardRate || 100) * 10000),
+            area: roomType?.BaseCapacity * 15 || 25,
+            capacity: roomType?.BaseCapacity || 2,
+            floor: Math.floor(room.RoomID / 10) + 1,
+            rating: 4.5,
+            reviewCount: Math.floor(Math.random() * 200) + 50,
+            status: room.StatusID === 1 ? 'available' : 'unavailable',
+            images: generateRoomImages(room.RoomID),
+            amenities: ['wifi', 'tv', 'ac'],
+            description: roomType?.Description || 'Phòng nghỉ dưỡng thoải mái với đầy đủ tiện nghi.'
+          };
+        });
+        setRooms(roomList);
+      } catch (error) {
+        console.error('Error loading rooms:', error);
+        showToast('Không thể tải dữ liệu phòng', 'error');
+      }
+    };
+
+    loadRooms();
   }, []);
 
   // Lưu giỏ hàng
   useEffect(() => {
     localStorage.setItem("lortel_cart", JSON.stringify(cart));
   }, [cart]);
+
+  // Tự động điền thông tin khách hàng đã đăng nhập
+  useEffect(() => {
+    const storedCustomer = localStorage.getItem("customer_data") || sessionStorage.getItem("customer_data");
+    if (storedCustomer) {
+      try {
+        const parsedCustomer = JSON.parse(storedCustomer);
+        const fullName = [parsedCustomer.FirstName, parsedCustomer.LastName].filter(Boolean).join(" ");
+        setBookingForm(prev => ({
+          ...prev,
+          name: fullName,
+          email: parsedCustomer.email,
+          phone: parsedCustomer.Phone
+        }));
+      } catch (error) {
+        console.error('Error parsing customer data:', error);
+      }
+    }
+  }, []);
 
   const showToast = (message: string, type: string = "success") => {
     setToast({ message, type, visible: true });
@@ -82,7 +134,7 @@ export default function BookingPage() {
 
   // Lọc + sắp xếp phòng
   const filteredRooms = useMemo(() => {
-    let result = [...ROOMS_DATA];
+    let result = [...rooms];
     result = result.filter(room => room.capacity >= parseInt(guests));
     if (roomTypeFilter !== "all") result = result.filter(room => room.type === roomTypeFilter);
 
@@ -92,7 +144,7 @@ export default function BookingPage() {
     else if (sortBy === "rating") result.sort((a, b) => b.rating - a.rating);
 
     return result;
-  }, [guests, roomTypeFilter, sortBy]);
+  }, [rooms, guests, roomTypeFilter, sortBy]);
 
   // Tính số đêm (đã sửa lỗi TypeScript)
   const calculateNights = (checkinStr: string, checkoutStr: string): number => {

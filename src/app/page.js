@@ -17,6 +17,10 @@
     const [toast, setToast] = useState({ message: "", type: "", visible: false });
     const [contactData, setContactData] = useState({ name: "", email: "", phone: "", message: "" });
     const [newsletterEmail, setNewsletterEmail] = useState("");
+    const [rooms, setRooms] = useState([]);
+    const [services, setServices] = useState([]);
+    const [coupons, setCoupons] = useState([]);
+    const [isLoadingMasterData, setIsLoadingMasterData] = useState(true);
 
     const showToast = (message, type = 'success') => {
       setToast({ message, type, visible: true });
@@ -67,6 +71,62 @@
         showToast('Vui lòng nhập email hợp lệ', 'error');
       }
     };
+
+    const formatCurrency = (amount) => new Intl.NumberFormat("vi-VN").format(amount) + "đ";
+
+    useEffect(() => {
+      const loadMasterData = async () => {
+        try {
+          const response = await fetch('/api/masterdata');
+          if (!response.ok) throw new Error('Không thể tải masterdata');
+          const data = await response.json();
+
+          const roomTypes = data.RoomType ?? [];
+          const roomList = (data.Room ?? []).map((room) => {
+            const roomType = roomTypes.find((type) => type.RoomTypeID === room.RoomTypeID);
+            return {
+              id: room.RoomID,
+              number: room.RoomNumber,
+              type: roomType?.TypeName || 'Standard',
+              description: roomType?.Description || 'Phòng tiện nghi với đầy đủ tiện ích.',
+              price: Math.round((roomType?.StandardRate || 100) * 10000),
+              status: room.StatusID === 1 ? 'Available' : 'Unavailable',
+            };
+          });
+
+          const categories = data.ServiceCategory ?? [];
+          const prices = data.ServicePrice ?? [];
+          const serviceList = (data.ServiceItem ?? []).map((item) => {
+            const category = categories.find((cat) => cat.CatID === item.CategoryID);
+            const itemPrices = prices.filter((price) => price.ItemID === item.ItemID).map((price) => price.Price);
+            const minPrice = itemPrices.length ? Math.min(...itemPrices) : null;
+            return {
+              id: item.ItemID,
+              name: item.ItemName,
+              category: category?.Name || 'Dịch vụ',
+              description: item.Description || 'Dịch vụ chất lượng cao',
+              price: minPrice,
+            };
+          });
+
+          const promos = data.Promo ?? [];
+          const couponList = (data.Coupon ?? []).map((coupon) => ({
+            ...coupon,
+            promoName: promos.find((promo) => promo.PromoID === coupon.PromoID)?.PromoName || 'Ưu đãi đặc biệt',
+          }));
+
+          setRooms(roomList);
+          setServices(serviceList);
+          setCoupons(couponList);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setIsLoadingMasterData(false);
+        }
+      };
+
+      loadMasterData();
+    }, []);
 
     return (
       <>
@@ -175,83 +235,33 @@
                 <p className="text-gray-600 mt-4">Trải nghiệm không gian nghỉ dưỡng đẳng cấp với các loại phòng đa dạng</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {/* Room 1 */}
-                <div className="room-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                  <div className="relative h-56 overflow-hidden">
-                    <img src="https://picsum.photos/id/164/400/300" className="w-full h-full object-cover hover:scale-110 transition duration-500" alt="Deluxe Forest View" />
-                    <span className="absolute top-4 right-4 bg-emerald-600 text-white px-3 py-1 rounded-full text-sm">Phổ biến</span>
+                {isLoadingMasterData ? (
+                  <div className="col-span-3 rounded-3xl border border-dashed border-emerald-300 bg-emerald-50/50 p-10 text-center text-emerald-700 font-medium">
+                    Đang tải dữ liệu phòng...
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">Deluxe Forest View</h3>
-                    <p className="text-gray-500 text-sm mb-3">View rừng thông • 35m² • 2 người</p>
-                    <div className="flex items-center gap-1 mb-3">
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star-half-alt text-yellow-400"></i>
-                      <span className="text-sm text-gray-500 ml-1">(128 đánh giá)</span>
+                ) : rooms.length > 0 ? (
+                  rooms.slice(0, 3).map((room, index) => (
+                    <div key={room.id} className="room-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                      <div className="relative h-56 overflow-hidden">
+                        <img src={`https://picsum.photos/id/${170 + index}/400/300`} alt={room.type} className="w-full h-full object-cover hover:scale-110 transition duration-500" />
+                        <span className={`absolute top-4 right-4 px-3 py-1 rounded-full text-sm ${room.status === 'Available' ? 'bg-emerald-600 text-white' : 'bg-gray-400 text-white'}`}>
+                          {room.status === 'Available' ? 'Còn phòng' : 'Không còn'}
+                        </span>
+                      </div>
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold mb-2">{room.type} #{room.number}</h3>
+                        <p className="text-gray-500 text-sm mb-3">{room.description}</p>
+                        <div className="flex justify-between items-center mb-4">
+                          <span className="text-2xl font-bold text-emerald-600">{formatCurrency(room.price)}</span>
+                          <span className="text-gray-400 text-sm">/đêm</span>
+                        </div>
+                        <Link href="/booking" className="mt-4 block text-center bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 transition">Đặt ngay</Link>
+                      </div>
                     </div>
-                    <p className="text-gray-600 text-sm mb-4">Phòng rộng rãi với ban công nhìn ra khu rừng thông, đầy đủ tiện nghi cao cấp.</p>
-                    <div className="flex justify-between items-center">
-                      <span className="text-2xl font-bold text-emerald-600">1.200.000đ</span>
-                      <span className="text-gray-400 text-sm">/đêm</span>
-                    </div>
-                    <Link href="/booking" className="mt-4 block text-center bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 transition">Đặt ngay</Link>
-                  </div>
-                </div>
-
-                {/* Room 2 */}
-                <div className="room-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                  <div className="relative h-56 overflow-hidden">
-                    <img src="https://picsum.photos/id/20/400/300" className="w-full h-full object-cover hover:scale-110 transition duration-500" alt="Deluxe Ocean View" />
-                    <span className="absolute top-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm">Best Seller</span>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">Deluxe Ocean View</h3>
-                    <p className="text-gray-500 text-sm mb-3">View biển • 38m² • 2 người</p>
-                    <div className="flex items-center gap-1 mb-3">
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <span className="text-sm text-gray-500 ml-1">(95 đánh giá)</span>
-                    </div>
-                    <p className="text-gray-600 text-sm mb-4">View biển tuyệt đẹp từ ban công, giường king size và bồn tắm massage.</p>
-                    <div className="flex justify-between items-center">
-                      <span className="text-2xl font-bold text-emerald-600">1.500.000đ</span>
-                      <span className="text-gray-400 text-sm">/đêm</span>
-                    </div>
-                    <Link href="/booking" className="mt-4 block text-center bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 transition">Đặt ngay</Link>
-                  </div>
-                </div>
-
-                {/* Room 3 */}
-                <div className="room-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                  <div className="relative h-56 overflow-hidden">
-                    <img src="https://picsum.photos/id/29/400/300" className="w-full h-full object-cover hover:scale-110 transition duration-500" alt="Suite Premium" />
-                    <span className="absolute top-4 right-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm">Premium</span>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">Suite Premium</h3>
-                    <p className="text-gray-500 text-sm mb-3">View toàn cảnh • 52m² • 4 người</p>
-                    <div className="flex items-center gap-1 mb-3">
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <i className="fas fa-star text-yellow-400"></i>
-                      <span className="text-sm text-gray-500 ml-1">(67 đánh giá)</span>
-                    </div>
-                    <p className="text-gray-600 text-sm mb-4">Suite cao cấp với phòng khách riêng, bồn tắm ngoài trời, view resort.</p>
-                    <div className="flex justify-between items-center">
-                      <span className="text-2xl font-bold text-emerald-600">2.200.000đ</span>
-                      <span className="text-gray-400 text-sm">/đêm</span>
-                    </div>
-                    <Link href="/booking" className="mt-4 block text-center bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 transition">Đặt ngay</Link>
-                  </div>
-                </div>
+                  ))
+                ) : (
+                  <div className="col-span-3 text-center text-gray-500 py-10">Không có dữ liệu phòng</div>
+                )}
               </div>
 
               <div className="text-center mt-10">
