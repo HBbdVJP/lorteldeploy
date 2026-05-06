@@ -1,0 +1,781 @@
+{
+  "SystemAccount": [
+    {"AccID":1,"Email":"staff1@hotel.com","Password":"h@sh1","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":2,"Email":"staff2@hotel.com","Password":"h@sh2","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":3,"Email":"staff3@hotel.com","Password":"h@sh3","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":4,"Email":"staff4@hotel.com","Password":"h@sh4","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":5,"Email":"staff5@hotel.com","Password":"h@sh5","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":6,"Email":"staff6@hotel.com","Password":"h@sh6","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":7,"Email":"staff7@hotel.com","Password":"h@sh7","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":8,"Email":"customer1@example.com","Password":"h@sh8","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":9,"Email":"customer2@example.com","Password":"h@sh9","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":10,"Email":"customer3@example.com","Password":"h@sh10","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":11,"Email":"customer4@example.com","Password":"h@sh11","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":12,"Email":"customer5@example.com","Password":"h@sh12","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":13,"Email":"customer6@example.com","Password":"h@sh13","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":14,"Email":"customer7@example.com","Password":"h@sh14","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":15,"Email":"customer8@example.com","Password":"h@sh15","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":16,"Email":"customer9@example.com","Password":"h@sh16","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":17,"Email":"customer10@example.com","Password":"h@sh17","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":18,"Email":"customer11@example.com","Password":"h@sh18","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":19,"Email":"customer12@example.com","Password":"h@sh19","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":20,"Email":"customer13@example.com","Password":"h@sh20","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":21,"Email":"customer14@example.com","Password":"h@sh21","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":22,"Email":"customer15@example.com","Password":"h@sh22","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":23,"Email":"customer16@example.com","Password":"h@sh23","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":24,"Email":"customer17@example.com","Password":"h@sh24","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":25,"Email":"customer18@example.com","Password":"h@sh25","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {
+  "AccID": 101,
+  "Email": "admin@lortel.com",
+  "Password": "admin123",
+  "IsActive": true,
+  "LastLoginAt": null,
+  "CreatedAt": "2026-05-06T12:00:00.0000000"
+},
+{
+  "AccID": 102,
+  "Email": "letan@lortel.com",
+  "Password": "letan123",
+  "IsActive": true,
+  "LastLoginAt": null,
+  "CreatedAt": "2026-05-06T12:00:00.0000000"
+},
+{
+  "AccID": 103,
+  "Email": "khachhang@lortel.com",
+  "Password": "khachhang123",
+  "IsActive": true,
+  "LastLoginAt": null,
+  "CreatedAt": "2026-05-06T12:00:00.0000000"
+},
+{
+  "AccID": 104,
+  "Email": "vip@lortel.com",
+  "Password": "vip123",
+  "IsActive": true,
+  "LastLoginAt": null,
+  "CreatedAt": "2026-05-06T12:00:00.0000000"
+}
+  ],
+  "Booking": [
+    {"BookingID":1,"CustomerID":1,"BranchID":1,"BookingDate":"2025-01-10T00:00:00.0000000","CheckIn":"2025-01-15","CheckOut":"2025-01-18","NumberOfAdults":2,"NumberOfChildren":1,"SpecialRequest":"Late check-in","StatusID":2,"Source":"Website"},
+    {"BookingID":2,"CustomerID":2,"BranchID":1,"BookingDate":"2025-01-20T00:00:00.0000000","CheckIn":"2025-01-22","CheckOut":"2025-01-25","NumberOfAdults":1,"NumberOfChildren":0,"SpecialRequest":null,"StatusID":1,"Source":"OTA"},
+    {"BookingID":3,"CustomerID":3,"BranchID":2,"BookingDate":"2025-02-01T00:00:00.0000000","CheckIn":"2025-02-05","CheckOut":"2025-02-10","NumberOfAdults":2,"NumberOfChildren":2,"SpecialRequest":"Connecting rooms","StatusID":2,"Source":"Direct"},
+    {"BookingID":4,"CustomerID":4,"BranchID":1,"BookingDate":"2025-02-10T00:00:00.0000000","CheckIn":"2025-02-14","CheckOut":"2025-02-16","NumberOfAdults":2,"NumberOfChildren":0,"SpecialRequest":"Anniversary","StatusID":3,"Source":"Website"},
+    {"BookingID":5,"CustomerID":5,"BranchID":3,"BookingDate":"2025-03-01T00:00:00.0000000","CheckIn":"2025-03-03","CheckOut":"2025-03-05","NumberOfAdults":1,"NumberOfChildren":0,"SpecialRequest":null,"StatusID":2,"Source":"OTA"},
+    {"BookingID":6,"CustomerID":6,"BranchID":2,"BookingDate":"2025-03-10T00:00:00.0000000","CheckIn":"2025-03-12","CheckOut":"2025-03-15","NumberOfAdults":2,"NumberOfChildren":1,"SpecialRequest":"Extra bed","StatusID":4,"Source":"Direct"}
+  ],
+  "BookingGuest": [
+    {"BookingGuestID":1,"BookingID":1,"FullName":"John Doe","DateOfBirth":"1985-04-12","IDNumber":"A123456","IsMainGuest":true},
+    {"BookingGuestID":2,"BookingID":1,"FullName":"Jane Doe","DateOfBirth":"1987-07-19","IDNumber":"B789012","IsMainGuest":false},
+    {"BookingGuestID":3,"BookingID":1,"FullName":"Tom Doe","DateOfBirth":"2015-11-02","IDNumber":"","IsMainGuest":false},
+    {"BookingGuestID":4,"BookingID":2,"FullName":"Alice Smith","DateOfBirth":"1990-02-28","IDNumber":"C345678","IsMainGuest":true},
+    {"BookingGuestID":5,"BookingID":3,"FullName":"Bob Brown","DateOfBirth":"1978-09-15","IDNumber":"D901234","IsMainGuest":true},
+    {"BookingGuestID":6,"BookingID":4,"FullName":"Carol White","DateOfBirth":"1982-12-01","IDNumber":"E567890","IsMainGuest":true}
+  ],
+  "BookingRoom": [
+    {"BookingRoomID":1,"BookingID":1,"RoomID":101,"RateApplied":150.00,"GuestName":"John Doe","CheckIn":"2025-01-15","CheckOut":"2025-01-18"},
+    {"BookingRoomID":2,"BookingID":1,"RoomID":102,"RateApplied":150.00,"GuestName":"Jane Doe","CheckIn":"2025-01-15","CheckOut":"2025-01-18"},
+    {"BookingRoomID":3,"BookingID":2,"RoomID":105,"RateApplied":120.00,"GuestName":"Alice Smith","CheckIn":"2025-01-22","CheckOut":"2025-01-25"},
+    {"BookingRoomID":4,"BookingID":3,"RoomID":201,"RateApplied":200.00,"GuestName":"Bob Brown","CheckIn":"2025-02-05","CheckOut":"2025-02-10"},
+    {"BookingRoomID":5,"BookingID":4,"RoomID":110,"RateApplied":180.00,"GuestName":"Carol White","CheckIn":"2025-02-14","CheckOut":"2025-02-16"},
+    {"BookingRoomID":6,"BookingID":5,"RoomID":305,"RateApplied":250.00,"GuestName":"David Lee","CheckIn":"2025-03-03","CheckOut":"2025-03-05"}
+  ],
+  "BookingStatus": [
+    {"StatusID":1,"StatusName":"Pending","Description":"Chờ xác nhận"},
+    {"StatusID":2,"StatusName":"Confirmed","Description":"Đã xác nhận"},
+    {"StatusID":3,"StatusName":"CheckedIn","Description":"Đã nhận phòng"},
+    {"StatusID":4,"StatusName":"Completed","Description":"Đã trả phòng"},
+    {"StatusID":5,"StatusName":"Cancelled","Description":"Đã hủy"},
+    {"StatusID":6,"StatusName":"NoShow","Description":"Không đến"}
+  ],
+  "CheckInOut": [
+    {"CheckID":1,"BookingRoomID":1,"CheckInTime":"2025-01-15T14:00:00.0000000","CheckOutTime":"2025-01-18T10:30:00.0000000","ActualCheckOut":"2025-01-18T10:30:00.0000000"},
+    {"CheckID":2,"BookingRoomID":2,"CheckInTime":"2025-01-15T15:20:00.0000000","CheckOutTime":"2025-01-18T11:00:00.0000000","ActualCheckOut":"2025-01-18T11:00:00.0000000"},
+    {"CheckID":3,"BookingRoomID":3,"CheckInTime":"2025-01-22T13:45:00.0000000","CheckOutTime":"2025-01-25T09:15:00.0000000","ActualCheckOut":"2025-01-25T09:15:00.0000000"},
+    {"CheckID":4,"BookingRoomID":4,"CheckInTime":"2025-02-05T12:30:00.0000000","CheckOutTime":"2025-02-10T10:00:00.0000000","ActualCheckOut":"2025-02-10T10:00:00.0000000"},
+    {"CheckID":5,"BookingRoomID":5,"CheckInTime":"2025-02-14T16:00:00.0000000","CheckOutTime":"2025-02-16T11:30:00.0000000","ActualCheckOut":"2025-02-16T11:30:00.0000000"},
+    {"CheckID":6,"BookingRoomID":6,"CheckInTime":"2025-03-03T14:15:00.0000000","CheckOutTime":"2025-03-05T08:45:00.0000000","ActualCheckOut":"2025-03-05T08:45:00.0000000"}
+  ],
+  "Customer": [
+    {"CustomerID":1,"AccID":8,"FirstName":"John","LastName":"Smith","Phone":"+1 202 555 1234","Nationality":"USA","DateOfBirth":"1985-04-12","IDNumber":"US123456","IDType":"Passport","Address":"123 Main St, New York","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":2,"AccID":9,"FirstName":"Maria","LastName":"Garcia","Phone":"+34 612 345 678","Nationality":"Spain","DateOfBirth":"1990-07-23","IDNumber":"ES987654","IDType":"ID Card","Address":"Calle Mayor 10, Madrid","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":3,"AccID":10,"FirstName":"Wei","LastName":"Zhang","Phone":"+86 138 0000 1111","Nationality":"China","DateOfBirth":"1982-11-02","IDNumber":"CN456789","IDType":"Passport","Address":"Beijing Chaoyang Dist","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":4,"AccID":11,"FirstName":"Marie","LastName":"Dubois","Phone":"+33 6 12 34 56 78","Nationality":"France","DateOfBirth":"1995-03-18","IDNumber":"FR789012","IDType":"ID Card","Address":"15 Rue de Rivoli, Paris","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":5,"AccID":12,"FirstName":"Liam","LastName":"Johnson","Phone":"+61 412 345 678","Nationality":"Australia","DateOfBirth":"1988-09-30","IDNumber":"AU345678","IDType":"Passport","Address":"100 George St, Sydney","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":6,"AccID":13,"FirstName":"Yuki","LastName":"Tanaka","Phone":"+81 90 1234 5678","Nationality":"Japan","DateOfBirth":"1992-12-05","IDNumber":"JP234567","IDType":"Passport","Address":"1-1-1 Shibuya, Tokyo","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":7,"AccID":14,"FirstName":"Anna","LastName":"Ivanova","Phone":"+7 912 345 67 89","Nationality":"Russia","DateOfBirth":"1987-06-17","IDNumber":"RU876543","IDType":"ID Card","Address":"25 Tverskaya St, Moscow","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":8,"AccID":15,"FirstName":"Carlos","LastName":"Lopez","Phone":"+52 55 1234 5678","Nationality":"Mexico","DateOfBirth":"1993-01-22","IDNumber":"MX456789","IDType":"Passport","Address":"Av Reforma 123, Mexico City","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":9,"AccID":16,"FirstName":"Sarah","LastName":"Wilson","Phone":"+44 20 7946 0123","Nationality":"UK","DateOfBirth":"1991-08-14","IDNumber":"UK567890","IDType":"Passport","Address":"221B Baker St, London","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":10,"AccID":17,"FirstName":"Ahmed","LastName":"Khan","Phone":"+92 300 1234567","Nationality":"Pakistan","DateOfBirth":"1984-05-28","IDNumber":"PK123789","IDType":"ID Card","Address":"47 Jinnah Ave, Islamabad","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":11,"AccID":18,"FirstName":"Chi","LastName":"Nguyen","Phone":"+84 903 123 456","Nationality":"Vietnam","DateOfBirth":"1996-10-10","IDNumber":"VN234567","IDType":"ID Card","Address":"123 Le Loi, Hanoi","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":12,"AccID":19,"FirstName":"Elena","LastName":"Popova","Phone":"+7 921 456 78 90","Nationality":"Ukraine","DateOfBirth":"1989-04-25","IDNumber":"UA987654","IDType":"Passport","Address":"10 Khreshchatyk, Kyiv","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":13,"AccID":20,"FirstName":"Mohamed","LastName":"El-Sayed","Phone":"+20 122 345 6789","Nationality":"Egypt","DateOfBirth":"1979-12-01","IDNumber":"EG456123","IDType":"ID Card","Address":"15 Tahrir Square, Cairo","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":14,"AccID":21,"FirstName":"Isabella","LastName":"Rossi","Phone":"+39 333 1234567","Nationality":"Italy","DateOfBirth":"1998-02-19","IDNumber":"IT789456","IDType":"Passport","Address":"Via Roma 5, Rome","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":15,"AccID":22,"FirstName":"David","LastName":"Brown","Phone":"+1 416 555 7890","Nationality":"Canada","DateOfBirth":"1983-11-11","IDNumber":"CA567890","IDType":"ID Card","Address":"77 King St, Toronto","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":16,"AccID":23,"FirstName":"Fatima","LastName":"Al-Mansouri","Phone":"+971 50 123 4567","Nationality":"UAE","DateOfBirth":"1986-07-07","IDNumber":"AE345678","IDType":"Passport","Address":"Corniche Road, Abu Dhabi","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":17,"AccID":24,"FirstName":"Lucas","LastName":"Schmidt","Phone":"+49 151 12345678","Nationality":"Germany","DateOfBirth":"1994-09-21","IDNumber":"DE987654","IDType":"ID Card","Address":"27 Hauptstrasse, Berlin","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":18,"AccID":25,"FirstName":"Emma","LastName":"Andersson","Phone":"+46 70 123 45 67","Nationality":"Sweden","DateOfBirth":"1997-06-05","IDNumber":"SE456789","IDType":"Passport","Address":"12 Drottninggatan, Stockholm","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {
+  "CustomerID": 101,
+  "AccID": 103,
+  "FirstName": "Văn A",
+  "LastName": "Nguyễn",
+  "Phone": "0901123456",
+  "Nationality": "Vietnam",
+  "DateOfBirth": "1990-01-01",
+  "IDNumber": "VN000001",
+  "IDType": "ID Card",
+  "Address": "Hanoi, Vietnam",
+  "CreatedAt": "2026-05-06T12:00:00.0000000"
+},
+{
+  "CustomerID": 102,
+  "AccID": 104,
+  "FirstName": "Thị B",
+  "LastName": "Trần",
+  "Phone": "0902123456",
+  "Nationality": "Vietnam",
+  "DateOfBirth": "1988-02-02",
+  "IDNumber": "VN000002",
+  "IDType": "ID Card",
+  "Address": "Hanoi, Vietnam",
+  "CreatedAt": "2026-05-06T12:00:00.0000000"
+}
+  ],
+  "CustomerPreference": [
+    {"PrefID":1,"CustomerID":1,"PreferenceKey":"Smoking","PreferenceValue":"No"},
+    {"PrefID":2,"CustomerID":1,"PreferenceKey":"BedType","PreferenceValue":"King"},
+    {"PrefID":3,"CustomerID":2,"PreferenceKey":"Allergy","PreferenceValue":"Feather"},
+    {"PrefID":4,"CustomerID":3,"PreferenceKey":"View","PreferenceValue":"Sea"},
+    {"PrefID":5,"CustomerID":4,"PreferenceKey":"Floor","PreferenceValue":"High"},
+    {"PrefID":6,"CustomerID":5,"PreferenceKey":"ExtraPillow","PreferenceValue":"Yes"}
+  ],
+  "Feedback": [
+    {"FeedbackID":1,"BookingID":1,"Rating":5,"Comment":"Excellent service!","CreatedAt":"2025-01-19T00:00:00.0000000"},
+    {"FeedbackID":2,"BookingID":2,"Rating":4,"Comment":"Clean room, friendly staff.","CreatedAt":"2025-01-26T00:00:00.0000000"},
+    {"FeedbackID":3,"BookingID":3,"Rating":5,"Comment":"Great family stay","CreatedAt":"2025-02-11T00:00:00.0000000"},
+    {"FeedbackID":4,"BookingID":4,"Rating":3,"Comment":"Breakfast could be better","CreatedAt":"2025-02-17T00:00:00.0000000"},
+    {"FeedbackID":5,"BookingID":5,"Rating":5,"Comment":"Perfect honeymoon","CreatedAt":"2025-03-06T00:00:00.0000000"},
+    {"FeedbackID":6,"BookingID":6,"Rating":4,"Comment":"Good value","CreatedAt":"2025-03-16T00:00:00.0000000"}
+  ],
+  "LoyaltyProgram": [
+    {"LoyaltyID":1,"CustomerID":1,"PointsBalance":1250,"TierID":2},
+    {"LoyaltyID":2,"CustomerID":2,"PointsBalance":800,"TierID":1},
+    {"LoyaltyID":3,"CustomerID":3,"PointsBalance":5100,"TierID":3},
+    {"LoyaltyID":4,"CustomerID":4,"PointsBalance":10500,"TierID":4},
+    {"LoyaltyID":5,"CustomerID":5,"PointsBalance":250,"TierID":1},
+    {"LoyaltyID":6,"CustomerID":6,"PointsBalance":22000,"TierID":5}
+  ],
+  "LoyaltyTier": [
+    {"TierID":1,"TierName":"Bronze","MinPoints":0,"DiscountPercent":0.00},
+    {"TierID":2,"TierName":"Silver","MinPoints":1000,"DiscountPercent":5.00},
+    {"TierID":3,"TierName":"Gold","MinPoints":5000,"DiscountPercent":10.00},
+    {"TierID":4,"TierName":"Platinum","MinPoints":10000,"DiscountPercent":15.00},
+    {"TierID":5,"TierName":"Diamond","MinPoints":20000,"DiscountPercent":20.00},
+    {"TierID":6,"TierName":"Elite","MinPoints":50000,"DiscountPercent":25.00}
+  ],
+  "LoyaltyTransaction": [
+    {"TransID":1,"CustomerID":1,"PointsEarned":1200,"PointsRedeemed":0,"BookingID":1,"Description":"Earn from booking #1","CreatedAt":"2025-01-18T00:00:00.0000000"},
+    {"TransID":2,"CustomerID":1,"PointsEarned":0,"PointsRedeemed":500,"BookingID":null,"Description":"Redeem for discount","CreatedAt":"2025-01-20T00:00:00.0000000"},
+    {"TransID":3,"CustomerID":2,"PointsEarned":800,"PointsRedeemed":0,"BookingID":2,"Description":"Earn from booking #2","CreatedAt":"2025-01-25T00:00:00.0000000"},
+    {"TransID":4,"CustomerID":3,"PointsEarned":5000,"PointsRedeemed":0,"BookingID":3,"Description":"Earn from booking #3","CreatedAt":"2025-02-10T00:00:00.0000000"},
+    {"TransID":5,"CustomerID":4,"PointsEarned":10000,"PointsRedeemed":0,"BookingID":4,"Description":"Earn from booking #4","CreatedAt":"2025-02-16T00:00:00.0000000"},
+    {"TransID":6,"CustomerID":6,"PointsEarned":20000,"PointsRedeemed":0,"BookingID":6,"Description":"Earn from booking #6","CreatedAt":"2025-03-15T00:00:00.0000000"}
+  ],
+  "AccountChart": [
+    {"AccountID":1,"AccountCode":"1111","AccountName":"Cash","Type":"Asset"},
+    {"AccountID":2,"AccountCode":"1121","AccountName":"Bank","Type":"Asset"},
+    {"AccountID":3,"AccountCode":"5111","AccountName":"Room Revenue","Type":"Revenue"},
+    {"AccountID":4,"AccountCode":"5112","AccountName":"Service Revenue","Type":"Revenue"},
+    {"AccountID":5,"AccountCode":"6411","AccountName":"Salary Expense","Type":"Expense"},
+    {"AccountID":6,"AccountCode":"6421","AccountName":"Utility Expense","Type":"Expense"}
+  ],
+  "Bonus": [
+    {"BonusID":1,"PayrollID":1,"BonusType":"Performance","Amount":1000000.00,"Reason":"High KPI","RefRuleID":1},
+    {"BonusID":2,"PayrollID":2,"BonusType":"Referral","Amount":500000.00,"Reason":"Refer new employee","RefRuleID":null},
+    {"BonusID":3,"PayrollID":4,"BonusType":"ExtraShift","Amount":2000000.00,"Reason":"Holiday work","RefRuleID":2},
+    {"BonusID":4,"PayrollID":5,"BonusType":"Performance","Amount":800000.00,"Reason":"Good service","RefRuleID":1},
+    {"BonusID":5,"PayrollID":6,"BonusType":"PerfectAttendance","Amount":300000.00,"Reason":"No late/leave","RefRuleID":3},
+    {"BonusID":6,"PayrollID":1,"BonusType":"Longevity","Amount":200000.00,"Reason":"3 years","RefRuleID":null}
+  ],
+  "BonusRule": [
+    {"RuleID":1,"RuleName":"HighKPI","Criteria":"{\"Metric\":\"BookingCount\",\"MinValue\":20}","BonusAmount":1000000.00,"AppliedScope":"Receptionist"},
+    {"RuleID":2,"RuleName":"HolidayShift","Criteria":"{\"Holiday\":true}","BonusAmount":2000000.00,"AppliedScope":"All"},
+    {"RuleID":3,"RuleName":"PerfectAttendance","Criteria":"{\"LateDays\":0,\"LeaveEarlyDays\":0}","BonusAmount":300000.00,"AppliedScope":"All"},
+    {"RuleID":4,"RuleName":"TopRevenue","Criteria":"{\"Metric\":\"Revenue\",\"TopN\":1}","BonusAmount":2000000.00,"AppliedScope":"Manager"},
+    {"RuleID":5,"RuleName":"CustomerRating","Criteria":"{\"MinRating\":4.8}","BonusAmount":500000.00,"AppliedScope":"Frontline"},
+    {"RuleID":6,"RuleName":"Referral","Criteria":"{\"Referrals\":1}","BonusAmount":500000.00,"AppliedScope":"All"}
+  ],
+  "DailyRevenue": [
+    {"RevID":1,"BranchID":1,"Date":"2025-01-15","RoomRevenue":500000.00,"ServiceRevenue":0.00,"Total":500000.00},
+    {"RevID":2,"BranchID":1,"Date":"2025-01-16","RoomRevenue":0.00,"ServiceRevenue":450000.00,"Total":450000.00},
+    {"RevID":3,"BranchID":1,"Date":"2025-01-22","RoomRevenue":400000.00,"ServiceRevenue":0.00,"Total":400000.00},
+    {"RevID":4,"BranchID":2,"Date":"2025-02-05","RoomRevenue":500000.00,"ServiceRevenue":0.00,"Total":500000.00},
+    {"RevID":5,"BranchID":2,"Date":"2025-02-06","RoomRevenue":500000.00,"ServiceRevenue":500000.00,"Total":1000000.00},
+    {"RevID":6,"BranchID":3,"Date":"2025-03-03","RoomRevenue":250000.00,"ServiceRevenue":0.00,"Total":250000.00}
+  ],
+  "Deduction": [
+    {"DeductID":1,"PayrollID":1,"DeductionType":"LatePenalty","Amount":500000.00,"RefRuleID":2},
+    {"DeductID":2,"PayrollID":2,"DeductionType":"LatePenalty","Amount":200000.00,"RefRuleID":2},
+    {"DeductID":3,"PayrollID":4,"DeductionType":"Insurance","Amount":1000000.00,"RefRuleID":null},
+    {"DeductID":4,"PayrollID":5,"DeductionType":"LatePenalty","Amount":300000.00,"RefRuleID":2},
+    {"DeductID":5,"PayrollID":1,"DeductionType":"Tax","Amount":0.00,"RefRuleID":null},
+    {"DeductID":6,"PayrollID":3,"DeductionType":"Tax","Amount":0.00,"RefRuleID":null}
+  ],
+  "Expense": [
+    {"ExpenseID":1,"BranchID":1,"ExpenseType":"Utility","ReferenceID":1,"Amount":2500000.00,"TaxAmount":0.00,"ExpenseDate":"2025-01-31","ApprovedBy":1},
+    {"ExpenseID":2,"BranchID":1,"ExpenseType":"Utility","ReferenceID":2,"Amount":500000.00,"TaxAmount":0.00,"ExpenseDate":"2025-01-31","ApprovedBy":1},
+    {"ExpenseID":3,"BranchID":2,"ExpenseType":"Marketing","ReferenceID":null,"Amount":1000000.00,"TaxAmount":100000.00,"ExpenseDate":"2025-02-05","ApprovedBy":2},
+    {"ExpenseID":4,"BranchID":1,"ExpenseType":"OfficeSupply","ReferenceID":null,"Amount":300000.00,"TaxAmount":30000.00,"ExpenseDate":"2025-02-10","ApprovedBy":2},
+    {"ExpenseID":5,"BranchID":3,"ExpenseType":"Maintenance","ReferenceID":1,"Amount":480000.00,"TaxAmount":0.00,"ExpenseDate":"2025-02-15","ApprovedBy":1},
+    {"ExpenseID":6,"BranchID":1,"ExpenseType":"Training","ReferenceID":null,"Amount":2000000.00,"TaxAmount":0.00,"ExpenseDate":"2025-01-20","ApprovedBy":1}
+  ],
+  "FinancialTransaction": [
+    {"TransID":7,"AccountID":1,"InvoiceID":1,"PaymentID":1,"Debit":1500000.00,"Credit":0.00,"TransDate":"2026-05-01"},
+    {"TransID":8,"AccountID":2,"InvoiceID":1,"PaymentID":1,"Debit":0.00,"Credit":1500000.00,"TransDate":"2026-05-01"},
+    {"TransID":9,"AccountID":1,"InvoiceID":2,"PaymentID":2,"Debit":2400000.00,"Credit":0.00,"TransDate":"2026-05-01"},
+    {"TransID":10,"AccountID":2,"InvoiceID":2,"PaymentID":2,"Debit":0.00,"Credit":2400000.00,"TransDate":"2026-05-01"},
+    {"TransID":11,"AccountID":3,"InvoiceID":null,"PaymentID":null,"Debit":500000.00,"Credit":0.00,"TransDate":"2026-05-02"},
+    {"TransID":12,"AccountID":4,"InvoiceID":null,"PaymentID":null,"Debit":0.00,"Credit":500000.00,"TransDate":"2026-05-02"}
+  ],
+  "GoodsReceipt": [
+    {"ReceiptID":1,"POID":1,"ReceivedDate":"2025-01-07","ReceivedBy":2,"Status":"Completed","Notes":null},
+    {"ReceiptID":2,"POID":2,"ReceivedDate":"2025-01-12","ReceivedBy":2,"Status":"Completed","Notes":"Partial: 150kg"},
+    {"ReceiptID":3,"POID":4,"ReceivedDate":"2025-01-22","ReceivedBy":2,"Status":"Completed","Notes":null},
+    {"ReceiptID":4,"POID":5,"ReceivedDate":"2025-01-27","ReceivedBy":2,"Status":"Completed","Notes":null},
+    {"ReceiptID":5,"POID":6,"ReceivedDate":"2025-02-03","ReceivedBy":1,"Status":"InProgress","Notes":null},
+    {"ReceiptID":6,"POID":3,"ReceivedDate":"2025-01-17","ReceivedBy":4,"Status":"Pending","Notes":null}
+  ],
+  "GoodsReceiptItem": [
+    {"ReceiptItemID":1,"ReceiptID":1,"POItemID":1,"ItemID":1,"QuantityReceived":100,"UnitCost":50000.00,"ExpiryDate":null},
+    {"ReceiptItemID":2,"ReceiptID":2,"POItemID":2,"ItemID":2,"QuantityReceived":150,"UnitCost":40000.00,"ExpiryDate":"2025-03-01"},
+    {"ReceiptItemID":3,"ReceiptID":3,"POItemID":4,"ItemID":4,"QuantityReceived":30,"UnitCost":100000.00,"ExpiryDate":null},
+    {"ReceiptItemID":4,"ReceiptID":4,"POItemID":5,"ItemID":5,"QuantityReceived":100,"UnitCost":15000.00,"ExpiryDate":null},
+    {"ReceiptItemID":5,"ReceiptID":5,"POItemID":6,"ItemID":6,"QuantityReceived":500,"UnitCost":4000.00,"ExpiryDate":"2025-12-31"},
+    {"ReceiptItemID":6,"ReceiptID":2,"POItemID":2,"ItemID":2,"QuantityReceived":50,"UnitCost":40000.00,"ExpiryDate":"2025-03-01"}
+  ],
+  "Invoice": [
+    {"InvoiceID":1,"BookingID":1,"CustomerID":1,"InvoiceDate":"2025-01-18","TotalBeforeTax":2500000.00,"TaxAmount":250000.00,"Total":2750000.00,"Status":"Paid"},
+    {"InvoiceID":2,"BookingID":2,"CustomerID":2,"InvoiceDate":"2025-01-25","TotalBeforeTax":1800000.00,"TaxAmount":180000.00,"Total":1980000.00,"Status":"Paid"},
+    {"InvoiceID":3,"BookingID":3,"CustomerID":3,"InvoiceDate":"2025-02-10","TotalBeforeTax":3500000.00,"TaxAmount":350000.00,"Total":3850000.00,"Status":"Unpaid"},
+    {"InvoiceID":4,"BookingID":4,"CustomerID":4,"InvoiceDate":"2025-02-16","TotalBeforeTax":1200000.00,"TaxAmount":120000.00,"Total":1320000.00,"Status":"Paid"},
+    {"InvoiceID":5,"BookingID":5,"CustomerID":5,"InvoiceDate":"2025-03-05","TotalBeforeTax":4000000.00,"TaxAmount":400000.00,"Total":4400000.00,"Status":"Pending"},
+    {"InvoiceID":6,"BookingID":null,"CustomerID":6,"InvoiceDate":"2025-03-15","TotalBeforeTax":500000.00,"TaxAmount":50000.00,"Total":550000.00,"Status":"Cancelled"}
+  ],
+  "InvoiceItem": [
+    {"LineID":1,"InvoiceID":1,"ItemType":"Room","ReferenceID":1,"Description":"Room 101, 3 nights","Quantity":3,"UnitPrice":500000.00,"SubTotal":1500000.00},
+    {"LineID":2,"InvoiceID":1,"ItemType":"Service","ReferenceID":1,"Description":"Spa massage","Quantity":1,"UnitPrice":300000.00,"SubTotal":300000.00},
+    {"LineID":3,"InvoiceID":1,"ItemType":"Service","ReferenceID":2,"Description":"Breakfast","Quantity":2,"UnitPrice":150000.00,"SubTotal":300000.00},
+    {"LineID":4,"InvoiceID":2,"ItemType":"Room","ReferenceID":3,"Description":"Room 105, 3 nights","Quantity":3,"UnitPrice":400000.00,"SubTotal":1200000.00},
+    {"LineID":5,"InvoiceID":3,"ItemType":"Room","ReferenceID":4,"Description":"Room 201, 5 nights","Quantity":5,"UnitPrice":500000.00,"SubTotal":2500000.00},
+    {"LineID":6,"InvoiceID":4,"ItemType":"Room","ReferenceID":5,"Description":"Room 110, 2 nights","Quantity":2,"UnitPrice":600000.00,"SubTotal":1200000.00}
+  ],
+  "MaintenanceOrder": [
+    {"MOID":1,"RequestID":2,"SupplierID":null,"InternalEmployeeID":4,"PlannedCost":500000.00,"ActualCost":480000.00,"Status":"Paid","PaymentDueDate":"2025-02-28"},
+    {"MOID":2,"RequestID":4,"SupplierID":4,"InternalEmployeeID":null,"PlannedCost":2000000.00,"ActualCost":2100000.00,"Status":"Pending","PaymentDueDate":"2025-03-15"},
+    {"MOID":3,"RequestID":1,"SupplierID":null,"InternalEmployeeID":4,"PlannedCost":1000000.00,"ActualCost":0.00,"Status":"Approved","PaymentDueDate":"2025-02-20"},
+    {"MOID":4,"RequestID":5,"SupplierID":null,"InternalEmployeeID":4,"PlannedCost":300000.00,"ActualCost":250000.00,"Status":"Paid","PaymentDueDate":"2025-02-10"},
+    {"MOID":5,"RequestID":6,"SupplierID":null,"InternalEmployeeID":4,"PlannedCost":1500000.00,"ActualCost":0.00,"Status":"Quoted","PaymentDueDate":"2025-03-01"},
+    {"MOID":6,"RequestID":3,"SupplierID":null,"InternalEmployeeID":4,"PlannedCost":0.00,"ActualCost":0.00,"Status":"Cancelled","PaymentDueDate":null}
+  ],
+  "Payment": [
+    {"PaymentID":1,"InvoiceID":1,"PaymentMethodID":2,"Amount":2750000.00,"PaidAt":"2025-01-18T09:00:00.0000000","TransactionRef":"TXN001"},
+    {"PaymentID":2,"InvoiceID":2,"PaymentMethodID":1,"Amount":1980000.00,"PaidAt":"2025-01-25T14:30:00.0000000","TransactionRef":"TXN002"},
+    {"PaymentID":3,"InvoiceID":4,"PaymentMethodID":4,"Amount":1320000.00,"PaidAt":"2025-02-16T10:15:00.0000000","TransactionRef":"TXN003"},
+    {"PaymentID":4,"InvoiceID":5,"PaymentMethodID":2,"Amount":2000000.00,"PaidAt":"2025-03-05T11:00:00.0000000","TransactionRef":"TXN004"},
+    {"PaymentID":5,"InvoiceID":1,"PaymentMethodID":1,"Amount":0.00,"PaidAt":"2025-01-18T09:00:00.0000000","TransactionRef":null},
+    {"PaymentID":6,"InvoiceID":6,"PaymentMethodID":1,"Amount":550000.00,"PaidAt":"2025-03-15T16:00:00.0000000","TransactionRef":"TXN006"}
+  ],
+  "PaymentMethod": [
+    {"MethodID":1,"MethodName":"Cash"},
+    {"MethodID":2,"MethodName":"Credit Card"},
+    {"MethodID":3,"MethodName":"Debit Card"},
+    {"MethodID":4,"MethodName":"Bank Transfer"},
+    {"MethodID":5,"MethodName":"Voucher"},
+    {"MethodID":6,"MethodName":"Online Wallet"}
+  ],
+  "PaymentOut": [
+    {"PaymentOutID":1,"SupplierID":1,"Payee":null,"PaymentMethodID":4,"Amount":5000000.00,"PaidAt":"2025-01-10T00:00:00.0000000","TransactionRef":"POUT001","CreatedBy":2},
+    {"PaymentOutID":2,"SupplierID":2,"Payee":null,"PaymentMethodID":1,"Amount":8000000.00,"PaidAt":"2025-01-15T00:00:00.0000000","TransactionRef":"POUT002","CreatedBy":2},
+    {"PaymentOutID":3,"SupplierID":4,"Payee":null,"PaymentMethodID":4,"Amount":3000000.00,"PaidAt":"2025-01-25T00:00:00.0000000","TransactionRef":"POUT003","CreatedBy":2},
+    {"PaymentOutID":4,"SupplierID":null,"Payee":"4","PaymentMethodID":2,"Amount":480000.00,"PaidAt":"2025-02-20T00:00:00.0000000","TransactionRef":"POUT004","CreatedBy":2},
+    {"PaymentOutID":5,"SupplierID":null,"Payee":"5","PaymentMethodID":1,"Amount":250000.00,"PaidAt":"2025-02-28T00:00:00.0000000","TransactionRef":"POUT005","CreatedBy":2},
+    {"PaymentOutID":6,"SupplierID":6,"Payee":null,"PaymentMethodID":4,"Amount":2000000.00,"PaidAt":"2025-02-10T00:00:00.0000000","TransactionRef":"POUT006","CreatedBy":1}
+  ],
+  "PaymentOutAllocation": [
+    {"AllocID":1,"PaymentOutID":1,"ReferenceType":"PurchaseOrder","ReferenceID":1,"AllocatedAmount":5000000.00},
+    {"AllocID":2,"PaymentOutID":2,"ReferenceType":"PurchaseOrder","ReferenceID":2,"AllocatedAmount":8000000.00},
+    {"AllocID":3,"PaymentOutID":3,"ReferenceType":"PurchaseOrder","ReferenceID":4,"AllocatedAmount":3000000.00},
+    {"AllocID":4,"PaymentOutID":4,"ReferenceType":"MaintenanceOrder","ReferenceID":1,"AllocatedAmount":480000.00},
+    {"AllocID":5,"PaymentOutID":5,"ReferenceType":"Expense","ReferenceID":4,"AllocatedAmount":250000.00},
+    {"AllocID":6,"PaymentOutID":6,"ReferenceType":"PurchaseOrder","ReferenceID":6,"AllocatedAmount":2000000.00}
+  ],
+  "PayPeriod": [
+    {"PeriodID":1,"StartDate":"2025-01-01","EndDate":"2025-01-31","BranchID":1,"Status":"Closed"},
+    {"PeriodID":2,"StartDate":"2025-02-01","EndDate":"2025-02-28","BranchID":1,"Status":"Processing"},
+    {"PeriodID":3,"StartDate":"2025-01-01","EndDate":"2025-01-31","BranchID":2,"Status":"Closed"},
+    {"PeriodID":4,"StartDate":"2025-02-01","EndDate":"2025-02-28","BranchID":2,"Status":"Open"},
+    {"PeriodID":5,"StartDate":"2025-01-01","EndDate":"2025-01-31","BranchID":3,"Status":"Closed"},
+    {"PeriodID":6,"StartDate":"2025-02-01","EndDate":"2025-02-28","BranchID":3,"Status":"Open"}
+  ],
+  "PayrollItem": [
+    {"PayrollID":1,"PeriodID":1,"EmployeeID":2,"TotalEarnings":10000000.00,"TotalDeductions":500000.00,"NetPay":9500000.00,"CalculatedAt":"2025-02-05T00:00:00.0000000"},
+    {"PayrollID":2,"PeriodID":1,"EmployeeID":3,"TotalEarnings":8000000.00,"TotalDeductions":200000.00,"NetPay":7800000.00,"CalculatedAt":"2025-02-05T00:00:00.0000000"},
+    {"PayrollID":3,"PeriodID":1,"EmployeeID":4,"TotalEarnings":6000000.00,"TotalDeductions":0.00,"NetPay":6000000.00,"CalculatedAt":"2025-02-05T00:00:00.0000000"},
+    {"PayrollID":4,"PeriodID":1,"EmployeeID":5,"TotalEarnings":12000000.00,"TotalDeductions":1000000.00,"NetPay":11000000.00,"CalculatedAt":"2025-02-05T00:00:00.0000000"},
+    {"PayrollID":5,"PeriodID":2,"EmployeeID":2,"TotalEarnings":10000000.00,"TotalDeductions":300000.00,"NetPay":9700000.00,"CalculatedAt":"2025-03-05T00:00:00.0000000"},
+    {"PayrollID":6,"PeriodID":2,"EmployeeID":3,"TotalEarnings":8000000.00,"TotalDeductions":0.00,"NetPay":8000000.00,"CalculatedAt":"2025-03-05T00:00:00.0000000"}
+  ],
+  "PurchaseOrder": [
+    {"POID":1,"SupplierID":1,"BranchID":1,"CreatedByEmployeeID":2,"OrderDate":"2025-01-05","Status":"Approved","TotalAmount":5000000.00,"ApprovedBy":1},
+    {"POID":2,"SupplierID":2,"BranchID":1,"CreatedByEmployeeID":2,"OrderDate":"2025-01-10","Status":"Completed","TotalAmount":8000000.00,"ApprovedBy":1},
+    {"POID":3,"SupplierID":3,"BranchID":2,"CreatedByEmployeeID":4,"OrderDate":"2025-01-15","Status":"Pending","TotalAmount":2000000.00,"ApprovedBy":2},
+    {"POID":4,"SupplierID":4,"BranchID":1,"CreatedByEmployeeID":2,"OrderDate":"2025-01-20","Status":"Approved","TotalAmount":3000000.00,"ApprovedBy":1},
+    {"POID":5,"SupplierID":5,"BranchID":1,"CreatedByEmployeeID":2,"OrderDate":"2025-01-25","Status":"Completed","TotalAmount":1500000.00,"ApprovedBy":1},
+    {"POID":6,"SupplierID":6,"BranchID":3,"CreatedByEmployeeID":1,"OrderDate":"2025-02-01","Status":"Approved","TotalAmount":4000000.00,"ApprovedBy":1}
+  ],
+  "PurchaseOrderItem": [
+    {"POItemID":1,"POID":1,"ItemType":"Equipment","ReferenceID":1,"Description":"LED bulbs","Quantity":100,"UnitPrice":50000.00,"SubTotal":5000000.00},
+    {"POItemID":2,"POID":2,"ItemType":"Food","ReferenceID":2,"Description":"Meat","Quantity":200,"UnitPrice":40000.00,"SubTotal":8000000.00},
+    {"POItemID":3,"POID":3,"ItemType":"Chemical","ReferenceID":3,"Description":"Detergent","Quantity":50,"UnitPrice":40000.00,"SubTotal":2000000.00},
+    {"POItemID":4,"POID":4,"ItemType":"SparePart","ReferenceID":4,"Description":"AC filter","Quantity":30,"UnitPrice":100000.00,"SubTotal":3000000.00},
+    {"POItemID":5,"POID":5,"ItemType":"Cleaning","ReferenceID":5,"Description":"Mops","Quantity":100,"UnitPrice":15000.00,"SubTotal":1500000.00},
+    {"POItemID":6,"POID":6,"ItemType":"Beverage","ReferenceID":6,"Description":"Soda cans","Quantity":1000,"UnitPrice":4000.00,"SubTotal":4000000.00}
+  ],
+  "ReportTemplate": [
+    {"TemplateID":1,"Name":"Monthly Revenue","QuerySQL":"SELECT * FROM DailyRevenue WHERE Month(Date)=@month","CreatedBy":1},
+    {"TemplateID":2,"Name":"Room Occupancy","QuerySQL":"SELECT RoomID, COUNT(*) FROM BookingRoom GROUP BY RoomID","CreatedBy":2},
+    {"TemplateID":3,"Name":"Top Customers","QuerySQL":"SELECT CustomerID, SUM(Total) FROM Invoice GROUP BY CustomerID","CreatedBy":1},
+    {"TemplateID":4,"Name":"Sales by Service","QuerySQL":"SELECT ServiceItemID, SUM(Quantity) FROM ServiceOrderDetail GROUP BY ServiceItemID","CreatedBy":3},
+    {"TemplateID":5,"Name":"Staff Performance","QuerySQL":"SELECT EmployeeID, AVG(MetricValue) FROM PerformanceLog GROUP BY EmployeeID","CreatedBy":2},
+    {"TemplateID":6,"Name":"Utility Cost","QuerySQL":"SELECT BranchID, SUM(Value)*Rate FROM UtilityReading JOIN UtilityMeter ...","CreatedBy":4}
+  ],
+  "SalaryComponent": [
+    {"CompID":1,"PayrollID":1,"ComponentType":"BaseSalary","Amount":10000000.00},
+    {"CompID":2,"PayrollID":1,"ComponentType":"Allowance","Amount":500000.00},
+    {"CompID":3,"PayrollID":2,"ComponentType":"BaseSalary","Amount":8000000.00},
+    {"CompID":4,"PayrollID":3,"ComponentType":"BaseSalary","Amount":6000000.00},
+    {"CompID":5,"PayrollID":4,"ComponentType":"BaseSalary","Amount":12000000.00},
+    {"CompID":6,"PayrollID":5,"ComponentType":"BaseSalary","Amount":10000000.00}
+  ],
+  "Supplier": [
+    {"SupplierID":1,"SupplierName":"Dien Quang","ContactPerson":"Mr. An","Phone":"0912345678","Email":"an@dienquang.com","Address":"Hanoi","TaxCode":"123456"},
+    {"SupplierID":2,"SupplierName":"Vissan","ContactPerson":"Ms. Binh","Phone":"0987654321","Email":"binh@vissan.com","Address":"HCMC","TaxCode":"789012"},
+    {"SupplierID":3,"SupplierName":"Lavender Laundry","ContactPerson":"Mr. Cuong","Phone":"0900111222","Email":"cuong@lavender.com","Address":"Danang","TaxCode":"345678"},
+    {"SupplierID":4,"SupplierName":"TechCare","ContactPerson":"Ms. Dung","Phone":"0933444555","Email":"dung@techcare.com","Address":"Hanoi","TaxCode":"901234"},
+    {"SupplierID":5,"SupplierName":"CleanSupplies","ContactPerson":"Mr. Em","Phone":"0966777888","Email":"em@cleansupplies.com","Address":"Hanoi","TaxCode":"567890"},
+    {"SupplierID":6,"SupplierName":"BeverageCo","ContactPerson":"Ms. Phuong","Phone":"0977888999","Email":"phuong@beverageco.com","Address":"HCMC","TaxCode":"123789"}
+  ],
+  "TaxConfig": [
+    {"TaxID":1,"TaxName":"VAT 10%","Rate":10.00,"EffectiveDate":"2024-01-01","EndDate":null},
+    {"TaxID":2,"TaxName":"VAT 5%","Rate":5.00,"EffectiveDate":"2024-01-01","EndDate":null},
+    {"TaxID":3,"TaxName":"Tourism Tax","Rate":3.00,"EffectiveDate":"2025-01-01","EndDate":null},
+    {"TaxID":4,"TaxName":"Service Charge 5%","Rate":5.00,"EffectiveDate":"2024-01-01","EndDate":null},
+    {"TaxID":5,"TaxName":"City Tax","Rate":2.00,"EffectiveDate":"2025-01-01","EndDate":"2025-12-31"},
+    {"TaxID":6,"TaxName":"No Tax","Rate":0.00,"EffectiveDate":"2024-01-01","EndDate":null}
+  ],
+  "Amenity": [
+    {"AmenityID":1,"Name":"WiFi","Description":"Free high-speed internet"},
+    {"AmenityID":2,"Name":"TV","Description":"Flat screen"},
+    {"AmenityID":3,"Name":"Minibar","Description":"Stocked fridge"},
+    {"AmenityID":4,"Name":"Safe","Description":"In-room safe"},
+    {"AmenityID":5,"Name":"Bathtub","Description":"Jacuzzi tub"},
+    {"AmenityID":6,"Name":"Balcony","Description":"Private balcony"}
+  ],
+  "AssetInventory": [
+    {"AssetID":1,"BranchID":1,"RoomID":101,"AssetName":"LED TV","SerialNumber":"TV1001","PurchaseDate":"2020-01-10"},
+    {"AssetID":2,"BranchID":1,"RoomID":102,"AssetName":"LED TV","SerialNumber":"TV1002","PurchaseDate":"2020-01-10"},
+    {"AssetID":3,"BranchID":1,"RoomID":null,"AssetName":"Reception Computer","SerialNumber":"PC201","PurchaseDate":"2019-05-20"},
+    {"AssetID":4,"BranchID":2,"RoomID":201,"AssetName":"King Bed","SerialNumber":"BED301","PurchaseDate":"2018-08-15"},
+    {"AssetID":5,"BranchID":2,"RoomID":202,"AssetName":"Mini Fridge","SerialNumber":"FRIDGE401","PurchaseDate":"2021-02-01"},
+    {"AssetID":6,"BranchID":3,"RoomID":305,"AssetName":"Safe","SerialNumber":"SAFE501","PurchaseDate":"2022-01-30"}
+  ],
+  "Branch": [
+    {"BranchID":1,"BranchName":"Grand Hotel Downtown","Address":"15 Phố Lý Thường Kiệt, Phường Trần Hưng Đạo, Quận Hoàn Kiếm","City":"Hà Nội","Phone":"0241234567","Email":"downtown@lortel.com","ManagerEmployeeID":2},
+    {"BranchID":2,"BranchName":"Grand Hotel Beach","Address":"218 Đường Võ Nguyên Giáp, Phường Phước Mỹ, Quận Sơn Trà","City":"Đà Nẵng","Phone":"0236123456","Email":"beach@lortel.com","ManagerEmployeeID":4},
+    {"BranchID":3,"BranchName":"Grand Hotel Airport","Address":"05 Trường Sơn, Phường 2, Quận Tân Bình","City":"TP. Hồ Chí Minh","Phone":"0281234567","Email":"airport@lortel.com","ManagerEmployeeID":1},
+    {"BranchID":4,"BranchName":"Grand Hotel Mountain","Address":"15 Cầu Mây, TT. Sa Pa, Huyện Sa Pa","City":"Lào Cai","Phone":"0203123456","Email":"mountain@lortel.com","ManagerEmployeeID":2},
+    {"BranchID":5,"BranchName":"Grand Hotel Central","Address":"32 Đại Cồ Việt, Phường Lê Đại Hành, Quận Hai Bà Trưng","City":"Hà Nội","Phone":"0249876543","Email":"central@lortel.com","ManagerEmployeeID":5},
+    {"BranchID":6,"BranchName":"Grand Hotel Riverside","Address":"01 Lê Lợi, Phường Vĩnh Ninh, TP. Huế","City":"Thừa Thiên Huế","Phone":"0234987654","Email":"riverside@lortel.com","ManagerEmployeeID":3}
+  ],
+  "Building": [
+    {"BuildingID":1,"BranchID":1,"BuildingName":"Main Building","FloorsCount":10},
+    {"BuildingID":2,"BranchID":1,"BuildingName":"West Wing","FloorsCount":5},
+    {"BuildingID":3,"BranchID":2,"BuildingName":"Beach Tower","FloorsCount":8},
+    {"BuildingID":4,"BranchID":2,"BuildingName":"Garden Villa","FloorsCount":2},
+    {"BuildingID":5,"BranchID":3,"BuildingName":"Terminal Building","FloorsCount":6},
+    {"BuildingID":6,"BranchID":4,"BuildingName":"Hilltop Lodge","FloorsCount":3}
+  ],
+  "Facility": [
+    {"FacilityID":1,"BranchID":1,"FacilityName":"Swimming Pool","Type":"Pool","InstallDate":"2015-05-01"},
+    {"FacilityID":2,"BranchID":1,"FacilityName":"Gym","Type":"Fitness","InstallDate":"2016-03-10"},
+    {"FacilityID":3,"BranchID":2,"FacilityName":"Beach Access","Type":"Outdoor","InstallDate":"2014-01-01"},
+    {"FacilityID":4,"BranchID":2,"FacilityName":"Spa","Type":"Wellness","InstallDate":"2017-08-15"},
+    {"FacilityID":5,"BranchID":3,"FacilityName":"Business Center","Type":"Office","InstallDate":"2018-02-20"},
+    {"FacilityID":6,"BranchID":1,"FacilityName":"Restaurant","Type":"F&B","InstallDate":"2015-06-01"}
+  ],
+  "FacilityStatusLog": [
+    {"LogID":1,"FacilityID":1,"Status":"Operational","RecordedAt":"2025-02-01T08:00:00.0000000","Notes":null},
+    {"LogID":2,"FacilityID":1,"Status":"Maintenance","RecordedAt":"2025-02-02T10:00:00.0000000","Notes":"Cleaning filter"},
+    {"LogID":3,"FacilityID":2,"Status":"Operational","RecordedAt":"2025-02-01T08:00:00.0000000","Notes":null},
+    {"LogID":4,"FacilityID":3,"Status":"Operational","RecordedAt":"2025-02-01T08:00:00.0000000","Notes":null},
+    {"LogID":5,"FacilityID":4,"Status":"Closed","RecordedAt":"2025-02-01T08:00:00.0000000","Notes":"Renovation"},
+    {"LogID":6,"FacilityID":5,"Status":"Operational","RecordedAt":"2025-02-01T08:00:00.0000000","Notes":null}
+  ],
+  "Floor": [
+    {"FloorID":1,"BuildingID":1,"FloorNumber":1},
+    {"FloorID":2,"BuildingID":1,"FloorNumber":2},
+    {"FloorID":3,"BuildingID":1,"FloorNumber":3},
+    {"FloorID":4,"BuildingID":2,"FloorNumber":1},
+    {"FloorID":5,"BuildingID":2,"FloorNumber":2},
+    {"FloorID":6,"BuildingID":3,"FloorNumber":1}
+  ],
+  "MaintenanceRequest": [
+    {"RequestID":1,"FacilityID":1,"RoomID":null,"ReportedBy":4,"Issue":"Pool pump noisy","Priority":"Medium","Status":"Open"},
+    {"RequestID":2,"FacilityID":null,"RoomID":101,"ReportedBy":3,"Issue":"Aircon not cooling","Priority":"High","Status":"InProgress"},
+    {"RequestID":3,"FacilityID":null,"RoomID":103,"ReportedBy":3,"Issue":"TV remote missing","Priority":"Low","Status":"Completed"},
+    {"RequestID":4,"FacilityID":2,"RoomID":null,"ReportedBy":4,"Issue":"Treadmill broken","Priority":"High","Status":"Open"},
+    {"RequestID":5,"FacilityID":null,"RoomID":202,"ReportedBy":3,"Issue":"Leaking faucet","Priority":"Medium","Status":"Closed"},
+    {"RequestID":6,"FacilityID":4,"RoomID":null,"ReportedBy":4,"Issue":"Jacuzzi error","Priority":"High","Status":"Open"}
+  ],
+  "MaintenanceSchedule": [
+    {"ScheduleID":1,"FacilityID":1,"RoomID":null,"ScheduledDate":"2025-03-01","Type":"Quarterly","AssignedTo":4},
+    {"ScheduleID":2,"FacilityID":null,"RoomID":101,"ScheduledDate":"2025-02-15","Type":"AC Check","AssignedTo":4},
+    {"ScheduleID":3,"FacilityID":2,"RoomID":null,"ScheduledDate":"2025-02-10","Type":"Annual","AssignedTo":4},
+    {"ScheduleID":4,"FacilityID":3,"RoomID":null,"ScheduledDate":"2025-02-20","Type":"Cleaning","AssignedTo":4},
+    {"ScheduleID":5,"FacilityID":null,"RoomID":305,"ScheduledDate":"2025-02-25","Type":"Plumbing","AssignedTo":4},
+    {"ScheduleID":6,"FacilityID":4,"RoomID":null,"ScheduledDate":"2025-03-05","Type":"Inspection","AssignedTo":4}
+  ],
+  "Room": [
+    {"RoomID":101,"RoomNumber":"101","FloorID":1,"RoomTypeID":1,"StatusID":1},
+    {"RoomID":102,"RoomNumber":"102","FloorID":1,"RoomTypeID":1,"StatusID":2},
+    {"RoomID":103,"RoomNumber":"103","FloorID":1,"RoomTypeID":2,"StatusID":1},
+    {"RoomID":201,"RoomNumber":"201","FloorID":2,"RoomTypeID":3,"StatusID":1},
+    {"RoomID":202,"RoomNumber":"202","FloorID":2,"RoomTypeID":4,"StatusID":2},
+    {"RoomID":305,"RoomNumber":"305","FloorID":3,"RoomTypeID":5,"StatusID":1}
+  ],
+  "RoomAmenity": [
+    {"RoomAmenityPairID":1,"RoomID":101,"AmenityID":1,"Quantity":1},
+    {"RoomAmenityPairID":2,"RoomID":101,"AmenityID":2,"Quantity":1},
+    {"RoomAmenityPairID":3,"RoomID":102,"AmenityID":1,"Quantity":1},
+    {"RoomAmenityPairID":4,"RoomID":103,"AmenityID":1,"Quantity":1},
+    {"RoomAmenityPairID":5,"RoomID":103,"AmenityID":6,"Quantity":1},
+    {"RoomAmenityPairID":6,"RoomID":202,"AmenityID":1,"Quantity":1},
+    {"RoomAmenityPairID":7,"RoomID":202,"AmenityID":3,"Quantity":1},
+    {"RoomAmenityPairID":8,"RoomID":202,"AmenityID":4,"Quantity":1},
+    {"RoomAmenityPairID":9,"RoomID":305,"AmenityID":1,"Quantity":1},
+    {"RoomAmenityPairID":10,"RoomID":305,"AmenityID":5,"Quantity":1}
+  ],
+  "RoomStatus": [
+    {"StatusID":1,"StatusName":"Available"},
+    {"StatusID":2,"StatusName":"Occupied"},
+    {"StatusID":3,"StatusName":"Cleaning"},
+    {"StatusID":4,"StatusName":"Maintenance"},
+    {"StatusID":5,"StatusName":"Reserved"},
+    {"StatusID":6,"StatusName":"OutOfService"}
+  ],
+  "RoomStatusHistory": [
+    {"HistID":1,"RoomID":101,"FromStatus":1,"ToStatus":2,"ChangedAt":"2025-02-01T08:00:00.0000000","ChangedBy":3},
+    {"HistID":2,"RoomID":101,"FromStatus":2,"ToStatus":3,"ChangedAt":"2025-02-02T11:00:00.0000000","ChangedBy":4},
+    {"HistID":3,"RoomID":101,"FromStatus":3,"ToStatus":1,"ChangedAt":"2025-02-02T14:00:00.0000000","ChangedBy":4},
+    {"HistID":4,"RoomID":102,"FromStatus":1,"ToStatus":2,"ChangedAt":"2025-02-01T09:00:00.0000000","ChangedBy":3},
+    {"HistID":5,"RoomID":202,"FromStatus":1,"ToStatus":2,"ChangedAt":"2025-02-01T10:00:00.0000000","ChangedBy":3},
+    {"HistID":6,"RoomID":305,"FromStatus":1,"ToStatus":2,"ChangedAt":"2025-02-01T12:00:00.0000000","ChangedBy":3}
+  ],
+  "RoomType": [
+    {"RoomTypeID":1,"TypeName":"Standard","BaseCapacity":2,"StandardRate":100.00,"Description":"Basic room"},
+    {"RoomTypeID":2,"TypeName":"Deluxe","BaseCapacity":2,"StandardRate":150.00,"Description":"City view"},
+    {"RoomTypeID":3,"TypeName":"Family","BaseCapacity":4,"StandardRate":200.00,"Description":"Two double beds"},
+    {"RoomTypeID":4,"TypeName":"Suite","BaseCapacity":2,"StandardRate":300.00,"Description":"Living room + bedroom"},
+    {"RoomTypeID":5,"TypeName":"Presidential","BaseCapacity":4,"StandardRate":500.00,"Description":"Luxury suite"},
+    {"RoomTypeID":6,"TypeName":"Single","BaseCapacity":1,"StandardRate":80.00,"Description":"Small room"}
+  ],
+  "ServiceCategory": [
+    {"CatID":1,"Name":"Spa","Description":"Massage, facial, body treatments"},
+    {"CatID":2,"Name":"Restaurant","Description":"Food and beverage"},
+    {"CatID":3,"Name":"Laundry","Description":"Washing and ironing"},
+    {"CatID":4,"Name":"Concierge","Description":"Travel arrangements, tickets"},
+    {"CatID":5,"Name":"Minibar","Description":"In-room snacks and drinks"},
+    {"CatID":6,"Name":"Transport","Description":"Airport shuttle, car rental"}
+  ],
+  "ServiceInventory": [
+    {"InvID":1,"BranchID":1,"ItemID":5,"StockQuantity":500,"MinStockLevel":50},
+    {"InvID":2,"BranchID":1,"ItemID":4,"StockQuantity":100,"MinStockLevel":20},
+    {"InvID":3,"BranchID":2,"ItemID":5,"StockQuantity":300,"MinStockLevel":30},
+    {"InvID":4,"BranchID":2,"ItemID":1,"StockQuantity":0,"MinStockLevel":10},
+    {"InvID":5,"BranchID":3,"ItemID":6,"StockQuantity":5,"MinStockLevel":1},
+    {"InvID":6,"BranchID":1,"ItemID":2,"StockQuantity":200,"MinStockLevel":40}
+  ],
+  "ServiceItem": [
+    {"ItemID":1,"CategoryID":1,"ItemName":"Swedish Massage","Unit":"60 min","Description":"Relaxing massage"},
+    {"ItemID":2,"CategoryID":2,"ItemName":"Breakfast Buffet","Unit":"person","Description":"7-10am"},
+    {"ItemID":3,"CategoryID":2,"ItemName":"Dinner Set Menu","Unit":"person","Description":"6-9pm"},
+    {"ItemID":4,"CategoryID":3,"ItemName":"Wash & Fold","Unit":"kg","Description":"Laundry service"},
+    {"ItemID":5,"CategoryID":5,"ItemName":"Coca Cola","Unit":"can","Description":"Soft drink"},
+    {"ItemID":6,"CategoryID":6,"ItemName":"Airport Transfer","Unit":"trip","Description":"One-way"}
+  ],
+  "ServiceOrder": [
+    {"OrderID":1,"BookingID":1,"CustomerID":1,"OrderDate":"2025-01-16T00:00:00.0000000","BranchID":1,"TotalAmount":450000.00,"Status":"Completed"},
+    {"OrderID":2,"BookingID":1,"CustomerID":1,"OrderDate":"2025-01-17T00:00:00.0000000","BranchID":1,"TotalAmount":150000.00,"Status":"Completed"},
+    {"OrderID":3,"BookingID":2,"CustomerID":2,"OrderDate":"2025-01-23T00:00:00.0000000","BranchID":1,"TotalAmount":300000.00,"Status":"Completed"},
+    {"OrderID":4,"BookingID":3,"CustomerID":3,"OrderDate":"2025-02-06T00:00:00.0000000","BranchID":2,"TotalAmount":700000.00,"Status":"Completed"},
+    {"OrderID":5,"BookingID":4,"CustomerID":4,"OrderDate":"2025-02-15T00:00:00.0000000","BranchID":1,"TotalAmount":250000.00,"Status":"Completed"},
+    {"OrderID":6,"BookingID":null,"CustomerID":5,"OrderDate":"2025-03-02T00:00:00.0000000","BranchID":3,"TotalAmount":100000.00,"Status":"Pending"}
+  ],
+  "ServiceOrderDetail": [
+    {"DetailID":1,"OrderID":1,"ServiceItemID":1,"Quantity":1,"UnitPrice":300000.00,"SubTotal":300000.00},
+    {"DetailID":2,"OrderID":1,"ServiceItemID":5,"Quantity":2,"UnitPrice":50000.00,"SubTotal":100000.00},
+    {"DetailID":3,"OrderID":1,"ServiceItemID":4,"Quantity":1,"UnitPrice":50000.00,"SubTotal":50000.00},
+    {"DetailID":4,"OrderID":2,"ServiceItemID":2,"Quantity":1,"UnitPrice":150000.00,"SubTotal":150000.00},
+    {"DetailID":5,"OrderID":3,"ServiceItemID":1,"Quantity":1,"UnitPrice":300000.00,"SubTotal":300000.00},
+    {"DetailID":6,"OrderID":4,"ServiceItemID":3,"Quantity":2,"UnitPrice":250000.00,"SubTotal":500000.00}
+  ],
+  "ServicePrice": [
+    {"PriceID":1,"ItemID":1,"BranchID":1,"ValidFrom":"2024-01-01","ValidTo":"2024-12-31","Price":300000.00},
+    {"PriceID":2,"ItemID":1,"BranchID":2,"ValidFrom":"2024-01-01","ValidTo":"2024-12-31","Price":350000.00},
+    {"PriceID":3,"ItemID":2,"BranchID":1,"ValidFrom":"2024-01-01","ValidTo":"2024-12-31","Price":150000.00},
+    {"PriceID":4,"ItemID":2,"BranchID":2,"ValidFrom":"2024-01-01","ValidTo":"2024-12-31","Price":180000.00},
+    {"PriceID":5,"ItemID":3,"BranchID":1,"ValidFrom":"2024-01-01","ValidTo":"2024-12-31","Price":250000.00},
+    {"PriceID":6,"ItemID":4,"BranchID":1,"ValidFrom":"2024-01-01","ValidTo":"2024-12-31","Price":50000.00}
+  ],
+  "ServiceUsageLog": [
+    {"LogID":10,"OrderID":1,"RoomID":101,"ServedAt":"2026-05-02T08:30:00.0000000","StaffID":4},
+    {"LogID":11,"OrderID":2,"RoomID":102,"ServedAt":"2026-05-02T09:15:00.0000000","StaffID":4},
+    {"LogID":12,"OrderID":3,"RoomID":103,"ServedAt":"2026-05-02T10:00:00.0000000","StaffID":6},
+    {"LogID":13,"OrderID":4,"RoomID":201,"ServedAt":"2026-05-02T14:20:00.0000000","StaffID":3},
+    {"LogID":14,"OrderID":5,"RoomID":202,"ServedAt":"2026-05-02T16:45:00.0000000","StaffID":4},
+    {"LogID":15,"OrderID":6,"RoomID":305,"ServedAt":"2026-05-02T19:00:00.0000000","StaffID":6}
+  ],
+  "UtilityMeter": [
+    {"MeterID":1,"BranchID":1,"MeterType":"Electricity","Unit":"kWh"},
+    {"MeterID":2,"BranchID":1,"MeterType":"Water","Unit":"m3"},
+    {"MeterID":3,"BranchID":2,"MeterType":"Electricity","Unit":"kWh"},
+    {"MeterID":4,"BranchID":2,"MeterType":"Water","Unit":"m3"},
+    {"MeterID":5,"BranchID":3,"MeterType":"Electricity","Unit":"kWh"},
+    {"MeterID":6,"BranchID":3,"MeterType":"Water","Unit":"m3"}
+  ],
+  "UtilityReading": [
+    {"ReadingID":1,"MeterID":1,"ReadingDate":"2025-01-31","Value":12500.00},
+    {"ReadingID":2,"MeterID":2,"ReadingDate":"2025-01-31","Value":450.00},
+    {"ReadingID":3,"MeterID":3,"ReadingDate":"2025-01-31","Value":8900.00},
+    {"ReadingID":4,"MeterID":4,"ReadingDate":"2025-01-31","Value":320.00},
+    {"ReadingID":5,"MeterID":5,"ReadingDate":"2025-01-31","Value":15600.00},
+    {"ReadingID":6,"MeterID":6,"ReadingDate":"2025-01-31","Value":580.00}
+  ],
+  "Campaign": [],
+  "CampaignBudget": [],
+  "CampaignChannel": [],
+  "CampaignObjective": [],
+  "CampaignPartner": [],
+  "CampaignPerformance": [],
+  "Coupon": [
+    {"CouponID":1,"Code":"EB20","PromoID":1,"IssuedTo":null,"Status":"Active","ExpiryDate":"2025-03-31"},
+    {"CouponID":2,"Code":"FLASH15","PromoID":2,"IssuedTo":2,"Status":"Used","ExpiryDate":"2025-02-28"},
+    {"CouponID":3,"Code":"LOVE500","PromoID":3,"IssuedTo":4,"Status":"Used","ExpiryDate":"2025-02-14"},
+    {"CouponID":4,"Code":"DOUBLEXP","PromoID":4,"IssuedTo":1,"Status":"Active","ExpiryDate":"2025-03-31"},
+    {"CouponID":5,"Code":"CORP10","PromoID":5,"IssuedTo":null,"Status":"Active","ExpiryDate":"2025-06-30"},
+    {"CouponID":6,"Code":"3P2","PromoID":6,"IssuedTo":3,"Status":"Active","ExpiryDate":"2025-05-31"}
+  ],
+  "Event": [
+    {"EventID":1,"CampaignID":null,"EventName":"Valentine Gala Dinner","StartDate":"2025-02-14T00:00:00.0000000","EndDate":"2025-02-14T00:00:00.0000000","BranchID":1,"Venue":"Grand Ballroom","Organizer":"Marketing Dept","Status":"Confirmed"},
+    {"EventID":2,"CampaignID":null,"EventName":"Summer Beach Party","StartDate":"2025-07-01T00:00:00.0000000","EndDate":"2025-07-01T00:00:00.0000000","BranchID":2,"Venue":"Beachfront","Organizer":"Events Team","Status":"Planned"},
+    {"EventID":3,"CampaignID":null,"EventName":"Wedding Expo 2025","StartDate":"2025-03-18T00:00:00.0000000","EndDate":"2025-03-19T00:00:00.0000000","BranchID":2,"Venue":"Exhibition Hall","Organizer":"Hoa Binh Event","Status":"Confirmed"},
+    {"EventID":4,"CampaignID":null,"EventName":"Christmas Market","StartDate":"2025-12-24T00:00:00.0000000","EndDate":"2025-12-26T00:00:00.0000000","BranchID":1,"Venue":"Lobby","Organizer":"Internal","Status":"Idea"},
+    {"EventID":5,"CampaignID":null,"EventName":"New Year Countdown","StartDate":"2025-12-31T00:00:00.0000000","EndDate":"2026-01-01T00:00:00.0000000","BranchID":1,"Venue":"Rooftop","Organizer":"Marketing","Status":"Planned"},
+    {"EventID":6,"CampaignID":null,"EventName":"Loyalty App Launch","StartDate":"2025-04-01T00:00:00.0000000","EndDate":"2025-04-02T00:00:00.0000000","BranchID":3,"Venue":"Conference Room","Organizer":"IT & Marketing","Status":"Confirmed"}
+  ],
+  "EventBooking": [
+    {"BookID":1,"EventID":1,"CustomerID":4,"BookingDate":"2025-02-01T00:00:00.0000000","NumberOfAttendees":2,"SpecialRequest":"Table near stage, vegetarian"},
+    {"BookID":2,"EventID":1,"CustomerID":6,"BookingDate":"2025-02-05T00:00:00.0000000","NumberOfAttendees":2,"SpecialRequest":null},
+    {"BookID":3,"EventID":3,"CustomerID":3,"BookingDate":"2025-03-01T00:00:00.0000000","NumberOfAttendees":4,"SpecialRequest":"Bridal consultation"},
+    {"BookID":4,"EventID":3,"CustomerID":5,"BookingDate":"2025-03-10T00:00:00.0000000","NumberOfAttendees":2,"SpecialRequest":null},
+    {"BookID":5,"EventID":4,"CustomerID":1,"BookingDate":"2025-12-01T00:00:00.0000000","NumberOfAttendees":5,"SpecialRequest":"Gluten-free options"},
+    {"BookID":6,"EventID":6,"CustomerID":2,"BookingDate":"2025-03-20T00:00:00.0000000","NumberOfAttendees":1,"SpecialRequest":"Technical demo required"}
+  ],
+  "EventService": [
+    {"ESID":1,"EventBookingID":1,"ServiceItemID":3,"Quantity":2,"Price":250000.00},
+    {"ESID":2,"EventBookingID":1,"ServiceItemID":2,"Quantity":2,"Price":150000.00},
+    {"ESID":3,"EventBookingID":3,"ServiceItemID":3,"Quantity":4,"Price":250000.00},
+    {"ESID":4,"EventBookingID":4,"ServiceItemID":1,"Quantity":2,"Price":300000.00},
+    {"ESID":5,"EventBookingID":5,"ServiceItemID":2,"Quantity":5,"Price":150000.00},
+    {"ESID":6,"EventBookingID":6,"ServiceItemID":4,"Quantity":1,"Price":50000.00}
+  ],
+  "MarketingAsset": [],
+  "MarketingPlan": [],
+  "Partner": [],
+  "Promotion": [
+    {"PromoID":1,"CampaignID":null,"PromoName":"Early Bird 20%","Description":"Giảm 20% cho đặt phòng trước 7 ngày","DiscountType":"Percentage","Value":20.00,"StartDate":"2025-01-01","EndDate":"2025-03-31"},
+    {"PromoID":2,"CampaignID":null,"PromoName":"Weekend Flash Sale","Description":"Giảm 15% cho đặt phòng thứ 7, CN","DiscountType":"Percentage","Value":15.00,"StartDate":"2025-02-01","EndDate":"2025-02-28"},
+    {"PromoID":3,"CampaignID":null,"PromoName":"Valentine Special","Description":"Giảm 500,000đ cho đặt phòng ngày 14/2","DiscountType":"FixedAmount","Value":500000.00,"StartDate":"2025-02-10","EndDate":"2025-02-14"},
+    {"PromoID":4,"CampaignID":null,"PromoName":"Loyalty Double Points","Description":"Nhân đôi điểm tích lũy","DiscountType":"Other","Value":0.00,"StartDate":"2025-03-01","EndDate":"2025-03-31"},
+    {"PromoID":5,"CampaignID":null,"PromoName":"Corporate 10%","Description":"Giảm 10% cho khách hàng doanh nghiệp","DiscountType":"Percentage","Value":10.00,"StartDate":"2025-01-10","EndDate":"2025-06-30"},
+    {"PromoID":6,"CampaignID":null,"PromoName":"Stay 3 Pay 2","Description":"Tặng 1 đêm khi ở 3 đêm liên tiếp","DiscountType":"Other","Value":0.00,"StartDate":"2025-04-01","EndDate":"2025-05-31"}
+  ],
+  "PromotionRule": [
+    {"RuleID":1,"PromoID":1,"RuleType":"MinAdvanceDays","Value":"7"},
+    {"RuleID":2,"PromoID":1,"RuleType":"MinNights","Value":"2"},
+    {"RuleID":3,"PromoID":2,"RuleType":"WeekendOnly","Value":"1"},
+    {"RuleID":4,"PromoID":3,"RuleType":"SpecificDate","Value":"2025-02-14"},
+    {"RuleID":5,"PromoID":5,"RuleType":"MinEmployees","Value":"5"},
+    {"RuleID":6,"PromoID":6,"RuleType":"MinNights","Value":"3"}
+  ],
+  "PromotionUsage": [
+    {"UsageID":1,"PromoID":1,"BookingID":1,"DiscountAmount":300000.00,"AppliedAt":"2025-01-10T00:00:00.0000000"},
+    {"UsageID":2,"PromoID":1,"BookingID":2,"DiscountAmount":240000.00,"AppliedAt":"2025-01-20T00:00:00.0000000"},
+    {"UsageID":3,"PromoID":2,"BookingID":3,"DiscountAmount":300000.00,"AppliedAt":"2025-02-01T00:00:00.0000000"},
+    {"UsageID":4,"PromoID":3,"BookingID":4,"DiscountAmount":500000.00,"AppliedAt":"2025-02-14T00:00:00.0000000"},
+    {"UsageID":5,"PromoID":5,"BookingID":5,"DiscountAmount":400000.00,"AppliedAt":"2025-03-01T00:00:00.0000000"},
+    {"UsageID":6,"PromoID":4,"BookingID":6,"DiscountAmount":0.00,"AppliedAt":"2025-03-10T00:00:00.0000000"}
+  ],
+  "Attendance": [
+    {"AttendID":1,"EmployeeID":2,"WorkDate":"2025-02-01","ShiftID":1},
+    {"AttendID":2,"EmployeeID":2,"WorkDate":"2025-02-02","ShiftID":2},
+    {"AttendID":3,"EmployeeID":3,"WorkDate":"2025-02-01","ShiftID":1},
+    {"AttendID":4,"EmployeeID":3,"WorkDate":"2025-02-02","ShiftID":1},
+    {"AttendID":5,"EmployeeID":4,"WorkDate":"2025-02-01","ShiftID":4},
+    {"AttendID":6,"EmployeeID":5,"WorkDate":"2025-02-01","ShiftID":1}
+  ],
+  "AttendanceRecord": [
+    {"RecordID":1,"AttendID":1,"TimeIn":"1900-01-01T07:05:00.0000000","TimeOut":"1900-01-01T15:00:00.0000000","IsLateRuleID":1,"EarlyLeaveMinutes":0,"Notes":"5 min late"},
+    {"RecordID":2,"AttendID":2,"TimeIn":"1900-01-01T15:00:00.0000000","TimeOut":"1900-01-01T23:10:00.0000000","IsLateRuleID":2,"EarlyLeaveMinutes":10,"Notes":"Late out 10 min"},
+    {"RecordID":3,"AttendID":3,"TimeIn":"1900-01-01T06:55:00.0000000","TimeOut":"1900-01-01T15:00:00.0000000","IsLateRuleID":null,"EarlyLeaveMinutes":0,"Notes":null},
+    {"RecordID":4,"AttendID":4,"TimeIn":"1900-01-01T07:10:00.0000000","TimeOut":"1900-01-01T15:00:00.0000000","IsLateRuleID":2,"EarlyLeaveMinutes":0,"Notes":"10 min late"},
+    {"RecordID":5,"AttendID":5,"TimeIn":"1900-01-01T07:00:00.0000000","TimeOut":"1900-01-01T15:00:00.0000000","IsLateRuleID":null,"EarlyLeaveMinutes":0,"Notes":null},
+    {"RecordID":6,"AttendID":6,"TimeIn":"1900-01-01T07:02:00.0000000","TimeOut":"1900-01-01T15:00:00.0000000","IsLateRuleID":3,"EarlyLeaveMinutes":0,"Notes":"2 min late"}
+  ],
+  "Department": [
+    {"DeptID":1,"DeptName":"Lễ tân","Description":"Tiếp đón và xử lý đặt phòng"},
+    {"DeptID":2,"DeptName":"Buồng phòng","Description":"Dọn dẹp và bảo trì phòng"},
+    {"DeptID":3,"DeptName":"Nhà hàng","Description":"Phục vụ ăn uống"},
+    {"DeptID":4,"DeptName":"Kế toán","Description":"Tài chính kế toán"},
+    {"DeptID":5,"DeptName":"Marketing","Description":"Quảng bá và sự kiện"}
+  ],
+  "Employee": [
+    {"EmployeeID":1,"AccID":1,"FirstName":"Nguyễn","LastName":"Văn An","DepartmentID":1,"PositionID":1,"ManagerID":null,"HireDate":"2020-01-15","Status":"Active"},
+    {"EmployeeID":2,"AccID":2,"FirstName":"Trần","LastName":"Thị Bình","DepartmentID":1,"PositionID":2,"ManagerID":1,"HireDate":"2019-05-20","Status":"Active"},
+    {"EmployeeID":3,"AccID":3,"FirstName":"Lê","LastName":"Hoàng Cường","DepartmentID":2,"PositionID":3,"ManagerID":null,"HireDate":"2021-03-10","Status":"Active"},
+    {"EmployeeID":4,"AccID":4,"FirstName":"Phạm","LastName":"Thị Dung","DepartmentID":2,"PositionID":3,"ManagerID":3,"HireDate":"2022-07-01","Status":"Active"},
+    {"EmployeeID":5,"AccID":5,"FirstName":"Hoàng","LastName":"Minh Đức","DepartmentID":3,"PositionID":4,"ManagerID":null,"HireDate":"2018-11-25","Status":"Active"},
+    {"EmployeeID":6,"AccID":6,"FirstName":"Vũ","LastName":"Thị Hoa","DepartmentID":4,"PositionID":5,"ManagerID":null,"HireDate":"2020-09-14","Status":"Active"},
+    {"EmployeeID":7,"AccID":7,"FirstName":"Đỗ","LastName":"Thanh Hải","DepartmentID":5,"PositionID":6,"ManagerID":null,"HireDate":"2023-01-01","Status":"Active"},
+    {
+  "EmployeeID": 101,
+  "AccID": 101,
+  "FirstName": "Quản trị",
+  "LastName": "Viên",
+  "DepartmentID": 5,
+  "PositionID": 6,
+  "ManagerID": null,
+  "HireDate": "2026-05-06",
+  "Status": "Active"
+},
+{
+  "EmployeeID": 102,
+  "AccID": 102,
+  "FirstName": "Lễ",
+  "LastName": "Tân",
+  "DepartmentID": 1,
+  "PositionID": 1,
+  "ManagerID": 101,
+  "HireDate": "2026-05-06",
+  "Status": "Active"
+}
+  ],
+  "EmployeeContract": [
+    {"ContractID":1,"EmployeeID":1,"StartDate":"2024-01-01","EndDate":"2026-01-01","BaseSalary":50000000.00,"SalaryType":"Tháng","WorkHoursPerWeek":40},
+    {"ContractID":2,"EmployeeID":2,"StartDate":"2024-02-15","EndDate":null,"BaseSalary":30000000.00,"SalaryType":"Tháng","WorkHoursPerWeek":44},
+    {"ContractID":3,"EmployeeID":3,"StartDate":"2024-03-01","EndDate":"2025-03-01","BaseSalary":15000000.00,"SalaryType":"Tháng","WorkHoursPerWeek":48},
+    {"ContractID":4,"EmployeeID":4,"StartDate":"2024-03-10","EndDate":null,"BaseSalary":12000000.00,"SalaryType":"Tháng","WorkHoursPerWeek":48},
+    {"ContractID":5,"EmployeeID":5,"StartDate":"2024-01-20","EndDate":"2027-01-20","BaseSalary":25000000.00,"SalaryType":"Tháng","WorkHoursPerWeek":40},
+    {"ContractID":6,"EmployeeID":6,"StartDate":"2024-05-01","EndDate":null,"BaseSalary":18000000.00,"SalaryType":"Tháng","WorkHoursPerWeek":44}
+  ],
+  "EmployeeShift": [
+    {"AssignID":1,"EmployeeID":3,"ShiftID":1,"WorkDate":"2026-05-01"},
+    {"AssignID":2,"EmployeeID":3,"ShiftID":1,"WorkDate":"2026-05-02"},
+    {"AssignID":3,"EmployeeID":4,"ShiftID":2,"WorkDate":"2026-05-01"},
+    {"AssignID":4,"EmployeeID":4,"ShiftID":2,"WorkDate":"2026-05-02"},
+    {"AssignID":5,"EmployeeID":6,"ShiftID":3,"WorkDate":"2026-05-01"},
+    {"AssignID":6,"EmployeeID":6,"ShiftID":1,"WorkDate":"2026-05-03"}
+  ],
+  "LateRule": [
+    {"RuleID":1,"MaxLateMinutes":5,"DeductionAmountPerMin":0.00,"EffectiveDate":"2024-01-01"},
+    {"RuleID":2,"MaxLateMinutes":10,"DeductionAmountPerMin":1000.00,"EffectiveDate":"2024-01-01"},
+    {"RuleID":3,"MaxLateMinutes":15,"DeductionAmountPerMin":2000.00,"EffectiveDate":"2024-01-01"},
+    {"RuleID":4,"MaxLateMinutes":30,"DeductionAmountPerMin":5000.00,"EffectiveDate":"2024-01-01"},
+    {"RuleID":5,"MaxLateMinutes":60,"DeductionAmountPerMin":10000.00,"EffectiveDate":"2024-01-01"},
+    {"RuleID":6,"MaxLateMinutes":0,"DeductionAmountPerMin":50000.00,"EffectiveDate":"2024-01-01"}
+  ],
+  "LeaveBalance": [
+    {"BalanceID":1,"EmployeeID":1,"Year":2025,"TotalEntitled":12.0,"Used":2.0,"Remaining":10.0},
+    {"BalanceID":2,"EmployeeID":2,"Year":2025,"TotalEntitled":12.0,"Used":3.0,"Remaining":9.0},
+    {"BalanceID":3,"EmployeeID":3,"Year":2025,"TotalEntitled":12.0,"Used":1.5,"Remaining":10.5}
+  ],
+  "LeaveRequest": [
+    {"LeaveID":1,"EmployeeID":2,"LeaveType":"Annual","StartDate":"2025-03-10","EndDate":"2025-03-12","Reason":"Family vacation","Status":"Approved","ApprovedBy":1},
+    {"LeaveID":2,"EmployeeID":3,"LeaveType":"Sick","StartDate":"2025-03-15","EndDate":"2025-03-15","Reason":"Flu","Status":"Pending","ApprovedBy":null},
+    {"LeaveID":3,"EmployeeID":4,"LeaveType":"Unpaid","StartDate":"2025-04-01","EndDate":"2025-04-05","Reason":"Personal matters","Status":"Rejected","ApprovedBy":1}
+  ],
+  "OvertimeRequest": [
+    {"OTID":1,"EmployeeID":2,"Date":"2025-03-05","StartTime":"18:00:00","EndTime":"21:00:00","OTType":"X1.5","Reason":"Peak season check-in","Status":"Approved","ApprovedBy":1},
+    {"OTID":2,"EmployeeID":4,"Date":"2025-03-08","StartTime":"07:00:00","EndTime":"11:00:00","OTType":"X2.0","Reason":"Weekend cleaning","Status":"Pending","ApprovedBy":null},
+    {"OTID":3,"EmployeeID":6,"Date":"2025-03-12","StartTime":"22:00:00","EndTime":"01:00:00","OTType":"X3.0","Reason":"Night audit support","Status":"Rejected","ApprovedBy":1}
+  ],
+  "PerformanceLog": [
+    {"LogID":1,"EmployeeID":3,"LogDate":"2026-04-30","MetricType":"BookingCount","MetricValue":15.00},
+    {"LogID":2,"EmployeeID":2,"LogDate":"2026-04-30","MetricType":"RevenueTarget","MetricValue":120000000.00},
+    {"LogID":3,"EmployeeID":4,"LogDate":"2026-04-30","MetricType":"CleanedRooms","MetricValue":45.00},
+    {"LogID":4,"EmployeeID":6,"LogDate":"2026-04-30","MetricType":"ResolvedIssues","MetricValue":12.00},
+    {"LogID":5,"EmployeeID":5,"LogDate":"2026-04-30","MetricType":"AccuracyRate","MetricValue":99.50},
+    {"LogID":6,"EmployeeID":1,"LogDate":"2026-04-30","MetricType":"ManagementScore","MetricValue":9.20}
+  ],
+  "Permission": [
+    {"PermID":1,"PermKey":"ROOM_VIEW","Description":"Xem danh sách phòng"},
+    {"PermID":2,"PermKey":"ROOM_EDIT","Description":"Chỉnh sửa thông tin phòng"},
+    {"PermID":3,"PermKey":"FIN_REPORT","Description":"Xem báo cáo tài chính"},
+    {"PermID":4,"PermKey":"EMP_MANAGE","Description":"Quản lý nhân sự"},
+    {"PermID":5,"PermKey":"BOOKING_CREATE","Description":"Tạo đơn đặt phòng"},
+    {"PermID":6,"PermKey":"SERVICE_ORDER","Description":"Đặt dịch vụ cho khách"}
+  ],
+  "Position": [
+    {"PositionID":1,"PositionName":"Lễ tân viên","Level":1},
+    {"PositionID":2,"PositionName":"Trưởng ca","Level":2},
+    {"PositionID":3,"PositionName":"Nhân viên buồng phòng","Level":1},
+    {"PositionID":4,"PositionName":"Bếp trưởng","Level":2},
+    {"PositionID":5,"PositionName":"Kế toán viên","Level":1},
+    {"PositionID":6,"PositionName":"Giám đốc điều hành","Level":3}
+  ],
+  "Role": [
+    {"RoleID":1,"RoleName":"Admin","Description":"Quản trị viên toàn hệ thống"},
+    {"RoleID":2,"RoleName":"Manager","Description":"Quản lý chi nhánh"},
+    {"RoleID":3,"RoleName":"Receptionist","Description":"Nhân viên lễ tân"},
+    {"RoleID":4,"RoleName":"Housekeeping","Description":"Nhân viên buồng phòng"},
+    {"RoleID":5,"RoleName":"Accountant","Description":"Nhân viên kế toán"},
+    {"RoleID":6,"RoleName":"Technician","Description":"Nhân viên kỹ thuật"}
+  ],
+  "RoleAssign": [
+    {"RoleAssignID":1,"EmployeeID":1,"RoleID":1,"AssignedBy":1,"AssignedAt":"2026-05-02T13:53:27.5139112"},
+    {"RoleAssignID":2,"EmployeeID":2,"RoleID":2,"AssignedBy":1,"AssignedAt":"2026-05-02T13:53:27.5139112"},
+    {"RoleAssignID":3,"EmployeeID":3,"RoleID":3,"AssignedBy":1,"AssignedAt":"2026-05-02T13:53:27.5139112"},
+    {"RoleAssignID":4,"EmployeeID":4,"RoleID":4,"AssignedBy":2,"AssignedAt":"2026-05-02T13:53:27.5139112"},
+    {"RoleAssignID":5,"EmployeeID":5,"RoleID":5,"AssignedBy":2,"AssignedAt":"2026-05-02T13:53:27.5139112"},
+    {"RoleAssignID":6,"EmployeeID":6,"RoleID":6,"AssignedBy":2,"AssignedAt":"2026-05-02T13:53:27.5139112"}
+  ],
+  "RolePermission": [
+    {"RolePermPairID":1,"RoleID":1,"PermID":1},
+    {"RolePermPairID":2,"RoleID":1,"PermID":2},
+    {"RolePermPairID":3,"RoleID":1,"PermID":3},
+    {"RolePermPairID":4,"RoleID":1,"PermID":4},
+    {"RolePermPairID":5,"RoleID":2,"PermID":3},
+    {"RolePermPairID":6,"RoleID":3,"PermID":5}
+  ],
+  "Shift": [
+    {"ShiftID":1,"ShiftName":"Morning","StartTime":"07:00:00","EndTime":"15:00:00","BranchID":1},
+    {"ShiftID":2,"ShiftName":"Afternoon","StartTime":"15:00:00","EndTime":"23:00:00","BranchID":1},
+    {"ShiftID":3,"ShiftName":"Night","StartTime":"23:00:00","EndTime":"07:00:00","BranchID":1},
+    {"ShiftID":4,"ShiftName":"Morning","StartTime":"07:00:00","EndTime":"15:00:00","BranchID":2},
+    {"ShiftID":5,"ShiftName":"Afternoon","StartTime":"15:00:00","EndTime":"23:00:00","BranchID":2},
+    {"ShiftID":6,"ShiftName":"Night","StartTime":"23:00:00","EndTime":"07:00:00","BranchID":2}
+  ]
+}
