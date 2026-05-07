@@ -1,0 +1,67 @@
+{
+    "Campaign": [],
+  "CampaignBudget": [],
+  "CampaignChannel": [],
+  "CampaignObjective": [],
+  "CampaignPartner": [],
+  "CampaignPerformance": [],
+  "Coupon": [
+    {"CouponID":1,"Code":"EB20","PromoID":1,"IssuedTo":null,"Status":"Active","ExpiryDate":"2025-03-31"},
+    {"CouponID":2,"Code":"FLASH15","PromoID":2,"IssuedTo":2,"Status":"Used","ExpiryDate":"2025-02-28"},
+    {"CouponID":3,"Code":"LOVE500","PromoID":3,"IssuedTo":4,"Status":"Used","ExpiryDate":"2025-02-14"},
+    {"CouponID":4,"Code":"DOUBLEXP","PromoID":4,"IssuedTo":1,"Status":"Active","ExpiryDate":"2025-03-31"},
+    {"CouponID":5,"Code":"CORP10","PromoID":5,"IssuedTo":null,"Status":"Active","ExpiryDate":"2025-06-30"},
+    {"CouponID":6,"Code":"3P2","PromoID":6,"IssuedTo":3,"Status":"Active","ExpiryDate":"2025-05-31"}
+  ],
+  "Event": [
+    {"EventID":1,"CampaignID":null,"EventName":"Valentine Gala Dinner","StartDate":"2025-02-14T00:00:00.0000000","EndDate":"2025-02-14T00:00:00.0000000","BranchID":1,"Venue":"Grand Ballroom","Organizer":"Marketing Dept","Status":"Confirmed"},
+    {"EventID":2,"CampaignID":null,"EventName":"Summer Beach Party","StartDate":"2025-07-01T00:00:00.0000000","EndDate":"2025-07-01T00:00:00.0000000","BranchID":2,"Venue":"Beachfront","Organizer":"Events Team","Status":"Planned"},
+    {"EventID":3,"CampaignID":null,"EventName":"Wedding Expo 2025","StartDate":"2025-03-18T00:00:00.0000000","EndDate":"2025-03-19T00:00:00.0000000","BranchID":2,"Venue":"Exhibition Hall","Organizer":"Hoa Binh Event","Status":"Confirmed"},
+    {"EventID":4,"CampaignID":null,"EventName":"Christmas Market","StartDate":"2025-12-24T00:00:00.0000000","EndDate":"2025-12-26T00:00:00.0000000","BranchID":1,"Venue":"Lobby","Organizer":"Internal","Status":"Idea"},
+    {"EventID":5,"CampaignID":null,"EventName":"New Year Countdown","StartDate":"2025-12-31T00:00:00.0000000","EndDate":"2026-01-01T00:00:00.0000000","BranchID":1,"Venue":"Rooftop","Organizer":"Marketing","Status":"Planned"},
+    {"EventID":6,"CampaignID":null,"EventName":"Loyalty App Launch","StartDate":"2025-04-01T00:00:00.0000000","EndDate":"2025-04-02T00:00:00.0000000","BranchID":3,"Venue":"Conference Room","Organizer":"IT & Marketing","Status":"Confirmed"}
+  ],
+  "EventBooking": [
+    {"BookID":1,"EventID":1,"CustomerID":4,"BookingDate":"2025-02-01T00:00:00.0000000","NumberOfAttendees":2,"SpecialRequest":"Table near stage, vegetarian"},
+    {"BookID":2,"EventID":1,"CustomerID":6,"BookingDate":"2025-02-05T00:00:00.0000000","NumberOfAttendees":2,"SpecialRequest":null},
+    {"BookID":3,"EventID":3,"CustomerID":3,"BookingDate":"2025-03-01T00:00:00.0000000","NumberOfAttendees":4,"SpecialRequest":"Bridal consultation"},
+    {"BookID":4,"EventID":3,"CustomerID":5,"BookingDate":"2025-03-10T00:00:00.0000000","NumberOfAttendees":2,"SpecialRequest":null},
+    {"BookID":5,"EventID":4,"CustomerID":1,"BookingDate":"2025-12-01T00:00:00.0000000","NumberOfAttendees":5,"SpecialRequest":"Gluten-free options"},
+    {"BookID":6,"EventID":6,"CustomerID":2,"BookingDate":"2025-03-20T00:00:00.0000000","NumberOfAttendees":1,"SpecialRequest":"Technical demo required"}
+  ],
+  "EventService": [
+    {"ESID":1,"EventBookingID":1,"ServiceItemID":3,"Quantity":2,"Price":250000.00},
+    {"ESID":2,"EventBookingID":1,"ServiceItemID":2,"Quantity":2,"Price":150000.00},
+    {"ESID":3,"EventBookingID":3,"ServiceItemID":3,"Quantity":4,"Price":250000.00},
+    {"ESID":4,"EventBookingID":4,"ServiceItemID":1,"Quantity":2,"Price":300000.00},
+    {"ESID":5,"EventBookingID":5,"ServiceItemID":2,"Quantity":5,"Price":150000.00},
+    {"ESID":6,"EventBookingID":6,"ServiceItemID":4,"Quantity":1,"Price":50000.00}
+  ],
+  "MarketingAsset": [],
+  "MarketingPlan": [],
+  "Partner": [],
+  "Promotion": [
+    {"PromoID":1,"CampaignID":null,"PromoName":"Early Bird 20%","Description":"Giảm 20% cho đặt phòng trước 7 ngày","DiscountType":"Percentage","Value":20.00,"StartDate":"2025-01-01","EndDate":"2025-03-31"},
+    {"PromoID":2,"CampaignID":null,"PromoName":"Weekend Flash Sale","Description":"Giảm 15% cho đặt phòng thứ 7, CN","DiscountType":"Percentage","Value":15.00,"StartDate":"2025-02-01","EndDate":"2025-02-28"},
+    {"PromoID":3,"CampaignID":null,"PromoName":"Valentine Special","Description":"Giảm 500,000đ cho đặt phòng ngày 14/2","DiscountType":"FixedAmount","Value":500000.00,"StartDate":"2025-02-10","EndDate":"2025-02-14"},
+    {"PromoID":4,"CampaignID":null,"PromoName":"Loyalty Double Points","Description":"Nhân đôi điểm tích lũy","DiscountType":"Other","Value":0.00,"StartDate":"2025-03-01","EndDate":"2025-03-31"},
+    {"PromoID":5,"CampaignID":null,"PromoName":"Corporate 10%","Description":"Giảm 10% cho khách hàng doanh nghiệp","DiscountType":"Percentage","Value":10.00,"StartDate":"2025-01-10","EndDate":"2025-06-30"},
+    {"PromoID":6,"CampaignID":null,"PromoName":"Stay 3 Pay 2","Description":"Tặng 1 đêm khi ở 3 đêm liên tiếp","DiscountType":"Other","Value":0.00,"StartDate":"2025-04-01","EndDate":"2025-05-31"}
+  ],
+  "PromotionRule": [
+    {"RuleID":1,"PromoID":1,"RuleType":"MinAdvanceDays","Value":"7"},
+    {"RuleID":2,"PromoID":1,"RuleType":"MinNights","Value":"2"},
+    {"RuleID":3,"PromoID":2,"RuleType":"WeekendOnly","Value":"1"},
+    {"RuleID":4,"PromoID":3,"RuleType":"SpecificDate","Value":"2025-02-14"},
+    {"RuleID":5,"PromoID":5,"RuleType":"MinEmployees","Value":"5"},
+    {"RuleID":6,"PromoID":6,"RuleType":"MinNights","Value":"3"}
+  ],
+  "PromotionUsage": [
+    {"UsageID":1,"PromoID":1,"BookingID":1,"DiscountAmount":300000.00,"AppliedAt":"2025-01-10T00:00:00.0000000"},
+    {"UsageID":2,"PromoID":1,"BookingID":2,"DiscountAmount":240000.00,"AppliedAt":"2025-01-20T00:00:00.0000000"},
+    {"UsageID":3,"PromoID":2,"BookingID":3,"DiscountAmount":300000.00,"AppliedAt":"2025-02-01T00:00:00.0000000"},
+    {"UsageID":4,"PromoID":3,"BookingID":4,"DiscountAmount":500000.00,"AppliedAt":"2025-02-14T00:00:00.0000000"},
+    {"UsageID":5,"PromoID":5,"BookingID":5,"DiscountAmount":400000.00,"AppliedAt":"2025-03-01T00:00:00.0000000"},
+    {"UsageID":6,"PromoID":4,"BookingID":6,"DiscountAmount":0.00,"AppliedAt":"2025-03-10T00:00:00.0000000"}
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "SystemAccount": [
+    {"AccID":1,"Email":"staff1@hotel.com","Password":"h@sh1","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":2,"Email":"staff2@hotel.com","Password":"h@sh2","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":3,"Email":"staff3@hotel.com","Password":"h@sh3","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":4,"Email":"staff4@hotel.com","Password":"h@sh4","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":5,"Email":"staff5@hotel.com","Password":"h@sh5","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":6,"Email":"staff6@hotel.com","Password":"h@sh6","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":7,"Email":"staff7@hotel.com","Password":"h@sh7","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":8,"Email":"customer1@example.com","Password":"h@sh8","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":9,"Email":"customer2@example.com","Password":"h@sh9","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":10,"Email":"customer3@example.com","Password":"h@sh10","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":11,"Email":"customer4@example.com","Password":"h@sh11","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":12,"Email":"customer5@example.com","Password":"h@sh12","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":13,"Email":"customer6@example.com","Password":"h@sh13","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":14,"Email":"customer7@example.com","Password":"h@sh14","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":15,"Email":"customer8@example.com","Password":"h@sh15","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":16,"Email":"customer9@example.com","Password":"h@sh16","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":17,"Email":"customer10@example.com","Password":"h@sh17","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":18,"Email":"customer11@example.com","Password":"h@sh18","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":19,"Email":"customer12@example.com","Password":"h@sh19","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":20,"Email":"customer13@example.com","Password":"h@sh20","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":21,"Email":"customer14@example.com","Password":"h@sh21","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":22,"Email":"customer15@example.com","Password":"h@sh22","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":23,"Email":"customer16@example.com","Password":"h@sh23","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":24,"Email":"customer17@example.com","Password":"h@sh24","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {"AccID":25,"Email":"customer18@example.com","Password":"h@sh25","IsActive":true,"LastLoginAt":"2026-05-01T23:47:35.3500000","CreatedAt":"2026-05-01T23:47:35.3500000"},
+    {
+  "AccID": 101,
+  "Email": "admin@lortel.com",
+  "Password": "admin123",
+  "IsActive": true,
+  "LastLoginAt": null,
+  "CreatedAt": "2026-05-06T12:00:00.0000000"
+},
+{
+  "AccID": 102,
+  "Email": "letan@lortel.com",
+  "Password": "letan123",
+  "IsActive": true,
+  "LastLoginAt": null,
+  "CreatedAt": "2026-05-06T12:00:00.0000000"
+},
+{
+  "AccID": 103,
+  "Email": "khachhang@lortel.com",
+  "Password": "khachhang123",
+  "IsActive": true,
+  "LastLoginAt": null,
+  "CreatedAt": "2026-05-06T12:00:00.0000000"
+},
+{
+  "AccID": 104,
+  "Email": "vip@lortel.com",
+  "Password": "vip123",
+  "IsActive": true,
+  "LastLoginAt": null,
+  "CreatedAt": "2026-05-06T12:00:00.0000000"
+}
+  ]
+}

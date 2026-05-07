@@ -1,0 +1,127 @@
+{"Booking": [
+    {"BookingID":1,"CustomerID":1,"BranchID":1,"BookingDate":"2025-01-10T00:00:00.0000000","CheckIn":"2025-01-15","CheckOut":"2025-01-18","NumberOfAdults":2,"NumberOfChildren":1,"SpecialRequest":"Late check-in","StatusID":2,"Source":"Website"},
+    {"BookingID":2,"CustomerID":2,"BranchID":1,"BookingDate":"2025-01-20T00:00:00.0000000","CheckIn":"2025-01-22","CheckOut":"2025-01-25","NumberOfAdults":1,"NumberOfChildren":0,"SpecialRequest":null,"StatusID":1,"Source":"OTA"},
+    {"BookingID":3,"CustomerID":3,"BranchID":2,"BookingDate":"2025-02-01T00:00:00.0000000","CheckIn":"2025-02-05","CheckOut":"2025-02-10","NumberOfAdults":2,"NumberOfChildren":2,"SpecialRequest":"Connecting rooms","StatusID":2,"Source":"Direct"},
+    {"BookingID":4,"CustomerID":4,"BranchID":1,"BookingDate":"2025-02-10T00:00:00.0000000","CheckIn":"2025-02-14","CheckOut":"2025-02-16","NumberOfAdults":2,"NumberOfChildren":0,"SpecialRequest":"Anniversary","StatusID":3,"Source":"Website"},
+    {"BookingID":5,"CustomerID":5,"BranchID":3,"BookingDate":"2025-03-01T00:00:00.0000000","CheckIn":"2025-03-03","CheckOut":"2025-03-05","NumberOfAdults":1,"NumberOfChildren":0,"SpecialRequest":null,"StatusID":2,"Source":"OTA"},
+    {"BookingID":6,"CustomerID":6,"BranchID":2,"BookingDate":"2025-03-10T00:00:00.0000000","CheckIn":"2025-03-12","CheckOut":"2025-03-15","NumberOfAdults":2,"NumberOfChildren":1,"SpecialRequest":"Extra bed","StatusID":4,"Source":"Direct"}
+  ],
+  "BookingGuest": [
+    {"BookingGuestID":1,"BookingID":1,"FullName":"John Doe","DateOfBirth":"1985-04-12","IDNumber":"A123456","IsMainGuest":true},
+    {"BookingGuestID":2,"BookingID":1,"FullName":"Jane Doe","DateOfBirth":"1987-07-19","IDNumber":"B789012","IsMainGuest":false},
+    {"BookingGuestID":3,"BookingID":1,"FullName":"Tom Doe","DateOfBirth":"2015-11-02","IDNumber":"","IsMainGuest":false},
+    {"BookingGuestID":4,"BookingID":2,"FullName":"Alice Smith","DateOfBirth":"1990-02-28","IDNumber":"C345678","IsMainGuest":true},
+    {"BookingGuestID":5,"BookingID":3,"FullName":"Bob Brown","DateOfBirth":"1978-09-15","IDNumber":"D901234","IsMainGuest":true},
+    {"BookingGuestID":6,"BookingID":4,"FullName":"Carol White","DateOfBirth":"1982-12-01","IDNumber":"E567890","IsMainGuest":true}
+  ],
+  "BookingRoom": [
+    {"BookingRoomID":1,"BookingID":1,"RoomID":101,"RateApplied":150.00,"GuestName":"John Doe","CheckIn":"2025-01-15","CheckOut":"2025-01-18"},
+    {"BookingRoomID":2,"BookingID":1,"RoomID":102,"RateApplied":150.00,"GuestName":"Jane Doe","CheckIn":"2025-01-15","CheckOut":"2025-01-18"},
+    {"BookingRoomID":3,"BookingID":2,"RoomID":105,"RateApplied":120.00,"GuestName":"Alice Smith","CheckIn":"2025-01-22","CheckOut":"2025-01-25"},
+    {"BookingRoomID":4,"BookingID":3,"RoomID":201,"RateApplied":200.00,"GuestName":"Bob Brown","CheckIn":"2025-02-05","CheckOut":"2025-02-10"},
+    {"BookingRoomID":5,"BookingID":4,"RoomID":110,"RateApplied":180.00,"GuestName":"Carol White","CheckIn":"2025-02-14","CheckOut":"2025-02-16"},
+    {"BookingRoomID":6,"BookingID":5,"RoomID":305,"RateApplied":250.00,"GuestName":"David Lee","CheckIn":"2025-03-03","CheckOut":"2025-03-05"}
+  ],
+  "BookingStatus": [
+    {"StatusID":1,"StatusName":"Pending","Description":"Chờ xác nhận"},
+    {"StatusID":2,"StatusName":"Confirmed","Description":"Đã xác nhận"},
+    {"StatusID":3,"StatusName":"CheckedIn","Description":"Đã nhận phòng"},
+    {"StatusID":4,"StatusName":"Completed","Description":"Đã trả phòng"},
+    {"StatusID":5,"StatusName":"Cancelled","Description":"Đã hủy"},
+    {"StatusID":6,"StatusName":"NoShow","Description":"Không đến"}
+  ],
+  "CheckInOut": [
+    {"CheckID":1,"BookingRoomID":1,"CheckInTime":"2025-01-15T14:00:00.0000000","CheckOutTime":"2025-01-18T10:30:00.0000000","ActualCheckOut":"2025-01-18T10:30:00.0000000"},
+    {"CheckID":2,"BookingRoomID":2,"CheckInTime":"2025-01-15T15:20:00.0000000","CheckOutTime":"2025-01-18T11:00:00.0000000","ActualCheckOut":"2025-01-18T11:00:00.0000000"},
+    {"CheckID":3,"BookingRoomID":3,"CheckInTime":"2025-01-22T13:45:00.0000000","CheckOutTime":"2025-01-25T09:15:00.0000000","ActualCheckOut":"2025-01-25T09:15:00.0000000"},
+    {"CheckID":4,"BookingRoomID":4,"CheckInTime":"2025-02-05T12:30:00.0000000","CheckOutTime":"2025-02-10T10:00:00.0000000","ActualCheckOut":"2025-02-10T10:00:00.0000000"},
+    {"CheckID":5,"BookingRoomID":5,"CheckInTime":"2025-02-14T16:00:00.0000000","CheckOutTime":"2025-02-16T11:30:00.0000000","ActualCheckOut":"2025-02-16T11:30:00.0000000"},
+    {"CheckID":6,"BookingRoomID":6,"CheckInTime":"2025-03-03T14:15:00.0000000","CheckOutTime":"2025-03-05T08:45:00.0000000","ActualCheckOut":"2025-03-05T08:45:00.0000000"}
+  ],
+  "Customer": [
+    {"CustomerID":1,"AccID":8,"FirstName":"John","LastName":"Smith","Phone":"+1 202 555 1234","Nationality":"USA","DateOfBirth":"1985-04-12","IDNumber":"US123456","IDType":"Passport","Address":"123 Main St, New York","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":2,"AccID":9,"FirstName":"Maria","LastName":"Garcia","Phone":"+34 612 345 678","Nationality":"Spain","DateOfBirth":"1990-07-23","IDNumber":"ES987654","IDType":"ID Card","Address":"Calle Mayor 10, Madrid","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":3,"AccID":10,"FirstName":"Wei","LastName":"Zhang","Phone":"+86 138 0000 1111","Nationality":"China","DateOfBirth":"1982-11-02","IDNumber":"CN456789","IDType":"Passport","Address":"Beijing Chaoyang Dist","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":4,"AccID":11,"FirstName":"Marie","LastName":"Dubois","Phone":"+33 6 12 34 56 78","Nationality":"France","DateOfBirth":"1995-03-18","IDNumber":"FR789012","IDType":"ID Card","Address":"15 Rue de Rivoli, Paris","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":5,"AccID":12,"FirstName":"Liam","LastName":"Johnson","Phone":"+61 412 345 678","Nationality":"Australia","DateOfBirth":"1988-09-30","IDNumber":"AU345678","IDType":"Passport","Address":"100 George St, Sydney","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":6,"AccID":13,"FirstName":"Yuki","LastName":"Tanaka","Phone":"+81 90 1234 5678","Nationality":"Japan","DateOfBirth":"1992-12-05","IDNumber":"JP234567","IDType":"Passport","Address":"1-1-1 Shibuya, Tokyo","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":7,"AccID":14,"FirstName":"Anna","LastName":"Ivanova","Phone":"+7 912 345 67 89","Nationality":"Russia","DateOfBirth":"1987-06-17","IDNumber":"RU876543","IDType":"ID Card","Address":"25 Tverskaya St, Moscow","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":8,"AccID":15,"FirstName":"Carlos","LastName":"Lopez","Phone":"+52 55 1234 5678","Nationality":"Mexico","DateOfBirth":"1993-01-22","IDNumber":"MX456789","IDType":"Passport","Address":"Av Reforma 123, Mexico City","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":9,"AccID":16,"FirstName":"Sarah","LastName":"Wilson","Phone":"+44 20 7946 0123","Nationality":"UK","DateOfBirth":"1991-08-14","IDNumber":"UK567890","IDType":"Passport","Address":"221B Baker St, London","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":10,"AccID":17,"FirstName":"Ahmed","LastName":"Khan","Phone":"+92 300 1234567","Nationality":"Pakistan","DateOfBirth":"1984-05-28","IDNumber":"PK123789","IDType":"ID Card","Address":"47 Jinnah Ave, Islamabad","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":11,"AccID":18,"FirstName":"Chi","LastName":"Nguyen","Phone":"+84 903 123 456","Nationality":"Vietnam","DateOfBirth":"1996-10-10","IDNumber":"VN234567","IDType":"ID Card","Address":"123 Le Loi, Hanoi","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":12,"AccID":19,"FirstName":"Elena","LastName":"Popova","Phone":"+7 921 456 78 90","Nationality":"Ukraine","DateOfBirth":"1989-04-25","IDNumber":"UA987654","IDType":"Passport","Address":"10 Khreshchatyk, Kyiv","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":13,"AccID":20,"FirstName":"Mohamed","LastName":"El-Sayed","Phone":"+20 122 345 6789","Nationality":"Egypt","DateOfBirth":"1979-12-01","IDNumber":"EG456123","IDType":"ID Card","Address":"15 Tahrir Square, Cairo","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":14,"AccID":21,"FirstName":"Isabella","LastName":"Rossi","Phone":"+39 333 1234567","Nationality":"Italy","DateOfBirth":"1998-02-19","IDNumber":"IT789456","IDType":"Passport","Address":"Via Roma 5, Rome","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":15,"AccID":22,"FirstName":"David","LastName":"Brown","Phone":"+1 416 555 7890","Nationality":"Canada","DateOfBirth":"1983-11-11","IDNumber":"CA567890","IDType":"ID Card","Address":"77 King St, Toronto","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":16,"AccID":23,"FirstName":"Fatima","LastName":"Al-Mansouri","Phone":"+971 50 123 4567","Nationality":"UAE","DateOfBirth":"1986-07-07","IDNumber":"AE345678","IDType":"Passport","Address":"Corniche Road, Abu Dhabi","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":17,"AccID":24,"FirstName":"Lucas","LastName":"Schmidt","Phone":"+49 151 12345678","Nationality":"Germany","DateOfBirth":"1994-09-21","IDNumber":"DE987654","IDType":"ID Card","Address":"27 Hauptstrasse, Berlin","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {"CustomerID":18,"AccID":25,"FirstName":"Emma","LastName":"Andersson","Phone":"+46 70 123 45 67","Nationality":"Sweden","DateOfBirth":"1997-06-05","IDNumber":"SE456789","IDType":"Passport","Address":"12 Drottninggatan, Stockholm","CreatedAt":"2026-05-01T23:47:35.4433333"},
+    {
+  "CustomerID": 101,
+  "AccID": 103,
+  "FirstName": "Văn A",
+  "LastName": "Nguyễn",
+  "Phone": "0901123456",
+  "Nationality": "Vietnam",
+  "DateOfBirth": "1990-01-01",
+  "IDNumber": "VN000001",
+  "IDType": "ID Card",
+  "Address": "Hanoi, Vietnam",
+  "CreatedAt": "2026-05-06T12:00:00.0000000"
+},
+{
+  "CustomerID": 102,
+  "AccID": 104,
+  "FirstName": "Thị B",
+  "LastName": "Trần",
+  "Phone": "0902123456",
+  "Nationality": "Vietnam",
+  "DateOfBirth": "1988-02-02",
+  "IDNumber": "VN000002",
+  "IDType": "ID Card",
+  "Address": "Hanoi, Vietnam",
+  "CreatedAt": "2026-05-06T12:00:00.0000000"
+}
+  ],
+  "CustomerPreference": [
+    {"PrefID":1,"CustomerID":1,"PreferenceKey":"Smoking","PreferenceValue":"No"},
+    {"PrefID":2,"CustomerID":1,"PreferenceKey":"BedType","PreferenceValue":"King"},
+    {"PrefID":3,"CustomerID":2,"PreferenceKey":"Allergy","PreferenceValue":"Feather"},
+    {"PrefID":4,"CustomerID":3,"PreferenceKey":"View","PreferenceValue":"Sea"},
+    {"PrefID":5,"CustomerID":4,"PreferenceKey":"Floor","PreferenceValue":"High"},
+    {"PrefID":6,"CustomerID":5,"PreferenceKey":"ExtraPillow","PreferenceValue":"Yes"}
+  ],
+  "Feedback": [
+    {"FeedbackID":1,"BookingID":1,"Rating":5,"Comment":"Excellent service!","CreatedAt":"2025-01-19T00:00:00.0000000"},
+    {"FeedbackID":2,"BookingID":2,"Rating":4,"Comment":"Clean room, friendly staff.","CreatedAt":"2025-01-26T00:00:00.0000000"},
+    {"FeedbackID":3,"BookingID":3,"Rating":5,"Comment":"Great family stay","CreatedAt":"2025-02-11T00:00:00.0000000"},
+    {"FeedbackID":4,"BookingID":4,"Rating":3,"Comment":"Breakfast could be better","CreatedAt":"2025-02-17T00:00:00.0000000"},
+    {"FeedbackID":5,"BookingID":5,"Rating":5,"Comment":"Perfect honeymoon","CreatedAt":"2025-03-06T00:00:00.0000000"},
+    {"FeedbackID":6,"BookingID":6,"Rating":4,"Comment":"Good value","CreatedAt":"2025-03-16T00:00:00.0000000"}
+  ],
+  "LoyaltyProgram": [
+    {"LoyaltyID":1,"CustomerID":1,"PointsBalance":1250,"TierID":2},
+    {"LoyaltyID":2,"CustomerID":2,"PointsBalance":800,"TierID":1},
+    {"LoyaltyID":3,"CustomerID":3,"PointsBalance":5100,"TierID":3},
+    {"LoyaltyID":4,"CustomerID":4,"PointsBalance":10500,"TierID":4},
+    {"LoyaltyID":5,"CustomerID":5,"PointsBalance":250,"TierID":1},
+    {"LoyaltyID":6,"CustomerID":6,"PointsBalance":22000,"TierID":5}
+  ],
+  "LoyaltyTier": [
+    {"TierID":1,"TierName":"Bronze","MinPoints":0,"DiscountPercent":0.00},
+    {"TierID":2,"TierName":"Silver","MinPoints":1000,"DiscountPercent":5.00},
+    {"TierID":3,"TierName":"Gold","MinPoints":5000,"DiscountPercent":10.00},
+    {"TierID":4,"TierName":"Platinum","MinPoints":10000,"DiscountPercent":15.00},
+    {"TierID":5,"TierName":"Diamond","MinPoints":20000,"DiscountPercent":20.00},
+    {"TierID":6,"TierName":"Elite","MinPoints":50000,"DiscountPercent":25.00}
+  ],
+  "LoyaltyTransaction": [
+    {"TransID":1,"CustomerID":1,"PointsEarned":1200,"PointsRedeemed":0,"BookingID":1,"Description":"Earn from booking #1","CreatedAt":"2025-01-18T00:00:00.0000000"},
+    {"TransID":2,"CustomerID":1,"PointsEarned":0,"PointsRedeemed":500,"BookingID":null,"Description":"Redeem for discount","CreatedAt":"2025-01-20T00:00:00.0000000"},
+    {"TransID":3,"CustomerID":2,"PointsEarned":800,"PointsRedeemed":0,"BookingID":2,"Description":"Earn from booking #2","CreatedAt":"2025-01-25T00:00:00.0000000"},
+    {"TransID":4,"CustomerID":3,"PointsEarned":5000,"PointsRedeemed":0,"BookingID":3,"Description":"Earn from booking #3","CreatedAt":"2025-02-10T00:00:00.0000000"},
+    {"TransID":5,"CustomerID":4,"PointsEarned":10000,"PointsRedeemed":0,"BookingID":4,"Description":"Earn from booking #4","CreatedAt":"2025-02-16T00:00:00.0000000"},
+    {"TransID":6,"CustomerID":6,"PointsEarned":20000,"PointsRedeemed":0,"BookingID":6,"Description":"Earn from booking #6","CreatedAt":"2025-03-15T00:00:00.0000000"}
+  ]
+}

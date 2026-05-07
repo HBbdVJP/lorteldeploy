@@ -1,0 +1,194 @@
+{
+    "AccountChart": [
+    {"AccountID":1,"AccountCode":"1111","AccountName":"Cash","Type":"Asset"},
+    {"AccountID":2,"AccountCode":"1121","AccountName":"Bank","Type":"Asset"},
+    {"AccountID":3,"AccountCode":"5111","AccountName":"Room Revenue","Type":"Revenue"},
+    {"AccountID":4,"AccountCode":"5112","AccountName":"Service Revenue","Type":"Revenue"},
+    {"AccountID":5,"AccountCode":"6411","AccountName":"Salary Expense","Type":"Expense"},
+    {"AccountID":6,"AccountCode":"6421","AccountName":"Utility Expense","Type":"Expense"}
+  ],
+  "Bonus": [
+    {"BonusID":1,"PayrollID":1,"BonusType":"Performance","Amount":1000000.00,"Reason":"High KPI","RefRuleID":1},
+    {"BonusID":2,"PayrollID":2,"BonusType":"Referral","Amount":500000.00,"Reason":"Refer new employee","RefRuleID":null},
+    {"BonusID":3,"PayrollID":4,"BonusType":"ExtraShift","Amount":2000000.00,"Reason":"Holiday work","RefRuleID":2},
+    {"BonusID":4,"PayrollID":5,"BonusType":"Performance","Amount":800000.00,"Reason":"Good service","RefRuleID":1},
+    {"BonusID":5,"PayrollID":6,"BonusType":"PerfectAttendance","Amount":300000.00,"Reason":"No late/leave","RefRuleID":3},
+    {"BonusID":6,"PayrollID":1,"BonusType":"Longevity","Amount":200000.00,"Reason":"3 years","RefRuleID":null}
+  ],
+  "BonusRule": [
+    {"RuleID":1,"RuleName":"HighKPI","Criteria":"{\"Metric\":\"BookingCount\",\"MinValue\":20}","BonusAmount":1000000.00,"AppliedScope":"Receptionist"},
+    {"RuleID":2,"RuleName":"HolidayShift","Criteria":"{\"Holiday\":true}","BonusAmount":2000000.00,"AppliedScope":"All"},
+    {"RuleID":3,"RuleName":"PerfectAttendance","Criteria":"{\"LateDays\":0,\"LeaveEarlyDays\":0}","BonusAmount":300000.00,"AppliedScope":"All"},
+    {"RuleID":4,"RuleName":"TopRevenue","Criteria":"{\"Metric\":\"Revenue\",\"TopN\":1}","BonusAmount":2000000.00,"AppliedScope":"Manager"},
+    {"RuleID":5,"RuleName":"CustomerRating","Criteria":"{\"MinRating\":4.8}","BonusAmount":500000.00,"AppliedScope":"Frontline"},
+    {"RuleID":6,"RuleName":"Referral","Criteria":"{\"Referrals\":1}","BonusAmount":500000.00,"AppliedScope":"All"}
+  ],
+  "DailyRevenue": [
+    {"RevID":1,"BranchID":1,"Date":"2025-01-15","RoomRevenue":500000.00,"ServiceRevenue":0.00,"Total":500000.00},
+    {"RevID":2,"BranchID":1,"Date":"2025-01-16","RoomRevenue":0.00,"ServiceRevenue":450000.00,"Total":450000.00},
+    {"RevID":3,"BranchID":1,"Date":"2025-01-22","RoomRevenue":400000.00,"ServiceRevenue":0.00,"Total":400000.00},
+    {"RevID":4,"BranchID":2,"Date":"2025-02-05","RoomRevenue":500000.00,"ServiceRevenue":0.00,"Total":500000.00},
+    {"RevID":5,"BranchID":2,"Date":"2025-02-06","RoomRevenue":500000.00,"ServiceRevenue":500000.00,"Total":1000000.00},
+    {"RevID":6,"BranchID":3,"Date":"2025-03-03","RoomRevenue":250000.00,"ServiceRevenue":0.00,"Total":250000.00}
+  ],
+  "Deduction": [
+    {"DeductID":1,"PayrollID":1,"DeductionType":"LatePenalty","Amount":500000.00,"RefRuleID":2},
+    {"DeductID":2,"PayrollID":2,"DeductionType":"LatePenalty","Amount":200000.00,"RefRuleID":2},
+    {"DeductID":3,"PayrollID":4,"DeductionType":"Insurance","Amount":1000000.00,"RefRuleID":null},
+    {"DeductID":4,"PayrollID":5,"DeductionType":"LatePenalty","Amount":300000.00,"RefRuleID":2},
+    {"DeductID":5,"PayrollID":1,"DeductionType":"Tax","Amount":0.00,"RefRuleID":null},
+    {"DeductID":6,"PayrollID":3,"DeductionType":"Tax","Amount":0.00,"RefRuleID":null}
+  ],
+  "Expense": [
+    {"ExpenseID":1,"BranchID":1,"ExpenseType":"Utility","ReferenceID":1,"Amount":2500000.00,"TaxAmount":0.00,"ExpenseDate":"2025-01-31","ApprovedBy":1},
+    {"ExpenseID":2,"BranchID":1,"ExpenseType":"Utility","ReferenceID":2,"Amount":500000.00,"TaxAmount":0.00,"ExpenseDate":"2025-01-31","ApprovedBy":1},
+    {"ExpenseID":3,"BranchID":2,"ExpenseType":"Marketing","ReferenceID":null,"Amount":1000000.00,"TaxAmount":100000.00,"ExpenseDate":"2025-02-05","ApprovedBy":2},
+    {"ExpenseID":4,"BranchID":1,"ExpenseType":"OfficeSupply","ReferenceID":null,"Amount":300000.00,"TaxAmount":30000.00,"ExpenseDate":"2025-02-10","ApprovedBy":2},
+    {"ExpenseID":5,"BranchID":3,"ExpenseType":"Maintenance","ReferenceID":1,"Amount":480000.00,"TaxAmount":0.00,"ExpenseDate":"2025-02-15","ApprovedBy":1},
+    {"ExpenseID":6,"BranchID":1,"ExpenseType":"Training","ReferenceID":null,"Amount":2000000.00,"TaxAmount":0.00,"ExpenseDate":"2025-01-20","ApprovedBy":1}
+  ],
+  "FinancialTransaction": [
+    {"TransID":7,"AccountID":1,"InvoiceID":1,"PaymentID":1,"Debit":1500000.00,"Credit":0.00,"TransDate":"2026-05-01"},
+    {"TransID":8,"AccountID":2,"InvoiceID":1,"PaymentID":1,"Debit":0.00,"Credit":1500000.00,"TransDate":"2026-05-01"},
+    {"TransID":9,"AccountID":1,"InvoiceID":2,"PaymentID":2,"Debit":2400000.00,"Credit":0.00,"TransDate":"2026-05-01"},
+    {"TransID":10,"AccountID":2,"InvoiceID":2,"PaymentID":2,"Debit":0.00,"Credit":2400000.00,"TransDate":"2026-05-01"},
+    {"TransID":11,"AccountID":3,"InvoiceID":null,"PaymentID":null,"Debit":500000.00,"Credit":0.00,"TransDate":"2026-05-02"},
+    {"TransID":12,"AccountID":4,"InvoiceID":null,"PaymentID":null,"Debit":0.00,"Credit":500000.00,"TransDate":"2026-05-02"}
+  ],
+  "GoodsReceipt": [
+    {"ReceiptID":1,"POID":1,"ReceivedDate":"2025-01-07","ReceivedBy":2,"Status":"Completed","Notes":null},
+    {"ReceiptID":2,"POID":2,"ReceivedDate":"2025-01-12","ReceivedBy":2,"Status":"Completed","Notes":"Partial: 150kg"},
+    {"ReceiptID":3,"POID":4,"ReceivedDate":"2025-01-22","ReceivedBy":2,"Status":"Completed","Notes":null},
+    {"ReceiptID":4,"POID":5,"ReceivedDate":"2025-01-27","ReceivedBy":2,"Status":"Completed","Notes":null},
+    {"ReceiptID":5,"POID":6,"ReceivedDate":"2025-02-03","ReceivedBy":1,"Status":"InProgress","Notes":null},
+    {"ReceiptID":6,"POID":3,"ReceivedDate":"2025-01-17","ReceivedBy":4,"Status":"Pending","Notes":null}
+  ],
+  "GoodsReceiptItem": [
+    {"ReceiptItemID":1,"ReceiptID":1,"POItemID":1,"ItemID":1,"QuantityReceived":100,"UnitCost":50000.00,"ExpiryDate":null},
+    {"ReceiptItemID":2,"ReceiptID":2,"POItemID":2,"ItemID":2,"QuantityReceived":150,"UnitCost":40000.00,"ExpiryDate":"2025-03-01"},
+    {"ReceiptItemID":3,"ReceiptID":3,"POItemID":4,"ItemID":4,"QuantityReceived":30,"UnitCost":100000.00,"ExpiryDate":null},
+    {"ReceiptItemID":4,"ReceiptID":4,"POItemID":5,"ItemID":5,"QuantityReceived":100,"UnitCost":15000.00,"ExpiryDate":null},
+    {"ReceiptItemID":5,"ReceiptID":5,"POItemID":6,"ItemID":6,"QuantityReceived":500,"UnitCost":4000.00,"ExpiryDate":"2025-12-31"},
+    {"ReceiptItemID":6,"ReceiptID":2,"POItemID":2,"ItemID":2,"QuantityReceived":50,"UnitCost":40000.00,"ExpiryDate":"2025-03-01"}
+  ],
+  "Invoice": [
+    {"InvoiceID":1,"BookingID":1,"CustomerID":1,"InvoiceDate":"2025-01-18","TotalBeforeTax":2500000.00,"TaxAmount":250000.00,"Total":2750000.00,"Status":"Paid"},
+    {"InvoiceID":2,"BookingID":2,"CustomerID":2,"InvoiceDate":"2025-01-25","TotalBeforeTax":1800000.00,"TaxAmount":180000.00,"Total":1980000.00,"Status":"Paid"},
+    {"InvoiceID":3,"BookingID":3,"CustomerID":3,"InvoiceDate":"2025-02-10","TotalBeforeTax":3500000.00,"TaxAmount":350000.00,"Total":3850000.00,"Status":"Unpaid"},
+    {"InvoiceID":4,"BookingID":4,"CustomerID":4,"InvoiceDate":"2025-02-16","TotalBeforeTax":1200000.00,"TaxAmount":120000.00,"Total":1320000.00,"Status":"Paid"},
+    {"InvoiceID":5,"BookingID":5,"CustomerID":5,"InvoiceDate":"2025-03-05","TotalBeforeTax":4000000.00,"TaxAmount":400000.00,"Total":4400000.00,"Status":"Pending"},
+    {"InvoiceID":6,"BookingID":null,"CustomerID":6,"InvoiceDate":"2025-03-15","TotalBeforeTax":500000.00,"TaxAmount":50000.00,"Total":550000.00,"Status":"Cancelled"}
+  ],
+  "InvoiceItem": [
+    {"LineID":1,"InvoiceID":1,"ItemType":"Room","ReferenceID":1,"Description":"Room 101, 3 nights","Quantity":3,"UnitPrice":500000.00,"SubTotal":1500000.00},
+    {"LineID":2,"InvoiceID":1,"ItemType":"Service","ReferenceID":1,"Description":"Spa massage","Quantity":1,"UnitPrice":300000.00,"SubTotal":300000.00},
+    {"LineID":3,"InvoiceID":1,"ItemType":"Service","ReferenceID":2,"Description":"Breakfast","Quantity":2,"UnitPrice":150000.00,"SubTotal":300000.00},
+    {"LineID":4,"InvoiceID":2,"ItemType":"Room","ReferenceID":3,"Description":"Room 105, 3 nights","Quantity":3,"UnitPrice":400000.00,"SubTotal":1200000.00},
+    {"LineID":5,"InvoiceID":3,"ItemType":"Room","ReferenceID":4,"Description":"Room 201, 5 nights","Quantity":5,"UnitPrice":500000.00,"SubTotal":2500000.00},
+    {"LineID":6,"InvoiceID":4,"ItemType":"Room","ReferenceID":5,"Description":"Room 110, 2 nights","Quantity":2,"UnitPrice":600000.00,"SubTotal":1200000.00}
+  ],
+  "MaintenanceOrder": [
+    {"MOID":1,"RequestID":2,"SupplierID":null,"InternalEmployeeID":4,"PlannedCost":500000.00,"ActualCost":480000.00,"Status":"Paid","PaymentDueDate":"2025-02-28"},
+    {"MOID":2,"RequestID":4,"SupplierID":4,"InternalEmployeeID":null,"PlannedCost":2000000.00,"ActualCost":2100000.00,"Status":"Pending","PaymentDueDate":"2025-03-15"},
+    {"MOID":3,"RequestID":1,"SupplierID":null,"InternalEmployeeID":4,"PlannedCost":1000000.00,"ActualCost":0.00,"Status":"Approved","PaymentDueDate":"2025-02-20"},
+    {"MOID":4,"RequestID":5,"SupplierID":null,"InternalEmployeeID":4,"PlannedCost":300000.00,"ActualCost":250000.00,"Status":"Paid","PaymentDueDate":"2025-02-10"},
+    {"MOID":5,"RequestID":6,"SupplierID":null,"InternalEmployeeID":4,"PlannedCost":1500000.00,"ActualCost":0.00,"Status":"Quoted","PaymentDueDate":"2025-03-01"},
+    {"MOID":6,"RequestID":3,"SupplierID":null,"InternalEmployeeID":4,"PlannedCost":0.00,"ActualCost":0.00,"Status":"Cancelled","PaymentDueDate":null}
+  ],
+  "Payment": [
+    {"PaymentID":1,"InvoiceID":1,"PaymentMethodID":2,"Amount":2750000.00,"PaidAt":"2025-01-18T09:00:00.0000000","TransactionRef":"TXN001"},
+    {"PaymentID":2,"InvoiceID":2,"PaymentMethodID":1,"Amount":1980000.00,"PaidAt":"2025-01-25T14:30:00.0000000","TransactionRef":"TXN002"},
+    {"PaymentID":3,"InvoiceID":4,"PaymentMethodID":4,"Amount":1320000.00,"PaidAt":"2025-02-16T10:15:00.0000000","TransactionRef":"TXN003"},
+    {"PaymentID":4,"InvoiceID":5,"PaymentMethodID":2,"Amount":2000000.00,"PaidAt":"2025-03-05T11:00:00.0000000","TransactionRef":"TXN004"},
+    {"PaymentID":5,"InvoiceID":1,"PaymentMethodID":1,"Amount":0.00,"PaidAt":"2025-01-18T09:00:00.0000000","TransactionRef":null},
+    {"PaymentID":6,"InvoiceID":6,"PaymentMethodID":1,"Amount":550000.00,"PaidAt":"2025-03-15T16:00:00.0000000","TransactionRef":"TXN006"}
+  ],
+  "PaymentMethod": [
+    {"MethodID":1,"MethodName":"Cash"},
+    {"MethodID":2,"MethodName":"Credit Card"},
+    {"MethodID":3,"MethodName":"Debit Card"},
+    {"MethodID":4,"MethodName":"Bank Transfer"},
+    {"MethodID":5,"MethodName":"Voucher"},
+    {"MethodID":6,"MethodName":"Online Wallet"}
+  ],
+  "PaymentOut": [
+    {"PaymentOutID":1,"SupplierID":1,"Payee":null,"PaymentMethodID":4,"Amount":5000000.00,"PaidAt":"2025-01-10T00:00:00.0000000","TransactionRef":"POUT001","CreatedBy":2},
+    {"PaymentOutID":2,"SupplierID":2,"Payee":null,"PaymentMethodID":1,"Amount":8000000.00,"PaidAt":"2025-01-15T00:00:00.0000000","TransactionRef":"POUT002","CreatedBy":2},
+    {"PaymentOutID":3,"SupplierID":4,"Payee":null,"PaymentMethodID":4,"Amount":3000000.00,"PaidAt":"2025-01-25T00:00:00.0000000","TransactionRef":"POUT003","CreatedBy":2},
+    {"PaymentOutID":4,"SupplierID":null,"Payee":"4","PaymentMethodID":2,"Amount":480000.00,"PaidAt":"2025-02-20T00:00:00.0000000","TransactionRef":"POUT004","CreatedBy":2},
+    {"PaymentOutID":5,"SupplierID":null,"Payee":"5","PaymentMethodID":1,"Amount":250000.00,"PaidAt":"2025-02-28T00:00:00.0000000","TransactionRef":"POUT005","CreatedBy":2},
+    {"PaymentOutID":6,"SupplierID":6,"Payee":null,"PaymentMethodID":4,"Amount":2000000.00,"PaidAt":"2025-02-10T00:00:00.0000000","TransactionRef":"POUT006","CreatedBy":1}
+  ],
+  "PaymentOutAllocation": [
+    {"AllocID":1,"PaymentOutID":1,"ReferenceType":"PurchaseOrder","ReferenceID":1,"AllocatedAmount":5000000.00},
+    {"AllocID":2,"PaymentOutID":2,"ReferenceType":"PurchaseOrder","ReferenceID":2,"AllocatedAmount":8000000.00},
+    {"AllocID":3,"PaymentOutID":3,"ReferenceType":"PurchaseOrder","ReferenceID":4,"AllocatedAmount":3000000.00},
+    {"AllocID":4,"PaymentOutID":4,"ReferenceType":"MaintenanceOrder","ReferenceID":1,"AllocatedAmount":480000.00},
+    {"AllocID":5,"PaymentOutID":5,"ReferenceType":"Expense","ReferenceID":4,"AllocatedAmount":250000.00},
+    {"AllocID":6,"PaymentOutID":6,"ReferenceType":"PurchaseOrder","ReferenceID":6,"AllocatedAmount":2000000.00}
+  ],
+  "PayPeriod": [
+    {"PeriodID":1,"StartDate":"2025-01-01","EndDate":"2025-01-31","BranchID":1,"Status":"Closed"},
+    {"PeriodID":2,"StartDate":"2025-02-01","EndDate":"2025-02-28","BranchID":1,"Status":"Processing"},
+    {"PeriodID":3,"StartDate":"2025-01-01","EndDate":"2025-01-31","BranchID":2,"Status":"Closed"},
+    {"PeriodID":4,"StartDate":"2025-02-01","EndDate":"2025-02-28","BranchID":2,"Status":"Open"},
+    {"PeriodID":5,"StartDate":"2025-01-01","EndDate":"2025-01-31","BranchID":3,"Status":"Closed"},
+    {"PeriodID":6,"StartDate":"2025-02-01","EndDate":"2025-02-28","BranchID":3,"Status":"Open"}
+  ],
+  "PayrollItem": [
+    {"PayrollID":1,"PeriodID":1,"EmployeeID":2,"TotalEarnings":10000000.00,"TotalDeductions":500000.00,"NetPay":9500000.00,"CalculatedAt":"2025-02-05T00:00:00.0000000"},
+    {"PayrollID":2,"PeriodID":1,"EmployeeID":3,"TotalEarnings":8000000.00,"TotalDeductions":200000.00,"NetPay":7800000.00,"CalculatedAt":"2025-02-05T00:00:00.0000000"},
+    {"PayrollID":3,"PeriodID":1,"EmployeeID":4,"TotalEarnings":6000000.00,"TotalDeductions":0.00,"NetPay":6000000.00,"CalculatedAt":"2025-02-05T00:00:00.0000000"},
+    {"PayrollID":4,"PeriodID":1,"EmployeeID":5,"TotalEarnings":12000000.00,"TotalDeductions":1000000.00,"NetPay":11000000.00,"CalculatedAt":"2025-02-05T00:00:00.0000000"},
+    {"PayrollID":5,"PeriodID":2,"EmployeeID":2,"TotalEarnings":10000000.00,"TotalDeductions":300000.00,"NetPay":9700000.00,"CalculatedAt":"2025-03-05T00:00:00.0000000"},
+    {"PayrollID":6,"PeriodID":2,"EmployeeID":3,"TotalEarnings":8000000.00,"TotalDeductions":0.00,"NetPay":8000000.00,"CalculatedAt":"2025-03-05T00:00:00.0000000"}
+  ],
+  "PurchaseOrder": [
+    {"POID":1,"SupplierID":1,"BranchID":1,"CreatedByEmployeeID":2,"OrderDate":"2025-01-05","Status":"Approved","TotalAmount":5000000.00,"ApprovedBy":1},
+    {"POID":2,"SupplierID":2,"BranchID":1,"CreatedByEmployeeID":2,"OrderDate":"2025-01-10","Status":"Completed","TotalAmount":8000000.00,"ApprovedBy":1},
+    {"POID":3,"SupplierID":3,"BranchID":2,"CreatedByEmployeeID":4,"OrderDate":"2025-01-15","Status":"Pending","TotalAmount":2000000.00,"ApprovedBy":2},
+    {"POID":4,"SupplierID":4,"BranchID":1,"CreatedByEmployeeID":2,"OrderDate":"2025-01-20","Status":"Approved","TotalAmount":3000000.00,"ApprovedBy":1},
+    {"POID":5,"SupplierID":5,"BranchID":1,"CreatedByEmployeeID":2,"OrderDate":"2025-01-25","Status":"Completed","TotalAmount":1500000.00,"ApprovedBy":1},
+    {"POID":6,"SupplierID":6,"BranchID":3,"CreatedByEmployeeID":1,"OrderDate":"2025-02-01","Status":"Approved","TotalAmount":4000000.00,"ApprovedBy":1}
+  ],
+  "PurchaseOrderItem": [
+    {"POItemID":1,"POID":1,"ItemType":"Equipment","ReferenceID":1,"Description":"LED bulbs","Quantity":100,"UnitPrice":50000.00,"SubTotal":5000000.00},
+    {"POItemID":2,"POID":2,"ItemType":"Food","ReferenceID":2,"Description":"Meat","Quantity":200,"UnitPrice":40000.00,"SubTotal":8000000.00},
+    {"POItemID":3,"POID":3,"ItemType":"Chemical","ReferenceID":3,"Description":"Detergent","Quantity":50,"UnitPrice":40000.00,"SubTotal":2000000.00},
+    {"POItemID":4,"POID":4,"ItemType":"SparePart","ReferenceID":4,"Description":"AC filter","Quantity":30,"UnitPrice":100000.00,"SubTotal":3000000.00},
+    {"POItemID":5,"POID":5,"ItemType":"Cleaning","ReferenceID":5,"Description":"Mops","Quantity":100,"UnitPrice":15000.00,"SubTotal":1500000.00},
+    {"POItemID":6,"POID":6,"ItemType":"Beverage","ReferenceID":6,"Description":"Soda cans","Quantity":1000,"UnitPrice":4000.00,"SubTotal":4000000.00}
+  ],
+  "ReportTemplate": [
+    {"TemplateID":1,"Name":"Monthly Revenue","QuerySQL":"SELECT * FROM DailyRevenue WHERE Month(Date)=@month","CreatedBy":1},
+    {"TemplateID":2,"Name":"Room Occupancy","QuerySQL":"SELECT RoomID, COUNT(*) FROM BookingRoom GROUP BY RoomID","CreatedBy":2},
+    {"TemplateID":3,"Name":"Top Customers","QuerySQL":"SELECT CustomerID, SUM(Total) FROM Invoice GROUP BY CustomerID","CreatedBy":1},
+    {"TemplateID":4,"Name":"Sales by Service","QuerySQL":"SELECT ServiceItemID, SUM(Quantity) FROM ServiceOrderDetail GROUP BY ServiceItemID","CreatedBy":3},
+    {"TemplateID":5,"Name":"Staff Performance","QuerySQL":"SELECT EmployeeID, AVG(MetricValue) FROM PerformanceLog GROUP BY EmployeeID","CreatedBy":2},
+    {"TemplateID":6,"Name":"Utility Cost","QuerySQL":"SELECT BranchID, SUM(Value)*Rate FROM UtilityReading JOIN UtilityMeter ...","CreatedBy":4}
+  ],
+  "SalaryComponent": [
+    {"CompID":1,"PayrollID":1,"ComponentType":"BaseSalary","Amount":10000000.00},
+    {"CompID":2,"PayrollID":1,"ComponentType":"Allowance","Amount":500000.00},
+    {"CompID":3,"PayrollID":2,"ComponentType":"BaseSalary","Amount":8000000.00},
+    {"CompID":4,"PayrollID":3,"ComponentType":"BaseSalary","Amount":6000000.00},
+    {"CompID":5,"PayrollID":4,"ComponentType":"BaseSalary","Amount":12000000.00},
+    {"CompID":6,"PayrollID":5,"ComponentType":"BaseSalary","Amount":10000000.00}
+  ],
+  "Supplier": [
+    {"SupplierID":1,"SupplierName":"Dien Quang","ContactPerson":"Mr. An","Phone":"0912345678","Email":"an@dienquang.com","Address":"Hanoi","TaxCode":"123456"},
+    {"SupplierID":2,"SupplierName":"Vissan","ContactPerson":"Ms. Binh","Phone":"0987654321","Email":"binh@vissan.com","Address":"HCMC","TaxCode":"789012"},
+    {"SupplierID":3,"SupplierName":"Lavender Laundry","ContactPerson":"Mr. Cuong","Phone":"0900111222","Email":"cuong@lavender.com","Address":"Danang","TaxCode":"345678"},
+    {"SupplierID":4,"SupplierName":"TechCare","ContactPerson":"Ms. Dung","Phone":"0933444555","Email":"dung@techcare.com","Address":"Hanoi","TaxCode":"901234"},
+    {"SupplierID":5,"SupplierName":"CleanSupplies","ContactPerson":"Mr. Em","Phone":"0966777888","Email":"em@cleansupplies.com","Address":"Hanoi","TaxCode":"567890"},
+    {"SupplierID":6,"SupplierName":"BeverageCo","ContactPerson":"Ms. Phuong","Phone":"0977888999","Email":"phuong@beverageco.com","Address":"HCMC","TaxCode":"123789"}
+  ],
+  "TaxConfig": [
+    {"TaxID":1,"TaxName":"VAT 10%","Rate":10.00,"EffectiveDate":"2024-01-01","EndDate":null},
+    {"TaxID":2,"TaxName":"VAT 5%","Rate":5.00,"EffectiveDate":"2024-01-01","EndDate":null},
+    {"TaxID":3,"TaxName":"Tourism Tax","Rate":3.00,"EffectiveDate":"2025-01-01","EndDate":null},
+    {"TaxID":4,"TaxName":"Service Charge 5%","Rate":5.00,"EffectiveDate":"2024-01-01","EndDate":null},
+    {"TaxID":5,"TaxName":"City Tax","Rate":2.00,"EffectiveDate":"2025-01-01","EndDate":"2025-12-31"},
+    {"TaxID":6,"TaxName":"No Tax","Rate":0.00,"EffectiveDate":"2024-01-01","EndDate":null}
+  ]
+}

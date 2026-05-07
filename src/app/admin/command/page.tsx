@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { useAdminDashboard } from "@/components/useAdminDashboard";
-import infraData from "@/data/infrastorageDummyData.json";
+import infraData from "@/data/infrastructuredata.json";
 
 type DeleteModalData = {
   title: string;
@@ -27,6 +27,22 @@ interface Branch {
   staffCount: number;
   status: "Active" | "Maintenance" | "Reconstruction" | "Unavailable";
   openingDate: string;
+  floors: Array<{
+    id: number;
+    number: number;
+    buildingId: number;
+    roomCount: number;
+  }>;
+  rooms: Array<{
+    id: number;
+    number: string;
+    floorId: number;
+    type: string;
+    capacity: number;
+    price: number;
+    status: string;
+    amenities: string[];
+  }>;
 }
 
 export default function CommandPage() {
@@ -52,7 +68,65 @@ export default function CommandPage() {
   } = useAdminDashboard();
 
   const [activeTab, setActiveTab] = useState<"bookings" | "rooms" | "promotions" | "construction">("bookings");
-  const [branches, setBranches] = useState<Branch[]>(infraData.branches as Branch[]);
+  const [branches, setBranches] = useState<Branch[]>(infraData.Branch.map((branch: any) => {
+    // Get floors for this branch
+    const branchBuildings = infraData.Building.filter((building: any) => building.BranchID === branch.BranchID);
+    const branchFloors = infraData.Floor.filter((floor: any) =>
+      branchBuildings.some((building: any) => building.BuildingID === floor.BuildingID)
+    );
+
+    // Get rooms for this branch's floors
+    const branchRooms = infraData.Room.filter((room: any) =>
+      branchFloors.some((floor: any) => floor.FloorID === room.FloorID)
+    );
+
+    // Get room types for the rooms
+    const roomTypes = infraData.RoomType || [];
+
+    return {
+      id: branch.BranchID.toString(),
+      name: branch.BranchName,
+      type: "Hotel",
+      starRating: 5,
+      address: branch.Address,
+      city: branch.City,
+      country: "Vietnam",
+      totalFloors: branchFloors.length,
+      totalRooms: branchRooms.length,
+      totalArea: branchRooms.length * 25, // Estimate 25m² per room
+      elevatorCount: Math.ceil(branchFloors.length / 5), // Estimate 1 elevator per 5 floors
+      parkingCapacity: branchRooms.length * 2, // Estimate 2 parking spots per room
+      managedBy: `Employee ${branch.ManagerEmployeeID}`,
+      staffCount: Math.ceil(branchRooms.length / 10), // Estimate 1 staff per 10 rooms
+      status: "Active" as const,
+      openingDate: "2020-01-01",
+      // Add additional mapped data
+      floors: branchFloors.map((floor: any) => ({
+        id: floor.FloorID,
+        number: floor.FloorNumber,
+        buildingId: floor.BuildingID,
+        roomCount: infraData.Room.filter((room: any) => room.FloorID === floor.FloorID).length
+      })),
+      rooms: branchRooms.map((room: any) => {
+        const roomType = roomTypes.find((type: any) => type.RoomTypeID === room.RoomTypeID);
+        const roomStatus = infraData.RoomStatus?.find((status: any) => status.StatusID === room.StatusID);
+        return {
+          id: room.RoomID,
+          number: room.RoomNumber,
+          floorId: room.FloorID,
+          type: roomType?.TypeName || 'Standard',
+          capacity: roomType?.BaseCapacity || 2,
+          price: roomType?.StandardRate || 100,
+          status: roomStatus?.StatusName || 'Available',
+          amenities: infraData.RoomAmenity?.filter((amenity: any) => amenity.RoomID === room.RoomID)
+            .map((amenity: any) => {
+              const amenityInfo = infraData.Amenity?.find((a: any) => a.AmenityID === amenity.AmenityID);
+              return amenityInfo?.Name || 'Unknown';
+            }) || []
+        };
+      })
+    };
+  }));
   const [isPromotionModalOpen, setIsPromotionModalOpen] = useState(false);
   const [isBranchModalOpen, setIsBranchModalOpen] = useState(false);
   const [editPromotionId, setEditPromotionId] = useState<number | null>(null);

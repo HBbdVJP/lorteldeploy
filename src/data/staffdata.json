@@ -1,0 +1,152 @@
+{
+    "Attendance": [
+    {"AttendID":1,"EmployeeID":2,"WorkDate":"2025-02-01","ShiftID":1},
+    {"AttendID":2,"EmployeeID":2,"WorkDate":"2025-02-02","ShiftID":2},
+    {"AttendID":3,"EmployeeID":3,"WorkDate":"2025-02-01","ShiftID":1},
+    {"AttendID":4,"EmployeeID":3,"WorkDate":"2025-02-02","ShiftID":1},
+    {"AttendID":5,"EmployeeID":4,"WorkDate":"2025-02-01","ShiftID":4},
+    {"AttendID":6,"EmployeeID":5,"WorkDate":"2025-02-01","ShiftID":1}
+  ],
+  "AttendanceRecord": [
+    {"RecordID":1,"AttendID":1,"TimeIn":"1900-01-01T07:05:00.0000000","TimeOut":"1900-01-01T15:00:00.0000000","IsLateRuleID":1,"EarlyLeaveMinutes":0,"Notes":"5 min late"},
+    {"RecordID":2,"AttendID":2,"TimeIn":"1900-01-01T15:00:00.0000000","TimeOut":"1900-01-01T23:10:00.0000000","IsLateRuleID":2,"EarlyLeaveMinutes":10,"Notes":"Late out 10 min"},
+    {"RecordID":3,"AttendID":3,"TimeIn":"1900-01-01T06:55:00.0000000","TimeOut":"1900-01-01T15:00:00.0000000","IsLateRuleID":null,"EarlyLeaveMinutes":0,"Notes":null},
+    {"RecordID":4,"AttendID":4,"TimeIn":"1900-01-01T07:10:00.0000000","TimeOut":"1900-01-01T15:00:00.0000000","IsLateRuleID":2,"EarlyLeaveMinutes":0,"Notes":"10 min late"},
+    {"RecordID":5,"AttendID":5,"TimeIn":"1900-01-01T07:00:00.0000000","TimeOut":"1900-01-01T15:00:00.0000000","IsLateRuleID":null,"EarlyLeaveMinutes":0,"Notes":null},
+    {"RecordID":6,"AttendID":6,"TimeIn":"1900-01-01T07:02:00.0000000","TimeOut":"1900-01-01T15:00:00.0000000","IsLateRuleID":3,"EarlyLeaveMinutes":0,"Notes":"2 min late"}
+  ],
+  "Department": [
+    {"DeptID":1,"DeptName":"Lễ tân","Description":"Tiếp đón và xử lý đặt phòng"},
+    {"DeptID":2,"DeptName":"Buồng phòng","Description":"Dọn dẹp và bảo trì phòng"},
+    {"DeptID":3,"DeptName":"Nhà hàng","Description":"Phục vụ ăn uống"},
+    {"DeptID":4,"DeptName":"Kế toán","Description":"Tài chính kế toán"},
+    {"DeptID":5,"DeptName":"Marketing","Description":"Quảng bá và sự kiện"}
+  ],
+  "Employee": [
+    {"EmployeeID":1,"AccID":1,"FirstName":"Nguyễn","LastName":"Văn An","DepartmentID":1,"PositionID":1,"ManagerID":null,"HireDate":"2020-01-15","Status":"Active"},
+    {"EmployeeID":2,"AccID":2,"FirstName":"Trần","LastName":"Thị Bình","DepartmentID":1,"PositionID":2,"ManagerID":1,"HireDate":"2019-05-20","Status":"Active"},
+    {"EmployeeID":3,"AccID":3,"FirstName":"Lê","LastName":"Hoàng Cường","DepartmentID":2,"PositionID":3,"ManagerID":null,"HireDate":"2021-03-10","Status":"Active"},
+    {"EmployeeID":4,"AccID":4,"FirstName":"Phạm","LastName":"Thị Dung","DepartmentID":2,"PositionID":3,"ManagerID":3,"HireDate":"2022-07-01","Status":"Active"},
+    {"EmployeeID":5,"AccID":5,"FirstName":"Hoàng","LastName":"Minh Đức","DepartmentID":3,"PositionID":4,"ManagerID":null,"HireDate":"2018-11-25","Status":"Active"},
+    {"EmployeeID":6,"AccID":6,"FirstName":"Vũ","LastName":"Thị Hoa","DepartmentID":4,"PositionID":5,"ManagerID":null,"HireDate":"2020-09-14","Status":"Active"},
+    {"EmployeeID":7,"AccID":7,"FirstName":"Đỗ","LastName":"Thanh Hải","DepartmentID":5,"PositionID":6,"ManagerID":null,"HireDate":"2023-01-01","Status":"Active"},
+    {
+  "EmployeeID": 101,
+  "AccID": 101,
+  "FirstName": "Quản trị",
+  "LastName": "Viên",
+  "DepartmentID": 5,
+  "PositionID": 6,
+  "ManagerID": null,
+  "HireDate": "2026-05-06",
+  "Status": "Active"
+},
+{
+  "EmployeeID": 102,
+  "AccID": 102,
+  "FirstName": "Lễ",
+  "LastName": "Tân",
+  "DepartmentID": 1,
+  "PositionID": 1,
+  "ManagerID": 101,
+  "HireDate": "2026-05-06",
+  "Status": "Active"
+}
+  ],
+  "EmployeeContract": [
+    {"ContractID":1,"EmployeeID":1,"StartDate":"2024-01-01","EndDate":"2026-01-01","BaseSalary":50000000.00,"SalaryType":"Tháng","WorkHoursPerWeek":40},
+    {"ContractID":2,"EmployeeID":2,"StartDate":"2024-02-15","EndDate":null,"BaseSalary":30000000.00,"SalaryType":"Tháng","WorkHoursPerWeek":44},
+    {"ContractID":3,"EmployeeID":3,"StartDate":"2024-03-01","EndDate":"2025-03-01","BaseSalary":15000000.00,"SalaryType":"Tháng","WorkHoursPerWeek":48},
+    {"ContractID":4,"EmployeeID":4,"StartDate":"2024-03-10","EndDate":null,"BaseSalary":12000000.00,"SalaryType":"Tháng","WorkHoursPerWeek":48},
+    {"ContractID":5,"EmployeeID":5,"StartDate":"2024-01-20","EndDate":"2027-01-20","BaseSalary":25000000.00,"SalaryType":"Tháng","WorkHoursPerWeek":40},
+    {"ContractID":6,"EmployeeID":6,"StartDate":"2024-05-01","EndDate":null,"BaseSalary":18000000.00,"SalaryType":"Tháng","WorkHoursPerWeek":44}
+  ],
+  "EmployeeShift": [
+    {"AssignID":1,"EmployeeID":3,"ShiftID":1,"WorkDate":"2026-05-01"},
+    {"AssignID":2,"EmployeeID":3,"ShiftID":1,"WorkDate":"2026-05-02"},
+    {"AssignID":3,"EmployeeID":4,"ShiftID":2,"WorkDate":"2026-05-01"},
+    {"AssignID":4,"EmployeeID":4,"ShiftID":2,"WorkDate":"2026-05-02"},
+    {"AssignID":5,"EmployeeID":6,"ShiftID":3,"WorkDate":"2026-05-01"},
+    {"AssignID":6,"EmployeeID":6,"ShiftID":1,"WorkDate":"2026-05-03"}
+  ],
+  "LateRule": [
+    {"RuleID":1,"MaxLateMinutes":5,"DeductionAmountPerMin":0.00,"EffectiveDate":"2024-01-01"},
+    {"RuleID":2,"MaxLateMinutes":10,"DeductionAmountPerMin":1000.00,"EffectiveDate":"2024-01-01"},
+    {"RuleID":3,"MaxLateMinutes":15,"DeductionAmountPerMin":2000.00,"EffectiveDate":"2024-01-01"},
+    {"RuleID":4,"MaxLateMinutes":30,"DeductionAmountPerMin":5000.00,"EffectiveDate":"2024-01-01"},
+    {"RuleID":5,"MaxLateMinutes":60,"DeductionAmountPerMin":10000.00,"EffectiveDate":"2024-01-01"},
+    {"RuleID":6,"MaxLateMinutes":0,"DeductionAmountPerMin":50000.00,"EffectiveDate":"2024-01-01"}
+  ],
+  "LeaveBalance": [
+    {"BalanceID":1,"EmployeeID":1,"Year":2025,"TotalEntitled":12.0,"Used":2.0,"Remaining":10.0},
+    {"BalanceID":2,"EmployeeID":2,"Year":2025,"TotalEntitled":12.0,"Used":3.0,"Remaining":9.0},
+    {"BalanceID":3,"EmployeeID":3,"Year":2025,"TotalEntitled":12.0,"Used":1.5,"Remaining":10.5}
+  ],
+  "LeaveRequest": [
+    {"LeaveID":1,"EmployeeID":2,"LeaveType":"Annual","StartDate":"2025-03-10","EndDate":"2025-03-12","Reason":"Family vacation","Status":"Approved","ApprovedBy":1},
+    {"LeaveID":2,"EmployeeID":3,"LeaveType":"Sick","StartDate":"2025-03-15","EndDate":"2025-03-15","Reason":"Flu","Status":"Pending","ApprovedBy":null},
+    {"LeaveID":3,"EmployeeID":4,"LeaveType":"Unpaid","StartDate":"2025-04-01","EndDate":"2025-04-05","Reason":"Personal matters","Status":"Rejected","ApprovedBy":1}
+  ],
+  "OvertimeRequest": [
+    {"OTID":1,"EmployeeID":2,"Date":"2025-03-05","StartTime":"18:00:00","EndTime":"21:00:00","OTType":"X1.5","Reason":"Peak season check-in","Status":"Approved","ApprovedBy":1},
+    {"OTID":2,"EmployeeID":4,"Date":"2025-03-08","StartTime":"07:00:00","EndTime":"11:00:00","OTType":"X2.0","Reason":"Weekend cleaning","Status":"Pending","ApprovedBy":null},
+    {"OTID":3,"EmployeeID":6,"Date":"2025-03-12","StartTime":"22:00:00","EndTime":"01:00:00","OTType":"X3.0","Reason":"Night audit support","Status":"Rejected","ApprovedBy":1}
+  ],
+  "PerformanceLog": [
+    {"LogID":1,"EmployeeID":3,"LogDate":"2026-04-30","MetricType":"BookingCount","MetricValue":15.00},
+    {"LogID":2,"EmployeeID":2,"LogDate":"2026-04-30","MetricType":"RevenueTarget","MetricValue":120000000.00},
+    {"LogID":3,"EmployeeID":4,"LogDate":"2026-04-30","MetricType":"CleanedRooms","MetricValue":45.00},
+    {"LogID":4,"EmployeeID":6,"LogDate":"2026-04-30","MetricType":"ResolvedIssues","MetricValue":12.00},
+    {"LogID":5,"EmployeeID":5,"LogDate":"2026-04-30","MetricType":"AccuracyRate","MetricValue":99.50},
+    {"LogID":6,"EmployeeID":1,"LogDate":"2026-04-30","MetricType":"ManagementScore","MetricValue":9.20}
+  ],
+  "Permission": [
+    {"PermID":1,"PermKey":"ROOM_VIEW","Description":"Xem danh sách phòng"},
+    {"PermID":2,"PermKey":"ROOM_EDIT","Description":"Chỉnh sửa thông tin phòng"},
+    {"PermID":3,"PermKey":"FIN_REPORT","Description":"Xem báo cáo tài chính"},
+    {"PermID":4,"PermKey":"EMP_MANAGE","Description":"Quản lý nhân sự"},
+    {"PermID":5,"PermKey":"BOOKING_CREATE","Description":"Tạo đơn đặt phòng"},
+    {"PermID":6,"PermKey":"SERVICE_ORDER","Description":"Đặt dịch vụ cho khách"}
+  ],
+  "Position": [
+    {"PositionID":1,"PositionName":"Lễ tân viên","Level":1},
+    {"PositionID":2,"PositionName":"Trưởng ca","Level":2},
+    {"PositionID":3,"PositionName":"Nhân viên buồng phòng","Level":1},
+    {"PositionID":4,"PositionName":"Bếp trưởng","Level":2},
+    {"PositionID":5,"PositionName":"Kế toán viên","Level":1},
+    {"PositionID":6,"PositionName":"Giám đốc điều hành","Level":3}
+  ],
+  "Role": [
+    {"RoleID":1,"RoleName":"Admin","Description":"Quản trị viên toàn hệ thống"},
+    {"RoleID":2,"RoleName":"Manager","Description":"Quản lý chi nhánh"},
+    {"RoleID":3,"RoleName":"Receptionist","Description":"Nhân viên lễ tân"},
+    {"RoleID":4,"RoleName":"Housekeeping","Description":"Nhân viên buồng phòng"},
+    {"RoleID":5,"RoleName":"Accountant","Description":"Nhân viên kế toán"},
+    {"RoleID":6,"RoleName":"Technician","Description":"Nhân viên kỹ thuật"}
+  ],
+  "RoleAssign": [
+    {"RoleAssignID":1,"EmployeeID":1,"RoleID":1,"AssignedBy":1,"AssignedAt":"2026-05-02T13:53:27.5139112"},
+    {"RoleAssignID":2,"EmployeeID":2,"RoleID":2,"AssignedBy":1,"AssignedAt":"2026-05-02T13:53:27.5139112"},
+    {"RoleAssignID":3,"EmployeeID":3,"RoleID":3,"AssignedBy":1,"AssignedAt":"2026-05-02T13:53:27.5139112"},
+    {"RoleAssignID":4,"EmployeeID":4,"RoleID":4,"AssignedBy":2,"AssignedAt":"2026-05-02T13:53:27.5139112"},
+    {"RoleAssignID":5,"EmployeeID":5,"RoleID":5,"AssignedBy":2,"AssignedAt":"2026-05-02T13:53:27.5139112"},
+    {"RoleAssignID":6,"EmployeeID":6,"RoleID":6,"AssignedBy":2,"AssignedAt":"2026-05-02T13:53:27.5139112"}
+  ],
+  "RolePermission": [
+    {"RolePermPairID":1,"RoleID":1,"PermID":1},
+    {"RolePermPairID":2,"RoleID":1,"PermID":2},
+    {"RolePermPairID":3,"RoleID":1,"PermID":3},
+    {"RolePermPairID":4,"RoleID":1,"PermID":4},
+    {"RolePermPairID":5,"RoleID":2,"PermID":3},
+    {"RolePermPairID":6,"RoleID":3,"PermID":5}
+  ],
+  "Shift": [
+    {"ShiftID":1,"ShiftName":"Morning","StartTime":"07:00:00","EndTime":"15:00:00","BranchID":1},
+    {"ShiftID":2,"ShiftName":"Afternoon","StartTime":"15:00:00","EndTime":"23:00:00","BranchID":1},
+    {"ShiftID":3,"ShiftName":"Night","StartTime":"23:00:00","EndTime":"07:00:00","BranchID":1},
+    {"ShiftID":4,"ShiftName":"Morning","StartTime":"07:00:00","EndTime":"15:00:00","BranchID":2},
+    {"ShiftID":5,"ShiftName":"Afternoon","StartTime":"15:00:00","EndTime":"23:00:00","BranchID":2},
+    {"ShiftID":6,"ShiftName":"Night","StartTime":"23:00:00","EndTime":"07:00:00","BranchID":2}
+  ]
+
+}

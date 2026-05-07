@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Link from "next/link";
+import customerData from "../../data/customerdata.json";
 
-// Mock data cho các đơn đặt phòng
+// Mock data cho các đơn đặt phòng (fallback if no real bookings)
 const MOCK_BOOKINGS = [
   {
     id: "BK001",
@@ -27,7 +28,6 @@ const MOCK_BOOKINGS = [
   }
 ];
 
-
 const formatCurrency = (amount: number) => new Intl.NumberFormat("vi-VN").format(amount) + "đ";
 
 export default function ProfilePage() {
@@ -36,17 +36,67 @@ export default function ProfilePage() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeTab, setActiveTab] = useState<"bookings" | "promos">("bookings");
   const [coupons, setCoupons] = useState<any[]>([]);
+  const [bookings, setBookings] = useState<any[]>([]);
 
   useEffect(() => {
     // Logic check y hệt Header của bạn
     const userData = localStorage.getItem('customer_data') || sessionStorage.getItem('customer_data');
+    let currentCustomerId: number | null = null;
+
     if (userData) {
       try {
-        setUser(JSON.parse(userData));
+        const parsedUser = JSON.parse(userData);
+        setUser(parsedUser);
+        currentCustomerId = parsedUser.CustomerID ?? parsedUser.id ?? parsedUser.AccID ?? null;
       } catch (e) {
         console.error("Lỗi parse dữ liệu user");
       }
     }
+
+    const currentCustomer = currentCustomerId
+      ? (customerData.Customer ?? []).find((cust: any) => cust.CustomerID === currentCustomerId)
+      : null;
+
+    if (currentCustomer) {
+      const customerBookings = (customerData.Booking ?? []).filter(
+        (booking: any) => booking.CustomerID === currentCustomer.CustomerID
+      );
+
+      const mappedBookings = customerBookings.map((booking: any) => {
+        const bookingRooms = (customerData.BookingRoom ?? []).filter(
+          (room: any) => room.BookingID === booking.BookingID
+        );
+        const roomName = bookingRooms.length > 0
+          ? `Phòng ${bookingRooms[0].RoomID}`
+          : `Đơn #${booking.BookingID}`;
+        const nights = Math.max(1, Math.ceil((new Date(booking.CheckOut).getTime() - new Date(booking.CheckIn).getTime()) / (1000 * 60 * 60 * 24)));
+        const total = bookingRooms.reduce(
+          (sum: number, room: any) => sum + ((room.RateApplied ?? 0) * nights),
+          0
+        );
+        const statusObj = (customerData.BookingStatus ?? []).find(
+          (status: any) => status.StatusID === booking.StatusID
+        );
+        const statusName = statusObj?.StatusName?.toLowerCase() || "pending";
+
+        return {
+          id: `BK${booking.BookingID}`,
+          roomName,
+          checkin: booking.CheckIn,
+          checkout: booking.CheckOut,
+          status: statusName,
+          total,
+          image: `https://picsum.photos/id/${(booking.BookingID * 17) % 300}/400/300`,
+          nights,
+          customer: currentCustomer
+        };
+      });
+
+      setBookings(mappedBookings);
+    } else {
+      setBookings(MOCK_BOOKINGS);
+    }
+
     setIsLoaded(true);
   }, []);
 
@@ -171,37 +221,53 @@ export default function ProfilePage() {
               <div className="p-6">
                 {activeTab === "bookings" ? (
                   <div className="space-y-6">
-                    {MOCK_BOOKINGS.map((booking) => (
-                      <div
-                        key={booking.id}
-                        className="flex flex-col md:flex-row gap-6 p-4 border rounded-xl hover:shadow-md transition-shadow"
-                      >
-                        <img
-                          src={booking.image}
-                          className="w-full md:w-48 h-32 object-cover rounded-lg"
-                          alt={booking.roomName}
-                        />
-                        <div className="flex-1">
-                          <div className="flex justify-between items-start mb-2">
-                            <h3 className="text-lg font-bold">{booking.roomName}</h3>
-                            <span
-                              className={`px-3 py-1 rounded-full text-xs font-medium ${
-                                booking.status === "completed" ? "bg-blue-100 text-blue-600" : "bg-yellow-100 text-yellow-600"
-                              }`}
-                            >
-                              {booking.status === "completed" ? "Đã hoàn tất" : "Chờ nhận phòng"}
-                            </span>
+                    {bookings.length === 0 ? (
+                      <div className="text-center py-12">
+                        <i className="fas fa-calendar-times text-4xl text-gray-300 mb-4"></i>
+                        <p className="text-gray-500">Bạn chưa có đơn đặt phòng nào</p>
+                        <Link href="/booking" className="inline-block mt-4 px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition">
+                          Đặt phòng ngay
+                        </Link>
+                      </div>
+                    ) : (
+                      bookings.map((booking) => (
+                        <div
+                          key={booking.id}
+                          className="flex flex-col md:flex-row gap-6 p-4 border rounded-xl hover:shadow-md transition-shadow"
+                        >
+                          <img
+                            src={booking.image}
+                            className="w-full md:w-48 h-32 object-cover rounded-lg"
+                            alt={booking.roomName}
+                          />
+                          <div className="flex-1">
+                            <div className="flex justify-between items-start mb-2">
+                              <h3 className="text-lg font-bold">{booking.roomName}</h3>
+                              <span
+                                className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                  booking.status === "completed" ? "bg-blue-100 text-blue-600" : "bg-yellow-100 text-yellow-600"
+                                }`}
+                              >
+                                {booking.status === "completed" ? "Đã hoàn tất" : "Chờ nhận phòng"}
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-500 mb-2">
+                              <i className="fas fa-clock mr-2"></i>
+                              {booking.checkin} → {booking.checkout}
+                              {booking.nights && ` (${booking.nights} đêm)`}
+                            </p>
+                            <p className="text-lg font-bold text-emerald-600">{formatCurrency(booking.total)}</p>
+                            {booking.customer && (
+                              <p className="text-sm text-gray-500 mt-1">
+                                <i className="fas fa-user mr-2"></i>
+                                {booking.customer.name || `${booking.customer.email}`}
+                              </p>
+                            )}
                           </div>
-                          <p className="text-sm text-gray-500 mb-2">
-                            <i className="fas fa-clock mr-2"></i>
-                            {booking.checkin} → {booking.checkout}
-                          </p>
-                          <p className="text-lg font-bold text-emerald-600">{formatCurrency(booking.total)}</p>
-                        </div>
-                        <div className="flex flex-col justify-center gap-2">
-                          <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium transition">
-                            Chi tiết
-                          </button>
+                          <div className="flex flex-col justify-center gap-2">
+                            <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium transition">
+                              Chi tiết
+                            </button>
                           {booking.status === "pending" && (
                             <button className="px-4 py-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-50 text-sm font-medium transition">
                               Hủy đặt
@@ -209,7 +275,8 @@ export default function ProfilePage() {
                           )}
                         </div>
                       </div>
-                    ))}
+                      ))
+                    )}
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

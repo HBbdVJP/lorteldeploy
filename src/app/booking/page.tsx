@@ -6,11 +6,8 @@ import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-import * as L from "leaflet";
-import "leaflet/dist/leaflet.css";
-declare module "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import infraData from "../../data/infrastructuredata.json";
+import { useModal } from "../../hooks/useModal";
 
 const generateRoomImages = (roomId: number): string[] => [
   `https://picsum.photos/id/${(roomId * 13) % 300}/800/500`,
@@ -36,7 +33,8 @@ export default function BookingPage() {
   const [cart, setCart] = useState<any[]>([]);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
-  const [detailRoom, setDetailRoom] = useState<any>(null);
+  const detailModal = useModal<any>(null);
+  const branchDetailModal = useModal<any>(null);
   const [bookingRoom, setBookingRoom] = useState<any>(null);
 
   const [bookingForm, setBookingForm] = useState({
@@ -94,14 +92,27 @@ export default function BookingPage() {
     const savedCart = localStorage.getItem("lortel_cart");
     if (savedCart) setCart(JSON.parse(savedCart));
 
-    // Load rooms from masterdata
+    // Load rooms from infrastructuredata.json
     const loadRooms = async () => {
       try {
-        const response = await fetch('/api/masterdata');
-        const data = await response.json();
-        const roomTypes = data.RoomType ?? [];
-        const roomList = (data.Room ?? []).map((room: any) => {
+        // Use infrastructure data directly
+        const roomTypes = infraData.RoomType ?? [];
+        const roomStatuses = infraData.RoomStatus ?? [];
+        const amenities = infraData.Amenity ?? [];
+        const roomAmenities = infraData.RoomAmenity ?? [];
+
+        const roomList = infraData.Room.map((room: any) => {
           const roomType = roomTypes.find((type: any) => type.RoomTypeID === room.RoomTypeID);
+          const roomStatus = roomStatuses.find((status: any) => status.StatusID === room.StatusID);
+
+          // Get amenities for this room
+          const roomAmenityList = roomAmenities
+            .filter((ra: any) => ra.RoomID === room.RoomID)
+            .map((ra: any) => {
+              const amenity = amenities.find((a: any) => a.AmenityID === ra.AmenityID);
+              return amenity?.Name.toLowerCase() || 'unknown';
+            });
+
           return {
             id: room.RoomID,
             number: room.RoomNumber,
@@ -110,41 +121,54 @@ export default function BookingPage() {
             price: Math.round((roomType?.StandardRate || 100) * 10000),
             area: roomType?.BaseCapacity * 15 || 25,
             capacity: roomType?.BaseCapacity || 2,
-            floor: Math.floor(room.RoomID / 10) + 1,
+            floor: infraData.Floor?.find((f: any) => f.FloorID === room.FloorID)?.FloorNumber || 1,
             rating: 4.5,
             reviewCount: Math.floor(Math.random() * 200) + 50,
-            status: room.StatusID === 1 ? 'available' : 'unavailable',
+            status: roomStatus?.StatusName === 'Available' ? 'available' : 'unavailable',
             images: generateRoomImages(room.RoomID),
-            amenities: ['wifi', 'tv', 'ac'],
+            amenities: roomAmenityList,
             description: roomType?.Description || 'Phòng nghỉ dưỡng thoải mái với đầy đủ tiện nghi.'
           };
         });
         setRooms(roomList);
 
-        // Load branches
-        const branchList = (data.Branch ?? []).map((branch: any) => ({
-          id: branch.BranchID,
-          name: branch.BranchName,
-          address: branch.Address,
-          city: branch.City,
-          description: `Tọa lạc tại vị trí đắc địa ${branch.Address}, ${branch.City}, chi nhánh này mang đến trải nghiệm lưu trú thượng lưu với thiết kế hiện đại pha lẫn nét cổ điển.`,
-          rating: 4.8,
-          reviewCount: 1200
-        }));
+        // Load branches with floor and room data
+        const branchList = infraData.Branch.map((branch: any) => {
+          // Get buildings and floors for this branch
+          const branchBuildings = infraData.Building.filter((building: any) => building.BranchID === branch.BranchID);
+          const branchFloors = infraData.Floor.filter((floor: any) =>
+            branchBuildings.some((building: any) => building.BuildingID === floor.BuildingID)
+          );
+
+          // Get rooms for this branch
+          const branchRooms = infraData.Room.filter((room: any) =>
+            branchFloors.some((floor: any) => floor.FloorID === room.FloorID)
+          );
+
+          return {
+            id: branch.BranchID,
+            name: branch.BranchName,
+            address: branch.Address,
+            city: branch.City,
+            description: `Tọa lạc tại vị trí đắc địa ${branch.Address}, ${branch.City}, chi nhánh này mang đến trải nghiệm lưu trú thượng lưu với thiết kế hiện đại pha lẫn nét cổ điển.`,
+            rating: 4.8,
+            reviewCount: 1200,
+            totalFloors: branchFloors.length,
+            totalRooms: branchRooms.length
+          };
+        });
         setBranches(branchList);
 
-        // Load services
-        const serviceCategories = data.ServiceCategory ?? [];
-        const serviceItems = data.ServiceItem ?? [];
-        const servicePrices = data.ServicePrice ?? [];
+        // Load services from infrastructure data
+        const serviceCategories = infraData.ServiceCategory ?? [];
+        const serviceItems = infraData.ServiceItem ?? [];
         const serviceList = serviceItems.map((item: any) => {
-          const category = serviceCategories.find((cat: any) => cat.ServiceCategoryID === item.ServiceCategoryID);
-          const price = servicePrices.find((p: any) => p.ServiceItemID === item.ServiceItemID);
+          const category = serviceCategories.find((cat: any) => cat.CatID === item.CategoryID);
           return {
-            id: item.ServiceItemID,
+            id: item.ItemID,
             name: item.ItemName,
-            category: category?.CategoryName || 'Dịch vụ',
-            price: Math.round((price?.Price || 0) * 10000),
+            category: category?.Name || 'Dịch vụ',
+            price: Math.round(50000), // Default price since not in data
             description: item.Description || 'Dịch vụ chất lượng cao'
           };
         });
@@ -171,14 +195,12 @@ export default function BookingPage() {
 
   // Show detail view for a branch
   const showDetailView = async (branchId: number) => {
-    await loadBranchDetail(branchId);
-    // Show the detail view (you might need to add state for visibility)
-    const detailView = document.getElementById('detail-view');
-    if (detailView) {
-      detailView.classList.remove('hidden');
-      // Hide main content if needed
-      const mainContent = document.querySelector('main');
-      if (mainContent) mainContent.style.display = 'none';
+    const branch = branches.find(b => b.id === branchId);
+    if (branch) {
+      // Load coordinates for the branch
+      const coords = await fetchBranchCoordinates(`${branch.address}, ${branch.city}`);
+      setBranchCoordinates(coords);
+      branchDetailModal.open({ ...branch, coordinates: coords });
     }
   };
 
@@ -232,11 +254,12 @@ export default function BookingPage() {
     return Math.max(1, Math.ceil((end - start) / (1000 * 60 * 60 * 24)));
   };
 
-  const handleAddToCart = () => {
-    if (!bookingRoom) return;
+  const handleAddToCart = (selectedRoom?: any) => {
+    const roomToAdd = selectedRoom ?? bookingRoom;
+    if (!roomToAdd) return;
 
     const nights = calculateNights(checkin, checkout);
-    let total = bookingRoom.price * nights;
+    let total = roomToAdd.price * nights;
     let discount = 0;
 
     if (appliedPromo) {
@@ -247,7 +270,7 @@ export default function BookingPage() {
 
     const newItem = {
       id: Date.now(),
-      room: bookingRoom,
+      room: roomToAdd,
       checkin,
       checkout,
       nights,
@@ -257,7 +280,7 @@ export default function BookingPage() {
     };
 
     setCart(prev => [...prev, newItem]);
-    showToast(`Đã thêm ${bookingRoom.name} vào giỏ hàng`, "success");
+    showToast(`Đã thêm ${roomToAdd.name} vào giỏ hàng`, "success");
     setBookingRoom(null);
     setIsCartOpen(true);
   };
@@ -371,8 +394,8 @@ export default function BookingPage() {
                 </div>
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">{room.description}</p>
                 <div className="flex gap-2">
-                  <button onClick={() => setDetailRoom(room)} className="flex-1 border border-emerald-600 text-emerald-600 py-2 rounded-lg hover:bg-emerald-50 font-medium">Chi tiết</button>
-                  <button onClick={() => setBookingRoom(room)} className="flex-1 bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 font-medium">Đặt ngay</button>
+                  <button onClick={() => detailModal.open(room)} className="flex-1 border border-emerald-600 text-emerald-600 py-2 rounded-lg hover:bg-emerald-50 font-medium">Chi tiết</button>
+                  <button onClick={() => handleAddToCart(room)} className="flex-1 bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 font-medium">Đặt ngay</button>
                 </div>
               </div>
             </div>
@@ -411,138 +434,179 @@ export default function BookingPage() {
             <span>Tổng cộng:</span>
             <span className="text-emerald-600">{formatCurrency(cartTotal)}</span>
           </div>
-          <button onClick={() => { showToast("Thanh toán thành công!", "success"); setCart([]); setIsCartOpen(false); }} className="w-full bg-emerald-600 text-white py-3 rounded-lg font-semibold hover:bg-emerald-700">Thanh toán ngay</button>
+          <button onClick={() => {
+            // Save bookings to localStorage for profile page
+            const existingBookings = JSON.parse(localStorage.getItem('user_bookings') || '[]');
+            const newBookings = cart.map((item, index) => ({
+              id: `BK${Date.now() + index}`,
+              roomName: item.room.name,
+              checkin: item.checkin,
+              checkout: item.checkout,
+              status: "pending", // New bookings start as pending
+              total: item.total,
+              image: item.room.images[0],
+              nights: item.nights,
+              customer: item.customer,
+              promo: item.promo
+            }));
+
+            const updatedBookings = [...existingBookings, ...newBookings];
+            localStorage.setItem('user_bookings', JSON.stringify(updatedBookings));
+
+            showToast("Thanh toán thành công!", "success");
+            setCart([]);
+            setIsCartOpen(false);
+          }} className="w-full bg-emerald-600 text-white py-3 rounded-lg font-semibold hover:bg-emerald-700">Thanh toán ngay</button>
         </div>
       </div>
 
       {/* DETAIL MODAL + BOOKING MODAL + TOAST giữ nguyên như code trước, chỉ cần copy phần còn lại từ tin nhắn trước nếu bạn muốn đầy đủ hơn. Nhưng lỗi đã được sửa hoàn toàn ở phần tính toán nights. */}
 
-      {/* VIEW 2: CHI TIẾT (ẨN) */}
-      <div id="detail-view" className="hidden space-y-8 animate-in fade-in duration-500">
-        <button onClick={() => {
-          const detailView = document.getElementById('detail-view');
-          if (detailView) detailView.classList.add('hidden');
-          const mainContent = document.querySelector('main');
-          if (mainContent) mainContent.style.display = 'block';
-        }} className="text-sm font-bold uppercase hover:underline mb-4 inline-block">
-          <i className="fas fa-arrow-left mr-2"></i> Trở lại kết quả tìm kiếm
-        </button>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Slide ảnh & Mô tả */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="aspect-video bg-gray-200 rounded-xl overflow-hidden relative group">
-              <img src="https://picsum.photos/id/164/1200/800" className="w-full h-full object-cover" id="detail-main-img" />
-              <div className="absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition">
-                <button className="bg-black/50 text-white p-2 rounded-full"><i className="fas fa-chevron-left"></i></button>
-                <button className="bg-black/50 text-white p-2 rounded-full"><i className="fas fa-chevron-right"></i></button>
+      {detailModal.isOpen && detailModal.payload && (
+        <div className="fixed inset-0 z-200 flex items-center justify-center p-4 bg-black/50">
+          <div className="relative w-full max-w-5xl overflow-hidden rounded-4xl bg-white shadow-2xl">
+            <button onClick={detailModal.close} className="absolute right-4 top-4 z-10 rounded-full bg-white p-3 text-gray-700 shadow-sm hover:bg-gray-100">
+              <i className="fas fa-times"></i>
+            </button>
+            <div className="grid gap-6 lg:grid-cols-2">
+              <div className="relative h-96 bg-gray-100">
+                <img src={detailModal.payload.images?.[0]} alt={detailModal.payload.name} className="h-full w-full object-cover" />
               </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-              <h2 id="detail-hotel-name" className="text-2xl font-black uppercase mb-4">{detailBranch?.name || 'Mô tả khách sạn'}</h2>
-              <p className="text-gray-600 leading-relaxed">
-                {detailBranch?.description || 'Tọa lạc tại vị trí đắc địa, chi nhánh này mang đến trải nghiệm lưu trú thượng lưu với thiết kế hiện đại pha lẫn nét cổ điển. Khách sạn cung cấp đầy đủ các tiện nghi từ hồ bơi vô cực, phòng gym hiện đại đến chuỗi nhà hàng phục vụ ẩm thực phong phú.'}
-              </p>
-              <button className="mt-4 text-blue-600 font-bold text-xs uppercase underline">Bấm xem thêm</button>
-            </div>
-
-            {/* Bảng giá phòng */}
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-              <table className="w-full text-left text-sm">
-                <thead className="bg-gray-100 text-[10px] font-black uppercase">
-                  <tr>
-                    <th className="p-4">Loại/Tên phòng</th>
-                    <th className="p-4">Số người</th>
-                    <th className="p-4">Tiện ích</th>
-                    <th className="p-4">Quyền lợi</th>
-                    <th className="p-4 text-right">Giá</th>
-                    <th className="p-4 text-center">Hành động</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {rooms.slice(0, 3).map((room, index) => (
-                    <tr key={room.id} className={index % 2 === 1 ? "bg-gray-50" : ""}>
-                      <td className="p-4 font-bold">{room.name}</td>
-                      <td className="p-4 text-gray-500">{room.capacity} Người</td>
-                      <td className="p-4">
-                        <i className="fas fa-tv mr-2"></i>
-                        <i className="fas fa-wind"></i>
-                        {room.amenities.includes('bath') && <i className="fas fa-bath ml-2"></i>}
-                      </td>
-                      <td className="p-4 text-green-600 text-[10px] font-bold italic">
-                        {index === 0 ? 'Hủy miễn phí' : index === 1 ? 'Ăn sáng +200k' : 'Giảm 10%'}
-                      </td>
-                      <td className="p-4 text-right font-black">{formatCurrency(room.price)}</td>
-                      <td className="p-4 text-center">
-                        <button onClick={() => setBookingRoom(room)} className="bg-black text-white text-[10px] font-bold uppercase px-3 py-1.5 rounded hover:bg-gray-800 transition">
-                          Đặt ngay
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Sidebar: Đánh giá & Bản đồ */}
-          <div className="space-y-6">
-            <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center">
-              <div id="detail-hotel-rating" className="text-4xl font-black mb-1">{detailBranch?.rating || '4.8'}</div>
-              <div className="text-yellow-500 mb-2">
-                {[...Array(5)].map((_, i) => (
-                  <i key={i} className="fas fa-star"></i>
-                ))}
-              </div>
-              <div className="text-xs font-bold uppercase text-gray-400">
-                Rất tốt ({detailBranch?.reviewCount || 1200} lượt)
-              </div>
-            </div>
-
-            <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-              <h4 className="font-bold text-xs uppercase mb-3">Vị trí trên bản đồ</h4>
-              <div className="h-48 bg-gray-100 rounded-lg overflow-hidden">
-                {branchCoordinates ? (
-                  <iframe
-                    src={`https://www.openstreetmap.org/export/embed.html?bbox=${branchCoordinates[1] - 0.01},${branchCoordinates[0] - 0.01},${branchCoordinates[1] + 0.01},${branchCoordinates[0] + 0.01}&layer=mapnik&marker=${branchCoordinates[0]},${branchCoordinates[1]}`}
-                    className="w-full h-full border-0"
-                    title="Branch Location"
-                  ></iframe>
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs italic">
-                    Bản đồ đang được tải...
-                  </div>
-                )}
-              </div>
-              <p className="text-[10px] text-gray-400 mt-2 italic text-center">
-                {detailBranch ? `${detailBranch.address}, ${detailBranch.city}` : 'Bấm để xem chỉ dẫn đường đi'}
-              </p>
-            </div>
-
-            {/* Review Section */}
-            <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-              <h4 className="font-bold text-xs uppercase mb-4 border-b pb-2">Đánh giá khách hàng</h4>
-              <div className="max-h-75 overflow-y-auto space-y-4 custom-scrollbar pr-2 h-64">
-                <div className="border-b pb-3">
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="font-bold text-xs">Nguyễn Văn A</span>
-                    <span className="text-[10px] text-gray-400">12/01/2024</span>
-                  </div>
-                  <p className="text-[11px] text-gray-600 italic">"Phòng rất sạch sẽ, nhân viên nhiệt tình hỗ trợ check-in sớm."</p>
+              <div className="p-8 flex flex-col justify-between gap-6">
+                <div>
+                  <span className="text-xs uppercase tracking-[0.2em] text-emerald-600">Chi tiết phòng</span>
+                  <h2 className="mt-3 text-3xl font-black text-gray-900">{detailModal.payload.name}</h2>
+                  <p className="text-sm text-gray-500 mt-2">Phòng {detailModal.payload.number} | Tầng {detailModal.payload.floor}</p>
                 </div>
-                <div className="border-b pb-3">
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="font-bold text-xs">Trần Thị B</span>
-                    <span className="text-[10px] text-gray-400">05/01/2024</span>
+
+                <div className="grid gap-3 text-sm text-gray-600 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-gray-200 p-4">
+                    <div className="text-xs uppercase text-gray-400">Giá mỗi đêm</div>
+                    <div className="mt-2 text-xl font-bold text-emerald-600">{formatCurrency(detailModal.payload.price)}</div>
                   </div>
-                  <p className="text-[11px] text-gray-600 italic">"Gần trung tâm, đi lại thuận tiện. Tuy nhiên đồ ăn sáng chưa đa dạng."</p>
+                  <div className="rounded-2xl border border-gray-200 p-4">
+                    <div className="text-xs uppercase text-gray-400">Sức chứa</div>
+                    <div className="mt-2 text-xl font-bold">{detailModal.payload.capacity} khách</div>
+                  </div>
+                  <div className="rounded-2xl border border-gray-200 p-4">
+                    <div className="text-xs uppercase text-gray-400">Diện tích</div>
+                    <div className="mt-2 text-xl font-bold">{detailModal.payload.area} m²</div>
+                  </div>
+                  <div className="rounded-2xl border border-gray-200 p-4">
+                    <div className="text-xs uppercase text-gray-400">Đánh giá</div>
+                    <div className="mt-2 text-xl font-bold">{detailModal.payload.rating} ⭐</div>
+                  </div>
+                </div>
+
+                <p className="text-gray-600 leading-7">{detailModal.payload.description}</p>
+
+                <div className="flex flex-wrap gap-2">
+                  {Array.isArray(detailModal.payload.amenities) && detailModal.payload.amenities.map((amenity: string) => (
+                    <span key={amenity} className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs uppercase tracking-[0.08em] text-gray-600">
+                      {amenity}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <button onClick={() => { handleAddToCart(detailModal.payload); detailModal.close(); }} className="w-full rounded-2xl bg-emerald-600 py-3 text-sm font-semibold uppercase text-white transition hover:bg-emerald-700">
+                    Đặt ngay
+                  </button>
+                  <button onClick={detailModal.close} className="w-full rounded-2xl border border-gray-300 bg-white py-3 text-sm font-semibold uppercase text-gray-700 transition hover:bg-gray-50">
+                    Đóng
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {branchDetailModal.isOpen && branchDetailModal.payload && (
+        <div className="fixed inset-0 z-200 flex items-center justify-center p-4 bg-black/50">
+          <div className="relative w-full max-w-6xl overflow-hidden rounded-4xl bg-white shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onClick={branchDetailModal.close} className="absolute right-4 top-4 z-10 rounded-full bg-white p-3 text-gray-700 shadow-sm hover:bg-gray-100">
+              <i className="fas fa-times"></i>
+            </button>
+            <div className="p-8">
+              <div className="text-center mb-8">
+                <span className="text-xs uppercase tracking-[0.2em] text-emerald-600">Chi tiết chi nhánh</span>
+                <h2 className="mt-3 text-4xl font-black text-gray-900">{branchDetailModal.payload.name}</h2>
+                <p className="text-lg text-gray-600 mt-2">{branchDetailModal.payload.address}, {branchDetailModal.payload.city}</p>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+                <div className="rounded-2xl border border-gray-200 p-6 text-center">
+                  <div className="text-2xl font-bold text-emerald-600">{branchDetailModal.payload.totalFloors}</div>
+                  <div className="text-sm text-gray-500 uppercase tracking-wide">Tầng</div>
+                </div>
+                <div className="rounded-2xl border border-gray-200 p-6 text-center">
+                  <div className="text-2xl font-bold text-emerald-600">{branchDetailModal.payload.totalRooms}</div>
+                  <div className="text-sm text-gray-500 uppercase tracking-wide">Phòng</div>
+                </div>
+                <div className="rounded-2xl border border-gray-200 p-6 text-center">
+                  <div className="text-2xl font-bold text-emerald-600">{branchDetailModal.payload.rating}</div>
+                  <div className="text-sm text-gray-500 uppercase tracking-wide">Đánh giá</div>
+                </div>
+                <div className="rounded-2xl border border-gray-200 p-6 text-center">
+                  <div className="text-2xl font-bold text-emerald-600">{branchDetailModal.payload.reviewCount}</div>
+                  <div className="text-sm text-gray-500 uppercase tracking-wide">Lượt đánh giá</div>
+                </div>
+              </div>
+
+              <div className="grid gap-8 lg:grid-cols-2">
+                <div>
+                  <h3 className="text-xl font-bold mb-4">Mô tả</h3>
+                  <p className="text-gray-600 leading-7 mb-6">{branchDetailModal.payload.description}</p>
+
+                  <h3 className="text-xl font-bold mb-4">Vị trí trên bản đồ</h3>
+                  <div className="h-64 bg-gray-100 rounded-lg overflow-hidden">
+                    {branchDetailModal.payload.coordinates ? (
+                      <iframe
+                        src={`https://www.openstreetmap.org/export/embed.html?bbox=${branchDetailModal.payload.coordinates[1] - 0.01},${branchDetailModal.payload.coordinates[0] - 0.01},${branchDetailModal.payload.coordinates[1] + 0.01},${branchDetailModal.payload.coordinates[0] + 0.01}&layer=mapnik&marker=${branchDetailModal.payload.coordinates[0]},${branchDetailModal.payload.coordinates[1]}`}
+                        className="w-full h-full border-0"
+                        title="Branch Location"
+                      ></iframe>
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm italic">
+                        Đang tải bản đồ...
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold mb-4">Danh sách phòng mẫu</h3>
+                  <div className="space-y-4 max-h-96 overflow-y-auto">
+                    {rooms.slice(0, 6).map((room: any) => (
+                      <div key={room.id} className="flex gap-4 p-4 border border-gray-200 rounded-lg">
+                        <img src={room.images[0]} alt={room.name} className="w-16 h-16 object-cover rounded-lg" />
+                        <div className="flex-1">
+                          <h4 className="font-semibold">{room.name}</h4>
+                          <p className="text-sm text-gray-500">Phòng {room.number} • {room.capacity} khách</p>
+                          <p className="text-emerald-600 font-bold">{formatCurrency(room.price)}/đêm</p>
+                        </div>
+                        <button
+                          onClick={() => { handleAddToCart(room); branchDetailModal.close(); }}
+                          className="px-4 py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700"
+                        >
+                          Đặt ngay
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-center mt-8">
+                <button onClick={branchDetailModal.close} className="px-8 py-3 border border-gray-300 bg-white text-gray-700 rounded-2xl hover:bg-gray-50 font-semibold">
+                  Đóng
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* TOAST */}
       {toast.visible && (
