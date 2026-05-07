@@ -3,7 +3,7 @@
 // Source: src/data/masterdata.json (motherfile)
 // Purpose: Organize masterdata by schema for easier imports
 
-export { MasterData } from '../types/mastertype';
+export type { MasterData } from '../types/mastertype';
 
 // Type shortcuts for Marketing schema data
 export type MarketingSchemaData = {

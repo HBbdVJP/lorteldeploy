@@ -1,0 +1,121 @@
+Project Summary: Hotel Booking App
+
+This project is a Next.js 16.2.4 hotel booking application built with React 19.2.4 and Tailwind CSS v4. The goal is to provide a clean booking flow, branch detail exploration, customer history, and admin-style pages while preserving UI structure after a hard reset. The codebase is organized to keep the original monolithic master type definitions intact, while adding child schema modules for better maintainability.
+
+File Structure Hierarchy
+------------------------
+src/
+  app/
+    globals.css
+    layout.js
+    page.js
+    admin/
+      layout.tsx
+      page.tsx
+      command/page.tsx
+      finance/page.tsx
+      hrmanage/page.tsx
+      infrastorage/page.tsx
+      profile/page.tsx
+    booking/page.tsx
+    login/page.tsx
+    profile/page.tsx
+  components/
+    AdminSidebar.tsx
+    ChartConfig.ts
+    Footer.tsx
+    Header.tsx
+    useAdminDashboard.ts
+  data/
+    masterdata.json
+  schemas/
+    auth.types.ts
+    auth.data.ts
+    customer.types.ts
+    customer.data.ts
+    finance.types.ts
+    finance.data.ts
+    infraStorage.types.ts
+    infraStorage.data.ts
+    marketing.types.ts
+    marketing.data.ts
+    staff.types.ts
+    staff.data.ts
+    index.ts
+  types/
+    mastertype.ts
+
+The public/ folder houses assets and the root package.json plus configuration files define the build and runtime environment.
+
+Module Analysis
+---------------
+1. app/page.js
+   - Landing page for the hotel website.
+   - Fetches master data from /api/masterdata and renders featured rooms, services, and coupons.
+   - Uses React state (useState, useEffect) to manage loading and data transformation.
+   - Avoids hardcoded room cards by mapping over fetched room, service, and promo data.
+
+2. app/booking/page.tsx
+   - Core search and booking experience.
+   - Loads room, branch, and service masters with a fetch call to /api/masterdata.
+   - Implements branch detail view and embedded OpenStreetMap maps using Nominatim geocoding.
+   - Uses localStorage caching for branch coordinates to reduce repeated API calls.
+   - Includes signed-in customer autofill from localStorage/sessionStorage.
+   - Supports sorting and filtering of rooms and branch selection UI.
+
+3. app/profile/page.tsx
+   - Customer profile and booking history page.
+   - Loads coupon and promo data dynamically rather than via static arrays.
+   - Displays available promotions tied to the master data set.
+
+4. app/layout.js and globals.css
+   - Root application wrapper and global style setup.
+   - Layout integrates global CSS and common header/footer components.
+   - globals.css uses Tailwind CSS v4 directives and custom utility classes.
+   - Custom animations, cards, and responsive layout patterns are defined in the global stylesheet.
+
+5. src/schemas
+   - New schema child files separate the six domain groups without changing the original master type file.
+   - auth.types.ts, customer.types.ts, finance.types.ts, infraStorage.types.ts, marketing.types.ts, staff.types.ts contain schema-specific interface definitions.
+   - Corresponding *.data.ts files re-export the root MasterData type and define schema data shapes.
+   - src/schemas/index.ts centralizes exports for easy importing.
+
+6. src/types/mastertype.ts
+   - The monolithic "motherfile" containing full application interface definitions.
+   - Includes the root `LortelHomesDatabase` object and now also exports `MasterData` as a type alias.
+   - Remains unchanged except for the alias addition to support schema data files.
+
+API Design and Implications
+---------------------------
+The application relies on a single internal API endpoint: `/api/masterdata`. This endpoint returns a complete dataset from `src/data/masterdata.json`, including rooms, branches, services, coupons, promotions, and related entities.
+
+Implications:
+- Data centralization improves consistency across pages.
+- Client-side fetching allows dynamic rendering without server-side hydration issues for browser-only APIs.
+- Because the endpoint is used frequently, caching is important at both the browser and API layers.
+- The branch detail view uses an external geolocation API (Nominatim) to convert branch addresses into coordinates. The app caches these coordinates in localStorage to minimize rate-limited external calls.
+- Using masterdata as the source of truth means any change in `masterdata.json` propagates through room listings, branch details, coupons, and admin pages.
+
+CSS and Design Approach
+-----------------------
+The project primarily uses Tailwind CSS v4 for styling. There is no Bootstrap dependency in the current implementation. The design approach is:
+- Tailwind utility classes for layout, spacing, typography, and responsive behavior.
+- Custom CSS utilities in `globals.css` for repeated patterns such as card shadows, line-clamp text, and animations.
+- Component-focused style reuse via global classes like `.room-card`, `.service-card`, and `.promo-card`.
+- Minimal use of inline styles, with transition and hover effects defined in the stylesheet.
+
+Important design decisions:
+- Use CSS classes that are compatible with Tailwind v4, replacing deprecated Tailwind v2/v3 classes.
+- Keep layout semantics clean for easier maintenance and upgrade.
+
+Other Notable Details
+---------------------
+- The project supports client-only browser APIs through `useEffect`, ensuring no server runtime errors occur from `window` or `localStorage` references.
+- The admin section is scaffolded with a separate layout under `app/admin`, suggesting future CRUD and analytics work.
+- The `src/data/masterdata.json` remains the authoritative dataset and is intentionally left untouched.
+- The schema reorganization keeps the legacy master schema style while creating child modules for developer ergonomics.
+- `next.config.mjs`, `tsconfig.json`, and `eslint.config.mjs` support TypeScript, Next.js routing, and project linting.
+
+Summary
+-------
+This hotel booking project is a blend of practical page-level data restoration and structural cleanup. It avoids altering the existing UI while improving data flow, introducing dynamic masterdata integration, and organizing schema definitions into modular files. The application demonstrates a Next.js client-first architecture with a centralized API, Tailwind-powered styling, and a careful balance between legacy structure and modern maintainability.

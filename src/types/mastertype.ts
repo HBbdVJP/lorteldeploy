@@ -898,3 +898,5 @@ export interface LortelHomesDatabase {
   RolePermission: RolePermission[];
   Shift: Shift[];
 }
+
+export type MasterData = LortelHomesDatabase;
