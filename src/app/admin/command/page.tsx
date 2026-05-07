@@ -1,8 +1,9 @@
 ﻿"use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useAdminDashboard } from "@/components/useAdminDashboard";
 import infraData from "@/data/infrastructuredata.json";
+import { roomAPI, bookingAPI, customerAPI } from "@/utils/mockapi";
 
 type DeleteModalData = {
   title: string;
@@ -67,7 +68,37 @@ export default function CommandPage() {
     showToast,
   } = useAdminDashboard();
 
-  const [activeTab, setActiveTab] = useState<"bookings" | "rooms" | "promotions" | "construction">("bookings");
+  const [activeTab, setActiveTab] = useState<"bookings" | "rooms" | "promotions" | "construction" | "customers">("bookings");
+
+  // MockAPI data states
+  const [mockRooms, setMockRooms] = useState<any[]>([]);
+  const [mockBookings, setMockBookings] = useState<any[]>([]);
+  const [mockCustomers, setMockCustomers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // Load MockAPI data
+  const loadMockAPIData = async () => {
+    setLoading(true);
+    try {
+      const [roomsData, bookingsData, customersData] = await Promise.all([
+        roomAPI.getAll(),
+        bookingAPI.getAll(),
+        customerAPI.getAll()
+      ]);
+      setMockRooms(roomsData);
+      setMockBookings(bookingsData);
+      setMockCustomers(customersData);
+    } catch (error) {
+      console.error('Error loading MockAPI data:', error);
+      showToast('Không thể tải dữ liệu từ MockAPI', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadMockAPIData();
+  }, []);
   const [branches, setBranches] = useState<Branch[]>(infraData.Branch.map((branch: any) => {
     // Get floors for this branch
     const branchBuildings = infraData.Building.filter((building: any) => building.BranchID === branch.BranchID);
@@ -452,6 +483,116 @@ export default function CommandPage() {
     });
   };
 
+  // ─── MOCKAPI CRUD FUNCTIONS ──────────────────────────────────────────────
+
+  // Room CRUD
+  const createMockRoom = async (roomData: any) => {
+    try {
+      const newRoom = await roomAPI.create(roomData);
+      setMockRooms(prev => [...prev, newRoom]);
+      showToast("Thêm phòng thành công");
+      return newRoom;
+    } catch (error) {
+      console.error('Error creating room:', error);
+      showToast("Lỗi khi thêm phòng", "error");
+    }
+  };
+
+  const updateMockRoom = async (id: string, roomData: any) => {
+    try {
+      const updatedRoom = await roomAPI.update(id, roomData);
+      setMockRooms(prev => prev.map(room => room.roomid === id ? updatedRoom : room));
+      showToast("Cập nhật phòng thành công");
+      return updatedRoom;
+    } catch (error) {
+      console.error('Error updating room:', error);
+      showToast("Lỗi khi cập nhật phòng", "error");
+    }
+  };
+
+  const deleteMockRoom = async (id: string) => {
+    try {
+      await roomAPI.delete(id);
+      setMockRooms(prev => prev.filter(room => room.roomid !== id));
+      showToast("Xóa phòng thành công");
+    } catch (error) {
+      console.error('Error deleting room:', error);
+      showToast("Lỗi khi xóa phòng", "error");
+    }
+  };
+
+  // Booking CRUD
+  const createMockBooking = async (bookingData: any) => {
+    try {
+      const newBooking = await bookingAPI.create(bookingData);
+      setMockBookings(prev => [...prev, newBooking]);
+      showToast("Thêm đặt phòng thành công");
+      return newBooking;
+    } catch (error) {
+      console.error('Error creating booking:', error);
+      showToast("Lỗi khi thêm đặt phòng", "error");
+    }
+  };
+
+  const updateMockBooking = async (id: string, bookingData: any) => {
+    try {
+      const updatedBooking = await bookingAPI.update(id, bookingData);
+      setMockBookings(prev => prev.map(booking => booking.bookingid === id ? updatedBooking : booking));
+      showToast("Cập nhật đặt phòng thành công");
+      return updatedBooking;
+    } catch (error) {
+      console.error('Error updating booking:', error);
+      showToast("Lỗi khi cập nhật đặt phòng", "error");
+    }
+  };
+
+  const deleteMockBooking = async (id: string) => {
+    try {
+      await bookingAPI.delete(id);
+      setMockBookings(prev => prev.filter(booking => booking.bookingid !== id));
+      showToast("Xóa đặt phòng thành công");
+    } catch (error) {
+      console.error('Error deleting booking:', error);
+      showToast("Lỗi khi xóa đặt phòng", "error");
+    }
+  };
+
+  // Customer CRUD
+  const createMockCustomer = async (customerData: any) => {
+    try {
+      const newCustomer = await customerAPI.create(customerData);
+      setMockCustomers(prev => [...prev, newCustomer]);
+      showToast("Thêm khách hàng thành công");
+      return newCustomer;
+    } catch (error) {
+      console.error('Error creating customer:', error);
+      showToast("Lỗi khi thêm khách hàng", "error");
+    }
+  };
+
+  const updateMockCustomer = async (id: string, customerData: any) => {
+    try {
+      const updatedCustomer = await customerAPI.update(id, customerData);
+      setMockCustomers(prev => prev.map(customer => customer.id === id ? updatedCustomer : customer));
+      showToast("Cập nhật khách hàng thành công");
+      return updatedCustomer;
+    } catch (error) {
+      console.error('Error updating customer:', error);
+      showToast("Lỗi khi cập nhật khách hàng", "error");
+    }
+  };
+
+  const deleteMockCustomer = async (id: string) => {
+    try {
+      await customerAPI.delete(id);
+      setMockCustomers(prev => prev.filter(customer => customer.id !== id));
+      showToast("Xóa khách hàng thành công");
+    } catch (error) {
+      console.error('Error deleting customer:', error);
+      showToast("Lỗi khi xóa khách hàng", "error");
+    }
+  };
+
   // ─── RENDER CONTENT ──────────────────────────────────────────────────────
   const renderContent = () => {
     switch (activeTab) {
@@ -459,67 +600,96 @@ export default function CommandPage() {
         return (
           <div className="space-y-6">
             <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quản lý đặt phòng</h1>
+              <h1 className="text-2xl font-bold">Quản lý đặt phòng (MockAPI)</h1>
               <button
-                onClick={() => openBookingModal(null)}
+                onClick={() => {
+                  const bookingData = {
+                    bookingnumber: Math.floor(Math.random() * 1000),
+                    bookingcustomer: `Khách hàng ${Date.now()}`,
+                    bookingcustomerid: Math.floor(Math.random() * 100),
+                    bookingroomType: "Standard",
+                    bookingroomNumber: Math.floor(Math.random() * 100),
+                    bookingcheckin: Date.now(),
+                    bookingcheckout: Date.now() + 86400000 * 2, // 2 days later
+                    bookingguest: Math.floor(Math.random() * 4) + 1,
+                    bookingroomStatus: "pending",
+                    bookingtotalMoney: Math.floor(Math.random() * 5000000) + 1000000,
+                    bookingnote: "Đặt phòng qua MockAPI"
+                  };
+                  createMockBooking(bookingData);
+                }}
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
+                disabled={loading}
               >
                 <i className="fas fa-plus mr-2"></i>Thêm đặt phòng
               </button>
             </div>
-            <div className="bg-slate-800 p-4 rounded-xl shadow-sm">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <select className="border border-slate-700 rounded-lg px-4 py-2 text-sm bg-slate-700 text-slate-100">
-                  <option value="all">Tất cả</option>
-                  <option value="pending">Chờ</option>
-                  <option value="confirmed">Đã xác nhận</option>
-                  <option value="completed">Hoàn thành</option>
-                </select>
-                <input type="date" className="border border-slate-700 rounded-lg px-4 py-2 text-sm bg-slate-700 text-slate-100" />
-                <input type="date" className="border border-slate-700 rounded-lg px-4 py-2 text-sm bg-slate-700 text-slate-100" />
+            {loading ? (
+              <div className="text-center py-8">
+                <i className="fas fa-spinner fa-spin text-2xl text-blue-400"></i>
+                <p className="mt-2 text-slate-400">Đang tải dữ liệu...</p>
               </div>
-            </div>
-            <div className="bg-slate-800 rounded-xl shadow-sm overflow-hidden">
-              <table className="w-full">
-                <thead className="bg-slate-700">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs">Mã</th>
-                    <th className="px-6 py-3 text-left text-xs">Khách hàng</th>
-                    <th className="px-6 py-3 text-left text-xs">Phòng</th>
-                    <th className="px-6 py-3 text-left text-xs">Ngày nhận</th>
-                    <th className="px-6 py-3 text-left text-xs">Ngày trả</th>
-                    <th className="px-6 py-3 text-left text-xs">Trạng thái</th>
-                    <th className="px-6 py-3 text-right text-xs">Tổng</th>
-                    <th className="px-6 py-3 text-center text-xs">Thao tác</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {bookings.map((b) => (
-                    <tr key={b.id} className="border-b border-slate-700">
-                      <td className="px-6 py-3">{b.code}</td>
-                      <td className="px-6 py-3">{b.customer}</td>
-                      <td className="px-6 py-3">{b.room}</td>
-                      <td className="px-6 py-3">{formatDate(b.checkin)}</td>
-                      <td className="px-6 py-3">{formatDate(b.checkout)}</td>
-                      <td className="px-6 py-3">
-                        <span className={`badge ${b.status === "confirmed" ? "badge-success" : b.status === "pending" ? "badge-warning" : "badge-info"}`}>
-                          {b.status === "confirmed" ? "Đã xác nhận" : b.status === "pending" ? "Chờ" : "Hoàn thành"}
-                        </span>
-                      </td>
-                      <td className="px-6 py-3 text-right">{formatCurrency(b.total)}</td>
-                      <td className="px-6 py-3 text-center">
-                        <button className="text-blue-600 mr-2" onClick={() => openBookingModal(b.id)}>
-                          <i className="fas fa-edit"></i>
-                        </button>
-                        <button className="text-red-600" onClick={() => deleteBooking(b.id)}>
-                          <i className="fas fa-trash"></i>
-                        </button>
-                      </td>
+            ) : (
+              <div className="bg-slate-800 rounded-xl shadow-sm overflow-hidden">
+                <table className="w-full">
+                  <thead className="bg-slate-700">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-bold">Mã</th>
+                      <th className="px-6 py-3 text-left text-xs font-bold">Khách hàng</th>
+                      <th className="px-6 py-3 text-left text-xs font-bold">Phòng</th>
+                      <th className="px-6 py-3 text-left text-xs font-bold">Ngày nhận</th>
+                      <th className="px-6 py-3 text-left text-xs font-bold">Ngày trả</th>
+                      <th className="px-6 py-3 text-left text-xs font-bold">Khách</th>
+                      <th className="px-6 py-3 text-left text-xs font-bold">Trạng thái</th>
+                      <th className="px-6 py-3 text-right text-xs font-bold">Tổng</th>
+                      <th className="px-6 py-3 text-center text-xs font-bold">Thao tác</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody className="divide-y divide-slate-700">
+                    {mockBookings.map((booking) => (
+                      <tr key={booking.bookingid} className="hover:bg-slate-700">
+                        <td className="px-6 py-4 text-sm font-medium">{booking.bookingnumber}</td>
+                        <td className="px-6 py-4 text-sm">{booking.bookingcustomer}</td>
+                        <td className="px-6 py-4 text-sm">{booking.bookingroomNumber}</td>
+                        <td className="px-6 py-4 text-sm">{new Date(booking.bookingcheckin).toLocaleDateString('vi-VN')}</td>
+                        <td className="px-6 py-4 text-sm">{new Date(booking.bookingcheckout).toLocaleDateString('vi-VN')}</td>
+                        <td className="px-6 py-4 text-sm">{booking.bookingguest}</td>
+                        <td className="px-6 py-4 text-sm">
+                          <span className={`px-2 py-1 rounded text-xs font-bold ${
+                            booking.bookingroomStatus === "confirmed" ? "bg-green-900 text-green-200" :
+                            booking.bookingroomStatus === "pending" ? "bg-yellow-900 text-yellow-200" :
+                            "bg-blue-900 text-blue-200"
+                          }`}>
+                            {booking.bookingroomStatus}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-sm text-right">{formatCurrency(booking.bookingtotalMoney)}</td>
+                        <td className="px-6 py-4 text-center">
+                          <button
+                            onClick={() => {
+                              const updatedData = {
+                                ...booking,
+                                bookingroomStatus: booking.bookingroomStatus === "pending" ? "confirmed" : "pending"
+                              };
+                              updateMockBooking(booking.bookingid, updatedData);
+                            }}
+                            className="text-blue-600 hover:text-blue-800 mr-3"
+                          >
+                            <i className="fas fa-edit"></i>
+                          </button>
+                          <button
+                            onClick={() => deleteMockBooking(booking.bookingid)}
+                            className="text-red-600 hover:text-red-800"
+                          >
+                            <i className="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         );
 
@@ -527,83 +697,119 @@ export default function CommandPage() {
         return (
           <div className="space-y-6">
             <div className="flex justify-between">
-              <h1 className="text-2xl font-bold">Quản lý phòng</h1>
+              <h1 className="text-2xl font-bold">Quản lý phòng (MockAPI)</h1>
               <button
-                onClick={() => openRoomModal(null)}
+                onClick={() => {
+                  const roomData = {
+                    roomnumber: Math.floor(Math.random() * 1000),
+                    roomname: `Phòng ${Math.floor(Math.random() * 1000)}`,
+                    roomtype: "Standard",
+                    roomprice: Math.floor(Math.random() * 5000000) + 1000000,
+                    roomarea: Math.floor(Math.random() * 50) + 20,
+                    roomcapacity: Math.floor(Math.random() * 4) + 1,
+                    roomstatus: "available",
+                    roomamenities: ["wifi", "tv", "ac"],
+                    roomdescription: "Phòng nghỉ dưỡng thoải mái với đầy đủ tiện nghi",
+                    roomimage: `https://picsum.photos/seed/${Date.now()}/400/300`
+                  };
+                  createMockRoom(roomData);
+                }}
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
+                disabled={loading}
               >
                 <i className="fas fa-plus mr-2"></i>Thêm phòng
               </button>
             </div>
-            <div className="grid grid-cols-4 gap-4">
-              <div className="bg-slate-800 p-4 rounded-lg">
-                <p className="text-gray-500">Tổng số</p>
-                <p className="text-2xl font-bold">{rooms.length}</p>
+            {loading ? (
+              <div className="text-center py-8">
+                <i className="fas fa-spinner fa-spin text-2xl text-blue-400"></i>
+                <p className="mt-2 text-slate-400">Đang tải dữ liệu...</p>
               </div>
-              <div className="bg-slate-800 p-4 rounded-lg">
-                <p className="text-gray-500">Phòng trống</p>
-                <p className="text-2xl font-bold text-green-600">
-                  {rooms.filter((r) => r.status === "available").length}
-                </p>
-              </div>
-              <div className="bg-slate-800 p-4 rounded-lg">
-                <p className="text-gray-500">Đang có khách</p>
-                <p className="text-2xl font-bold text-yellow-600">
-                  {rooms.filter((r) => r.status === "occupied").length}
-                </p>
-              </div>
-              <div className="bg-slate-800 p-4 rounded-lg">
-                <p className="text-gray-500">Bảo trì</p>
-                <p className="text-2xl font-bold text-red-600">
-                  {rooms.filter((r) => r.status === "maintenance").length}
-                </p>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {rooms.map((r) => (
-                <div key={r.id} className="room-card bg-slate-800 rounded-xl shadow-sm border border-slate-700 overflow-hidden">
-                  <div className="relative h-40 bg-slate-700">
-                    <img
-                      src={`https://picsum.photos/id/${164 + r.id}/400/200`}
-                      className="w-full h-full object-cover"
-                      alt={r.name}
-                    />
-                    <span
-                      className={`absolute top-2 right-2 px-2 py-1 text-xs rounded-full text-white ${
-                        r.status === "available" ? "bg-green-500" : r.status === "occupied" ? "bg-yellow-500" : "bg-red-500"
-                      }`}
-                    >
-                      {r.status === "available" ? "Trống" : r.status === "occupied" ? "Đã đặt" : "Bảo trì"}
-                    </span>
+            ) : (
+              <>
+                <div className="grid grid-cols-4 gap-4">
+                  <div className="bg-slate-800 p-4 rounded-lg">
+                    <p className="text-gray-500">Tổng số</p>
+                    <p className="text-2xl font-bold">{mockRooms.length}</p>
                   </div>
-                  <div className="p-4">
-                    <div className="flex justify-between">
-                      <h3 className="font-bold">{r.name}</h3>
-                      <span className="text-emerald-600 font-bold">{formatCurrency(r.price)}</span>
-                    </div>
-                    <p className="text-sm text-gray-500">
-                      Phòng {r.number} • {r.area}m² • {r.capacity} người
+                  <div className="bg-slate-800 p-4 rounded-lg">
+                    <p className="text-gray-500">Phòng trống</p>
+                    <p className="text-2xl font-bold text-green-600">
+                      {mockRooms.filter((r) => r.roomstatus === "available").length}
                     </p>
-                    <div className="flex gap-1 mt-2">
-                      {r.amenities.map((a) => (
-                        <span key={a} className="bg-slate-700 text-xs px-2 py-1 rounded text-slate-100">
-                          <i className={`fas fa-${a === "wifi" ? "wifi" : a === "tv" ? "tv" : a === "ac" ? "wind" : "bath"}`}></i>{" "}
-                          {a.toUpperCase()}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex justify-between mt-3 pt-3 border-t border-slate-700">
-                      <button className="text-blue-600" onClick={() => openRoomModal(r.id)}>
-                        <i className="fas fa-edit mr-1"></i>Sửa
-                      </button>
-                      <button className="text-red-600" onClick={() => deleteRoom(r.id)}>
-                        <i className="fas fa-trash mr-1"></i>Xóa
-                      </button>
-                    </div>
+                  </div>
+                  <div className="bg-slate-800 p-4 rounded-lg">
+                    <p className="text-gray-500">Đang có khách</p>
+                    <p className="text-2xl font-bold text-yellow-600">
+                      {mockRooms.filter((r) => r.roomstatus === "occupied").length}
+                    </p>
+                  </div>
+                  <div className="bg-slate-800 p-4 rounded-lg">
+                    <p className="text-gray-500">Bảo trì</p>
+                    <p className="text-2xl font-bold text-red-600">
+                      {mockRooms.filter((r) => r.roomstatus === "maintenance").length}
+                    </p>
                   </div>
                 </div>
-              ))}
-            </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {mockRooms.map((room) => (
+                    <div key={room.roomid} className="room-card bg-slate-800 rounded-xl shadow-sm border border-slate-700 overflow-hidden">
+                      <div className="relative h-40 bg-slate-700">
+                        <img
+                          src={room.roomimage}
+                          className="w-full h-full object-cover"
+                          alt={room.roomname}
+                        />
+                        <span
+                          className={`absolute top-2 right-2 px-2 py-1 text-xs rounded-full text-white ${
+                            room.roomstatus === "available" ? "bg-green-500" : room.roomstatus === "occupied" ? "bg-yellow-500" : "bg-red-500"
+                          }`}
+                        >
+                          {room.roomstatus === "available" ? "Trống" : room.roomstatus === "occupied" ? "Đã đặt" : "Bảo trì"}
+                        </span>
+                      </div>
+                      <div className="p-4">
+                        <div className="flex justify-between">
+                          <h3 className="font-bold">{room.roomname}</h3>
+                          <span className="text-emerald-600 font-bold">{formatCurrency(room.roomprice)}</span>
+                        </div>
+                        <p className="text-sm text-gray-500">
+                          Phòng {room.roomnumber} • {room.roomarea}m² • {room.roomcapacity} người
+                        </p>
+                        <div className="flex gap-1 mt-2">
+                          {room.roomamenities?.map((amenity: string) => (
+                            <span key={amenity} className="bg-slate-700 text-xs px-2 py-1 rounded text-slate-100">
+                              <i className={`fas fa-${amenity === "wifi" ? "wifi" : amenity === "tv" ? "tv" : amenity === "ac" ? "wind" : "bath"}`}></i>{" "}
+                              {amenity.toUpperCase()}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="flex justify-between mt-3 pt-3 border-t border-slate-700">
+                          <button
+                            onClick={() => {
+                              const updatedData = {
+                                ...room,
+                                roomstatus: room.roomstatus === "available" ? "occupied" : "available"
+                              };
+                              updateMockRoom(room.roomid, updatedData);
+                            }}
+                            className="text-blue-600 hover:text-blue-800"
+                          >
+                            <i className="fas fa-edit mr-1"></i>Sửa
+                          </button>
+                          <button
+                            onClick={() => deleteMockRoom(room.roomid)}
+                            className="text-red-600 hover:text-red-800"
+                          >
+                            <i className="fas fa-trash mr-1"></i>Xóa
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         );
 
@@ -717,6 +923,82 @@ export default function CommandPage() {
           </div>
         );
 
+      case "customers":
+        return (
+          <div className="space-y-6">
+            <div className="flex justify-between">
+              <h1 className="text-2xl font-bold">Quản lý khách hàng (MockAPI)</h1>
+              <button
+                onClick={() => {
+                  const customerData = {
+                    name: `Khách hàng ${Date.now()}`,
+                    email: `customer${Date.now()}@example.com`,
+                    phone: `090${Math.floor(Math.random() * 10000000)}`,
+                    address: "Hanoi, Vietnam"
+                  };
+                  createMockCustomer(customerData);
+                }}
+                className="bg-green-600 text-white px-4 py-2 rounded-lg"
+                disabled={loading}
+              >
+                <i className="fas fa-plus mr-2"></i>Thêm khách hàng
+              </button>
+            </div>
+            {loading ? (
+              <div className="text-center py-8">
+                <i className="fas fa-spinner fa-spin text-2xl text-blue-400"></i>
+                <p className="mt-2 text-slate-400">Đang tải dữ liệu...</p>
+              </div>
+            ) : (
+              <div className="bg-slate-800 rounded-xl shadow-sm overflow-hidden">
+                <table className="w-full">
+                  <thead className="bg-slate-700">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-bold">ID</th>
+                      <th className="px-6 py-3 text-left text-xs font-bold">Tên</th>
+                      <th className="px-6 py-3 text-left text-xs font-bold">Email</th>
+                      <th className="px-6 py-3 text-left text-xs font-bold">SĐT</th>
+                      <th className="px-6 py-3 text-left text-xs font-bold">Địa chỉ</th>
+                      <th className="px-6 py-3 text-center text-xs font-bold">Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-700">
+                    {mockCustomers.map((customer) => (
+                      <tr key={customer.id} className="hover:bg-slate-700">
+                        <td className="px-6 py-4 text-sm font-medium">{customer.id}</td>
+                        <td className="px-6 py-4 text-sm">{customer.name}</td>
+                        <td className="px-6 py-4 text-sm">{customer.email}</td>
+                        <td className="px-6 py-4 text-sm">{customer.phone}</td>
+                        <td className="px-6 py-4 text-sm">{customer.address}</td>
+                        <td className="px-6 py-4 text-center">
+                          <button
+                            onClick={() => {
+                              const updatedData = {
+                                ...customer,
+                                name: `${customer.name} (Updated)`
+                              };
+                              updateMockCustomer(customer.id, updatedData);
+                            }}
+                            className="text-blue-600 hover:text-blue-800 mr-3"
+                          >
+                            <i className="fas fa-edit"></i>
+                          </button>
+                          <button
+                            onClick={() => deleteMockCustomer(customer.id)}
+                            className="text-red-600 hover:text-red-800"
+                          >
+                            <i className="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        );
+
       default:
         return null;
     }
@@ -740,12 +1022,13 @@ export default function CommandPage() {
         {[
           { id: "bookings", label: "Đặt phòng" },
           { id: "rooms", label: "Phòng" },
+          { id: "customers", label: "Khách hàng" },
           { id: "promotions", label: "Khuyến mãi" },
           { id: "construction", label: "Chi nhánh" },
         ].map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id as "bookings" | "rooms" | "promotions" | "construction")}
+            onClick={() => setActiveTab(tab.id as "bookings" | "rooms" | "customers" | "promotions" | "construction")}
             className={`tab-item flex items-center gap-2 px-4 py-3 cursor-pointer border-b-2 transition-colors text-[12px] font-bold uppercase whitespace-nowrap ${
               activeTab === tab.id
                 ? "text-blue-400 border-blue-400 bg-slate-900/30"
