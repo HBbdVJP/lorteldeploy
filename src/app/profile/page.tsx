@@ -19,11 +19,14 @@ export default function ProfilePage() {
   const [bookings, setBookings] = useState<any[]>([]);
   // Thêm vào đầu component (sau các state hiện có)
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortOption, setSortOption] = useState<"date_desc" | "date_asc" | "price_desc" | "price_asc">("date_desc");
+
+  type SortOption = "date_desc" | "date_asc" | "price_desc" | "price_asc";
+
+  const [sortOption, setSortOption] = useState<SortOption>("date_desc");
 
   useEffect(() => {
     const loadProfile = async () => {
-      // 1. Lấy thông tin user hiện tại
+      // 1. Lấy user hiện tại
       const userData =
         localStorage.getItem("customer_data") ||
         sessionStorage.getItem("customer_data");
@@ -36,7 +39,7 @@ export default function ProfilePage() {
           currentCustomer = JSON.parse(userData);
           customerId = currentCustomer.CustomerID ?? currentCustomer.id ?? null;
           customerEmail = currentCustomer.email ?? null;
-          setUser(currentCustomer); // ✅ QUAN TRỌNG: cập nhật state user
+          setUser(currentCustomer);
         } catch (e) {
           setUser(null);
         }
@@ -52,12 +55,7 @@ export default function ProfilePage() {
         return;
       }
 
-      // 2. Lấy booking từ localStorage (do BookingPage tạo)
-      const localBookings = JSON.parse(
-        localStorage.getItem("user_bookings") || "[]",
-      );
-
-      // 3. Lấy booking từ MockAPI
+      // 2. Chỉ lấy từ MockAPI (không đọc localStorage)
       let apiBookings = [];
       try {
         const res = await fetch(
@@ -70,18 +68,17 @@ export default function ProfilePage() {
         console.error("Lỗi fetch mockAPI:", error);
       }
 
-      // 4. Gộp và lọc theo customer id hoặc email
-      const allBookings = [...localBookings, ...apiBookings];
-      const filtered = allBookings.filter(
+      // 3. Lọc theo customer
+      const filtered = apiBookings.filter(
         (booking) =>
           (customerId && booking.bookingcustomerid == customerId) ||
           (customerEmail && booking.bookingcustomer === customerEmail) ||
           (customerEmail && booking.bookingcustomer === currentCustomer?.name),
       );
 
-      // 5. Chuyển đổi định dạng để hiển thị
+      // 4. Định dạng hiển thị
       const formatted = filtered.map((booking) => ({
-        id: booking.bookingid,
+        id: booking.id, // dùng id thật từ MockAPI
         roomName: `${booking.bookingroomType} - Phòng ${booking.bookingroomNumber}`,
         checkin: new Date(booking.bookingcheckin * 1000)
           .toISOString()
@@ -92,7 +89,7 @@ export default function ProfilePage() {
         status:
           booking.bookingroomStatus === "confirmed" ? "completed" : "pending",
         total: booking.bookingtotalMoney,
-        image: `https://picsum.photos/id/${parseInt(booking.bookingid?.slice(-3) || "100") % 300}/400/300`,
+        image: `https://picsum.photos/id/${parseInt(booking.id?.slice(-3) || "100") % 300}/400/300`,
         nights: Math.ceil(
           (booking.bookingcheckout - booking.bookingcheckin) / 86400,
         ),
@@ -107,7 +104,7 @@ export default function ProfilePage() {
     };
 
     loadProfile();
-  }, []); // dependency để trống, chạy 1 lần khi mount
+  }, []);
 
   // Load coupons from masterdata
   useEffect(() => {
@@ -196,6 +193,30 @@ export default function ProfilePage() {
     alert(
       "Đã hủy đặt phòng. Tiền sẽ được hoàn lại trong vòng 3-5 ngày làm việc.",
     );
+  };
+  // Xóa booking đã diễn ra khỏi lịch sử (không hoàn tiền, chỉ xóa khỏi profile)
+  const handleDeleteHistory = async (bookingId: string) => {
+    if (!confirm("Bạn có chắc muốn xóa đơn đặt phòng này khỏi lịch sử?"))
+      return;
+
+    // Cập nhật state & localStorage
+    const updatedBookings = bookings.filter((b) => b.id !== bookingId);
+    setBookings(updatedBookings);
+    localStorage.setItem("user_bookings", JSON.stringify(updatedBookings));
+
+    // Xóa trên mockAPI (nếu có)
+    try {
+      await fetch(
+        `https://69d0c66890cd06523d5d7d21.mockapi.io/booking/${bookingId}`,
+        {
+          method: "DELETE",
+        },
+      );
+    } catch (error) {
+      console.error("Lỗi khi xóa trên mockAPI:", error);
+    }
+
+    alert("Đã xóa đơn đặt phòng khỏi lịch sử.");
   };
 
   // Hàm xử lý Logout đồng bộ với Header
@@ -323,7 +344,9 @@ export default function ProfilePage() {
                       <div>
                         <select
                           value={sortOption}
-                          onChange={(e) => setSortOption(e.target.value)}
+                          onChange={(e) =>
+                            setSortOption(e.target.value as SortOption)
+                          }
                           className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500"
                         >
                           <option value="date_desc">Mới nhất trước</option>
@@ -402,9 +425,6 @@ export default function ProfilePage() {
                               )}
                             </div>
                             <div className="flex flex-col justify-center gap-2">
-                              <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium transition">
-                                Chi tiết
-                              </button>
                               {booking.status === "pending" && (
                                 <button
                                   onClick={() =>
@@ -413,6 +433,16 @@ export default function ProfilePage() {
                                   className="px-4 py-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-50 text-sm font-medium transition"
                                 >
                                   Hủy đặt
+                                </button>
+                              )}
+                              {booking.status === "completed" && (
+                                <button
+                                  onClick={() =>
+                                    handleDeleteHistory(booking.id)
+                                  }
+                                  className="px-4 py-2 border border-gray-400 text-gray-600 rounded-lg hover:bg-gray-100 text-sm font-medium transition"
+                                >
+                                  Xóa lịch sử
                                 </button>
                               )}
                             </div>

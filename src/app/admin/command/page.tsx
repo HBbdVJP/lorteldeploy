@@ -1005,7 +1005,7 @@ export default function CommandPage() {
   };
 
   return (
-    <div className="bg-slate-900 transition-colors duration-300 min-h-screen flex flex-col">
+    <div className="bg-slate-900 text-white transition-colors duration-300 min-h-screen flex flex-col">
       {/* Header */}
       <header className="bg-slate-900 px-6 py-3 flex sticky top-0 z-50 shadow-md">
         <div className="flex items-center space-x-4">

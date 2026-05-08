@@ -606,7 +606,7 @@ export default function BookingPage() {
           </div>
           <button // Thay thế onClick của nút "Thanh toán ngay"
             onClick={async () => {
-              // Lấy thông tin khách hàng hiện tại từ storage
+              // Kiểm tra đăng nhập
               const storedCustomer =
                 localStorage.getItem("customer_data") ||
                 sessionStorage.getItem("customer_data");
@@ -616,22 +616,16 @@ export default function BookingPage() {
                   currentCustomer = JSON.parse(storedCustomer);
                 } catch (e) {}
               }
-
-              // Nếu chưa đăng nhập, yêu cầu đăng nhập (có thể bỏ qua nếu vẫn cho phép đặt)
               if (!currentCustomer) {
                 showToast("Vui lòng đăng nhập để đặt phòng", "error");
                 return;
               }
 
-              // Tạo mảng booking mới từ cart
-              const newBookings = [];
-
+              // Gửi từng booking lên MockAPI (không lưu localStorage)
               for (let idx = 0; idx < cart.length; idx++) {
                 const item = cart[idx];
                 const now = Date.now();
-                const bookingId = `BK_${now}_${idx}`;
 
-                // Chuyển ngày checkin/checkout thành UNIX timestamp (giây)
                 const checkinTimestamp = Math.floor(
                   new Date(item.checkin).getTime() / 1000,
                 );
@@ -640,7 +634,7 @@ export default function BookingPage() {
                 );
 
                 const bookingData = {
-                  bookingnumber: now + idx, // số tự động
+                  bookingnumber: now + idx,
                   bookingcustomer:
                     currentCustomer.name ||
                     currentCustomer.FirstName +
@@ -653,16 +647,13 @@ export default function BookingPage() {
                   bookingroomNumber: item.room.number,
                   bookingcheckin: checkinTimestamp,
                   bookingcheckout: checkoutTimestamp,
-                  bookingguest: item.room.capacity, // hoặc lấy từ state guests nếu muốn
+                  bookingguest: item.room.capacity,
                   bookingroomStatus: "confirmed",
-                  bookingtotalMoney: item.total, // đã tính discount
+                  bookingtotalMoney: item.total,
                   bookingnote: item.customer?.notes || "",
-                  bookingid: bookingId,
+                  // KHÔNG gửi bookingid – để MockAPI tự sinh
                 };
 
-                newBookings.push(bookingData);
-
-                // Gửi lên MockAPI
                 try {
                   await fetch(
                     "https://69d0c66890cd06523d5d7d21.mockapi.io/booking",
@@ -674,28 +665,15 @@ export default function BookingPage() {
                   );
                 } catch (error) {
                   console.error("Lỗi gửi booking lên API:", error);
+                  showToast("Lỗi khi đặt phòng, vui lòng thử lại", "error");
+                  return;
                 }
               }
 
-              // Lưu vào localStorage (để profile đọc được)
-              const existingBookings = JSON.parse(
-                localStorage.getItem("user_bookings") || "[]",
-              );
-              const updatedBookings = [...existingBookings, ...newBookings];
-              localStorage.setItem(
-                "user_bookings",
-                JSON.stringify(updatedBookings),
-              );
-
-              // Thông báo thành công
-              showToast(
-                `Đặt phòng thành công! Mã đơn: ${newBookings.map((b) => b.bookingid).join(", ")}`,
-                "success",
-              );
-
-              // Xoá giỏ hàng và đóng sidebar
+              // Xoá giỏ hàng, đóng sidebar, thông báo thành công
               setCart([]);
               setIsCartOpen(false);
+              showToast("Đặt phòng thành công!", "success");
             }}
             className="w-full bg-emerald-600 text-white py-3 rounded-lg font-semibold hover:bg-emerald-700"
           >
