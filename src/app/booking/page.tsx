@@ -9,11 +9,31 @@ import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import infraData from "../../data/infrastructuredata.json";
 import { useModal } from "../../hooks/useModal";
 
-const generateRoomImages = (roomId: number): string[] => [
-  `https://picsum.photos/id/${(roomId * 13) % 300}/800/500`,
-  `https://picsum.photos/id/${(roomId * 19) % 300}/800/500`,
-  `https://picsum.photos/id/${(roomId * 23) % 300}/800/500`
-];
+const generateRoomImages = (roomId: number): string[] => {
+  // Xử lý roomId không hợp lệ (null, undefined, 0)
+  const seed = (typeof roomId === 'number' && roomId > 0) ? roomId : 1;
+
+  // Hàm tạo số ngẫu nhiên giả (PRNG) từ seed
+  const mulberry32 = (a: number) => {
+    return () => {
+      let t = a += 0x6D2B79F5;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t >>> 14;
+      return (t >>> 0) / 4294967296;
+    };
+  };
+
+  const rng = mulberry32(seed);
+  const ids = new Set<number>();
+
+  // Tạo 3 ID khác nhau, từ 1 đến 1000
+  while (ids.size < 3) {
+    const id = Math.floor(rng() * 1000) + 1; // 1..1000
+    ids.add(id);
+  }
+
+  return Array.from(ids).map(id => `https://picsum.photos/id/${id}/800/500`);
+};
 
 const PROMOTIONS: Record<string, { type: "percent" | "fixed"; value: number; name: string }> = {
   SUMMER30: { type: "percent", value: 30, name: "Giảm 30% mùa hè" },
@@ -460,7 +480,7 @@ export default function BookingPage() {
         </div>
       </div>
 
-      {/* DETAIL MODAL + BOOKING MODAL + TOAST giữ nguyên như code trước, chỉ cần copy phần còn lại từ tin nhắn trước nếu bạn muốn đầy đủ hơn. Nhưng lỗi đã được sửa hoàn toàn ở phần tính toán nights. */}
+      {/* DETAIL MODAL + BOOKING MODAL + TOAST */}
 
       {detailModal.isOpen && detailModal.payload && (
         <div className="fixed inset-0 z-200 flex items-center justify-center p-4 bg-black/50">
