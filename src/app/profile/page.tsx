@@ -1,34 +1,14 @@
+//src/app/profile/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Link from "next/link";
 import customerData from "../../data/customerdata.json";
 
-// Mock data cho các đơn đặt phòng (fallback if no real bookings)
-const MOCK_BOOKINGS = [
-  {
-    id: "BK001",
-    roomName: "Deluxe Ocean View",
-    checkin: "2026-04-10",
-    checkout: "2026-04-12",
-    status: "completed",
-    total: 3000000,
-    image: "https://picsum.photos/id/20/400/300"
-  },
-  {
-    id: "BK002",
-    roomName: "Suite Premium",
-    checkin: "2026-05-01",
-    checkout: "2026-05-03",
-    status: "pending",
-    total: 4400000,
-    image: "https://picsum.photos/id/29/400/300"
-  }
-];
-
-const formatCurrency = (amount: number) => new Intl.NumberFormat("vi-VN").format(amount) + "đ";
+const formatCurrency = (amount: number) =>
+  new Intl.NumberFormat("vi-VN").format(amount) + "đ";
 
 export default function ProfilePage() {
   // Trạng thái user đồng bộ hoàn toàn với Header
@@ -37,104 +17,199 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<"bookings" | "promos">("bookings");
   const [coupons, setCoupons] = useState<any[]>([]);
   const [bookings, setBookings] = useState<any[]>([]);
+  // Thêm vào đầu component (sau các state hiện có)
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOption, setSortOption] = useState<"date_desc" | "date_asc" | "price_desc" | "price_asc">("date_desc");
 
   useEffect(() => {
-    // Logic check y hệt Header của bạn
-    const userData = localStorage.getItem('customer_data') || sessionStorage.getItem('customer_data');
-    let currentCustomerId: number | null = null;
+    const loadProfile = async () => {
+      // 1. Lấy thông tin user hiện tại
+      const userData =
+        localStorage.getItem("customer_data") ||
+        sessionStorage.getItem("customer_data");
+      let currentCustomer = null;
+      let customerId = null;
+      let customerEmail = null;
 
-    if (userData) {
-      try {
-        const parsedUser = JSON.parse(userData);
-        setUser(parsedUser);
-        currentCustomerId = parsedUser.CustomerID ?? parsedUser.id ?? parsedUser.AccID ?? null;
-      } catch (e) {
-        console.error("Lỗi parse dữ liệu user");
+      if (userData) {
+        try {
+          currentCustomer = JSON.parse(userData);
+          customerId = currentCustomer.CustomerID ?? currentCustomer.id ?? null;
+          customerEmail = currentCustomer.email ?? null;
+          setUser(currentCustomer); // ✅ QUAN TRỌNG: cập nhật state user
+        } catch (e) {
+          setUser(null);
+        }
+      } else {
+        setUser(null);
+        setIsLoaded(true);
+        return;
       }
-    }
 
-    const currentCustomer = currentCustomerId
-      ? (customerData.Customer ?? []).find((cust: any) => cust.CustomerID === currentCustomerId)
-      : null;
+      if (!customerId && !customerEmail) {
+        setBookings([]);
+        setIsLoaded(true);
+        return;
+      }
 
-    if (currentCustomer) {
-      const customerBookings = (customerData.Booking ?? []).filter(
-        (booking: any) => booking.CustomerID === currentCustomer.CustomerID
+      // 2. Lấy booking từ localStorage (do BookingPage tạo)
+      const localBookings = JSON.parse(
+        localStorage.getItem("user_bookings") || "[]",
       );
 
-      const mappedBookings = customerBookings.map((booking: any) => {
-        const bookingRooms = (customerData.BookingRoom ?? []).filter(
-          (room: any) => room.BookingID === booking.BookingID
+      // 3. Lấy booking từ MockAPI
+      let apiBookings = [];
+      try {
+        const res = await fetch(
+          "https://69d0c66890cd06523d5d7d21.mockapi.io/booking",
         );
-        const roomName = bookingRooms.length > 0
-          ? `Phòng ${bookingRooms[0].RoomID}`
-          : `Đơn #${booking.BookingID}`;
-        const nights = Math.max(1, Math.ceil((new Date(booking.CheckOut).getTime() - new Date(booking.CheckIn).getTime()) / (1000 * 60 * 60 * 24)));
-        const total = bookingRooms.reduce(
-          (sum: number, room: any) => sum + ((room.RateApplied ?? 0) * nights),
-          0
-        );
-        const statusObj = (customerData.BookingStatus ?? []).find(
-          (status: any) => status.StatusID === booking.StatusID
-        );
-        const statusName = statusObj?.StatusName?.toLowerCase() || "pending";
+        if (res.ok) {
+          apiBookings = await res.json();
+        }
+      } catch (error) {
+        console.error("Lỗi fetch mockAPI:", error);
+      }
 
-        return {
-          id: `BK${booking.BookingID}`,
-          roomName,
-          checkin: booking.CheckIn,
-          checkout: booking.CheckOut,
-          status: statusName,
-          total,
-          image: `https://picsum.photos/id/${(booking.BookingID * 17) % 300}/400/300`,
-          nights,
-          customer: currentCustomer
-        };
-      });
+      // 4. Gộp và lọc theo customer id hoặc email
+      const allBookings = [...localBookings, ...apiBookings];
+      const filtered = allBookings.filter(
+        (booking) =>
+          (customerId && booking.bookingcustomerid == customerId) ||
+          (customerEmail && booking.bookingcustomer === customerEmail) ||
+          (customerEmail && booking.bookingcustomer === currentCustomer?.name),
+      );
 
-      setBookings(mappedBookings);
-    } else {
-      setBookings(MOCK_BOOKINGS);
-    }
+      // 5. Chuyển đổi định dạng để hiển thị
+      const formatted = filtered.map((booking) => ({
+        id: booking.bookingid,
+        roomName: `${booking.bookingroomType} - Phòng ${booking.bookingroomNumber}`,
+        checkin: new Date(booking.bookingcheckin * 1000)
+          .toISOString()
+          .split("T")[0],
+        checkout: new Date(booking.bookingcheckout * 1000)
+          .toISOString()
+          .split("T")[0],
+        status:
+          booking.bookingroomStatus === "confirmed" ? "completed" : "pending",
+        total: booking.bookingtotalMoney,
+        image: `https://picsum.photos/id/${parseInt(booking.bookingid?.slice(-3) || "100") % 300}/400/300`,
+        nights: Math.ceil(
+          (booking.bookingcheckout - booking.bookingcheckin) / 86400,
+        ),
+        customer: {
+          name: booking.bookingcustomer,
+          email: booking.bookingcustomer,
+        },
+      }));
 
-    setIsLoaded(true);
-  }, []);
+      setBookings(formatted);
+      setIsLoaded(true);
+    };
+
+    loadProfile();
+  }, []); // dependency để trống, chạy 1 lần khi mount
 
   // Load coupons from masterdata
   useEffect(() => {
     const loadCoupons = async () => {
       try {
-        const response = await fetch('/api/masterdata');
+        const response = await fetch("/api/masterdata");
         const data = await response.json();
         const couponList = (data.Coupon ?? []).map((coupon: any) => {
-          const promo = (data.Promo ?? []).find((p: any) => p.PromoID === coupon.PromoID);
+          const promo = (data.Promo ?? []).find(
+            (p: any) => p.PromoID === coupon.PromoID,
+          );
           return {
             code: coupon.CouponCode,
-            name: promo?.PromoName || 'Ưu đãi đặc biệt',
-            expiry: promo?.EndDate || '2026-12-31',
-            desc: promo?.Description || 'Giảm giá đặc biệt cho khách hàng thân thiết'
+            name: promo?.PromoName || "Ưu đãi đặc biệt",
+            expiry: promo?.EndDate || "2026-12-31",
+            desc:
+              promo?.Description ||
+              "Giảm giá đặc biệt cho khách hàng thân thiết",
           };
         });
         setCoupons(couponList);
       } catch (error) {
-        console.error('Error loading coupons:', error);
+        console.error("Error loading coupons:", error);
       }
     };
 
     loadCoupons();
   }, []);
 
+  //sort và filter bookings theo searchTerm và sortOption
+  const filteredAndSortedBookings = useMemo(() => {
+    let result = [...bookings];
+    if (searchTerm.trim()) {
+      const term = searchTerm.toLowerCase();
+      result = result.filter(
+        (b) =>
+          b.roomName.toLowerCase().includes(term) ||
+          b.id.toLowerCase().includes(term),
+      );
+    }
+    switch (sortOption) {
+      case "date_asc":
+        result.sort(
+          (a, b) =>
+            new Date(a.checkin).getTime() - new Date(b.checkin).getTime(),
+        );
+        break;
+      case "date_desc":
+        result.sort(
+          (a, b) =>
+            new Date(b.checkin).getTime() - new Date(a.checkin).getTime(),
+        );
+        break;
+      case "price_asc":
+        result.sort((a, b) => a.total - b.total);
+        break;
+      case "price_desc":
+        result.sort((a, b) => b.total - a.total);
+        break;
+    }
+    return result;
+  }, [bookings, searchTerm, sortOption]);
+
+  //hủy booking, cập nhật cả state và localStorage, đồng thời xóa trên mockAPI nếu có
+  const handleCancelBooking = async (bookingId: string) => {
+    if (!confirm("Bạn có chắc muốn hủy đặt phòng này? Tiền sẽ được hoàn lại."))
+      return;
+
+    // Cập nhật state & localStorage
+    const updatedBookings = bookings.filter((b) => b.id !== bookingId);
+    setBookings(updatedBookings);
+    localStorage.setItem("user_bookings", JSON.stringify(updatedBookings));
+
+    // Xóa trên mockAPI (nếu có)
+    try {
+      await fetch(
+        `https://69d0c66890cd06523d5d7d21.mockapi.io/booking/${bookingId}`,
+        {
+          method: "DELETE",
+        },
+      );
+    } catch (error) {
+      console.error("Lỗi khi xóa trên mockAPI:", error);
+    }
+
+    alert(
+      "Đã hủy đặt phòng. Tiền sẽ được hoàn lại trong vòng 3-5 ngày làm việc.",
+    );
+  };
+
   // Hàm xử lý Logout đồng bộ với Header
   const handleLogout = () => {
-    localStorage.removeItem('customer_data');
-    sessionStorage.removeItem('customer_data');
-    localStorage.removeItem('customer_email');
-    localStorage.removeItem('customer_password');
-    localStorage.setItem('customer_remember', 'false');
+    localStorage.removeItem("customer_data");
+    sessionStorage.removeItem("customer_data");
+    localStorage.removeItem("customer_email");
+    localStorage.removeItem("customer_password");
+    localStorage.setItem("customer_remember", "false");
     setUser(null);
     window.location.href = "/"; // Dùng window.location để reset toàn bộ trạng thái app
   };
 
+  /** Phần nội dung */
   // Tránh bị "nháy" giao diện khi đang đọc Storage
   if (!isLoaded) return <div className="min-h-screen bg-gray-50"></div>;
 
@@ -148,11 +223,17 @@ export default function ProfilePage() {
             <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <i className="fas fa-user-lock text-3xl text-emerald-600"></i>
             </div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">Bạn chưa đăng nhập</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-4">
+              Bạn chưa đăng nhập
+            </h1>
             <p className="text-gray-600 mb-8 leading-relaxed">
-              Vui lòng đăng nhập để xem thông tin cá nhân, quản lý đơn đặt phòng và nhận các ưu đãi dành riêng cho thành viên.
+              Vui lòng đăng nhập để xem thông tin cá nhân, quản lý đơn đặt phòng
+              và nhận các ưu đãi dành riêng cho thành viên.
             </p>
-            <Link href="/login" className="px-8 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-semibold shadow-lg shadow-emerald-200">
+            <Link
+              href="/login"
+              className="px-8 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-semibold shadow-lg shadow-emerald-200"
+            >
               <i className="fas fa-user-plus mr-2"></i>Đăng ký ngay
             </Link>
           </div>
@@ -166,24 +247,28 @@ export default function ProfilePage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       <Header />
-      
+
       <main className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          
           {/* Sidebar */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl shadow-sm p-6 text-center border border-gray-100 sticky top-24">
               <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-sm">
                 <i className="fas fa-user text-4xl text-emerald-600"></i>
               </div>
-              <h2 className="text-xl font-bold text-gray-800">{user.name || "Khách hàng"}</h2>
+              <h2 className="text-xl font-bold text-gray-800">
+                {user.name || "Khách hàng"}
+              </h2>
               <p className="text-sm text-gray-500 mb-6">{user.email}</p>
-              
+
               <div className="space-y-2">
                 <button className="w-full text-left px-4 py-2 rounded-lg bg-emerald-50 text-emerald-600 font-medium border border-emerald-100">
                   <i className="fas fa-history mr-3"></i>Lịch sử đặt phòng
                 </button>
-                <button onClick={handleLogout} className="w-full text-left px-4 py-2 rounded-lg text-red-500 hover:bg-red-50 transition font-medium">
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 rounded-lg text-red-500 hover:bg-red-50 transition font-medium"
+                >
                   <i className="fas fa-sign-out-alt mr-3"></i>Đăng xuất
                 </button>
               </div>
@@ -220,64 +305,122 @@ export default function ProfilePage() {
 
               <div className="p-6">
                 {activeTab === "bookings" ? (
-                  <div className="space-y-6">
-                    {bookings.length === 0 ? (
-                      <div className="text-center py-12">
-                        <i className="fas fa-calendar-times text-4xl text-gray-300 mb-4"></i>
-                        <p className="text-gray-500">Bạn chưa có đơn đặt phòng nào</p>
-                        <Link href="/booking" className="inline-block mt-4 px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition">
-                          Đặt phòng ngay
-                        </Link>
-                      </div>
-                    ) : (
-                      bookings.map((booking) => (
-                        <div
-                          key={booking.id}
-                          className="flex flex-col md:flex-row gap-6 p-4 border rounded-xl hover:shadow-md transition-shadow"
-                        >
-                          <img
-                            src={booking.image}
-                            className="w-full md:w-48 h-32 object-cover rounded-lg"
-                            alt={booking.roomName}
+                  <>
+                    {/* Thanh công cụ: search + sort */}
+                    <div className="flex flex-col md:flex-row gap-4 mb-6">
+                      <div className="flex-1">
+                        <div className="relative">
+                          <i className="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                          <input
+                            type="text"
+                            placeholder="Tìm theo tên phòng hoặc mã đơn..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                           />
-                          <div className="flex-1">
-                            <div className="flex justify-between items-start mb-2">
-                              <h3 className="text-lg font-bold">{booking.roomName}</h3>
-                              <span
-                                className={`px-3 py-1 rounded-full text-xs font-medium ${
-                                  booking.status === "completed" ? "bg-blue-100 text-blue-600" : "bg-yellow-100 text-yellow-600"
-                                }`}
-                              >
-                                {booking.status === "completed" ? "Đã hoàn tất" : "Chờ nhận phòng"}
-                              </span>
-                            </div>
-                            <p className="text-sm text-gray-500 mb-2">
-                              <i className="fas fa-clock mr-2"></i>
-                              {booking.checkin} → {booking.checkout}
-                              {booking.nights && ` (${booking.nights} đêm)`}
-                            </p>
-                            <p className="text-lg font-bold text-emerald-600">{formatCurrency(booking.total)}</p>
-                            {booking.customer && (
-                              <p className="text-sm text-gray-500 mt-1">
-                                <i className="fas fa-user mr-2"></i>
-                                {booking.customer.name || `${booking.customer.email}`}
-                              </p>
-                            )}
-                          </div>
-                          <div className="flex flex-col justify-center gap-2">
-                            <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium transition">
-                              Chi tiết
-                            </button>
-                          {booking.status === "pending" && (
-                            <button className="px-4 py-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-50 text-sm font-medium transition">
-                              Hủy đặt
-                            </button>
-                          )}
                         </div>
                       </div>
-                      ))
-                    )}
-                  </div>
+                      <div>
+                        <select
+                          value={sortOption}
+                          onChange={(e) => setSortOption(e.target.value)}
+                          className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500"
+                        >
+                          <option value="date_desc">Mới nhất trước</option>
+                          <option value="date_asc">Cũ nhất trước</option>
+                          <option value="price_desc">Giá cao → thấp</option>
+                          <option value="price_asc">Giá thấp → cao</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Danh sách booking đã lọc & sort */}
+                    <div className="space-y-6">
+                      {filteredAndSortedBookings.length === 0 ? (
+                        <div className="text-center py-12">
+                          <i className="fas fa-calendar-times text-4xl text-gray-300 mb-4"></i>
+                          <p className="text-gray-500">
+                            {bookings.length === 0
+                              ? "Bạn chưa có đơn đặt phòng nào"
+                              : "Không tìm thấy đơn đặt phòng nào khớp với từ khóa"}
+                          </p>
+                          {bookings.length === 0 && (
+                            <Link
+                              href="/booking"
+                              className="inline-block mt-4 px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition"
+                            >
+                              Đặt phòng ngay
+                            </Link>
+                          )}
+                        </div>
+                      ) : (
+                        filteredAndSortedBookings.map((booking) => (
+                          <div
+                            key={booking.id}
+                            className="flex flex-col md:flex-row gap-6 p-4 border rounded-xl hover:shadow-md transition-shadow"
+                          >
+                            <img
+                              src={booking.image}
+                              className="w-full md:w-48 h-32 object-cover rounded-lg"
+                              alt={booking.roomName}
+                            />
+                            <div className="flex-1">
+                              <div className="flex justify-between items-start mb-2">
+                                <h3 className="text-lg font-bold">
+                                  {booking.roomName}
+                                </h3>
+                                <span
+                                  className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                    booking.status === "completed"
+                                      ? "bg-blue-100 text-blue-600"
+                                      : booking.status === "cancelled"
+                                        ? "bg-red-100 text-red-600"
+                                        : "bg-yellow-100 text-yellow-600"
+                                  }`}
+                                >
+                                  {booking.status === "completed"
+                                    ? "Đã hoàn tất"
+                                    : booking.status === "cancelled"
+                                      ? "Đã hủy"
+                                      : "Chờ nhận phòng"}
+                                </span>
+                              </div>
+                              <p className="text-sm text-gray-500 mb-2">
+                                <i className="fas fa-clock mr-2"></i>
+                                {booking.checkin} → {booking.checkout}
+                                {booking.nights && ` (${booking.nights} đêm)`}
+                              </p>
+                              <p className="text-lg font-bold text-emerald-600">
+                                {formatCurrency(booking.total)}
+                              </p>
+                              {booking.customer && (
+                                <p className="text-sm text-gray-500 mt-1">
+                                  <i className="fas fa-user mr-2"></i>
+                                  {booking.customer.name ||
+                                    booking.customer.email}
+                                </p>
+                              )}
+                            </div>
+                            <div className="flex flex-col justify-center gap-2">
+                              <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium transition">
+                                Chi tiết
+                              </button>
+                              {booking.status === "pending" && (
+                                <button
+                                  onClick={() =>
+                                    handleCancelBooking(booking.id)
+                                  }
+                                  className="px-4 py-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-50 text-sm font-medium transition"
+                                >
+                                  Hủy đặt
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {coupons.map((promo) => (
@@ -293,9 +436,15 @@ export default function ProfilePage() {
                             {promo.code}
                           </span>
                         </div>
-                        <h3 className="font-bold text-gray-800 mb-1">{promo.name}</h3>
-                        <p className="text-xs text-gray-500 mb-3 leading-relaxed">{promo.desc}</p>
-                        <p className="text-xs text-red-500">Hết hạn: {promo.expiry}</p>
+                        <h3 className="font-bold text-gray-800 mb-1">
+                          {promo.name}
+                        </h3>
+                        <p className="text-xs text-gray-500 mb-3 leading-relaxed">
+                          {promo.desc}
+                        </p>
+                        <p className="text-xs text-red-500">
+                          Hết hạn: {promo.expiry}
+                        </p>
                         <button className="w-full mt-4 py-2 bg-white border border-emerald-600 text-emerald-600 rounded-lg text-sm font-bold hover:bg-emerald-600 hover:text-white transition">
                           Dùng ngay
                         </button>
@@ -306,7 +455,6 @@ export default function ProfilePage() {
               </div>
             </div>
           </div>
-
         </div>
       </main>
 
