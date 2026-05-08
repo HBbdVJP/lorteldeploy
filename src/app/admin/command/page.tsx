@@ -2,6 +2,11 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useAdminDashboard } from "@/components/useAdminDashboard";
+import AdminPromotionModal from "@/components/AdminPromotionModal";
+import AdminBranchModal from "@/components/AdminBranchModal";
+import AdminCustomerModal from "@/components/AdminCustomerModal";
+import AdminBookingModal from "@/components/AdminBookingModal";
+import AdminRoomModal from "@/components/AdminRoomModal";
 import infraData from "@/data/infrastructuredata.json";
 import { roomAPI, bookingAPI, customerAPI } from "@/utils/mockapi";
 
@@ -48,27 +53,21 @@ interface Branch {
 
 export default function CommandPage() {
   const {
-    bookings,
-    setBookings,
-    rooms,
-    setRooms,
-    customers,
     promotions,
     setPromotions,
     isBookingModalOpen,
     setIsBookingModalOpen,
     isRoomModalOpen,
     setIsRoomModalOpen,
-    editBookingId,
-    setEditBookingId,
-    editRoomId,
-    setEditRoomId,
     bookingFormRef,
     roomFormRef,
     showToast,
   } = useAdminDashboard();
 
   const [activeTab, setActiveTab] = useState<"bookings" | "rooms" | "promotions" | "construction" | "customers">("bookings");
+
+  const [editMockBookingId, setEditMockBookingId] = useState<string | null>(null);
+  const [editMockRoomId, setEditMockRoomId] = useState<string | null>(null);
 
   // MockAPI data states
   const [mockRooms, setMockRooms] = useState<any[]>([]);
@@ -160,10 +159,13 @@ export default function CommandPage() {
   }));
   const [isPromotionModalOpen, setIsPromotionModalOpen] = useState(false);
   const [isBranchModalOpen, setIsBranchModalOpen] = useState(false);
+  const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
   const [editPromotionId, setEditPromotionId] = useState<number | null>(null);
   const [editBranchId, setEditBranchId] = useState<string | null>(null);
+  const [editCustomerId, setEditCustomerId] = useState<string | null>(null);
   const promotionFormRef = useRef<HTMLDivElement>(null);
   const branchFormRef = useRef<HTMLDivElement>(null);
+  const customerFormRef = useRef<HTMLDivElement>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deleteModalData, setDeleteModalData] = useState<DeleteModalData>(null);
 
@@ -190,17 +192,17 @@ export default function CommandPage() {
     new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(value);
 
   // ─── BOOKING CRUD ────────────────────────────────────────────────────────
-  const openBookingModal = (id: number | null = null) => {
-    setEditBookingId(id);
+  const openBookingModal = (id: string | null = null) => {
+    setEditMockBookingId(id);
     setIsBookingModalOpen(true);
   };
 
   const closeBookingModal = () => {
     setIsBookingModalOpen(false);
-    setEditBookingId(null);
+    setEditMockBookingId(null);
   };
 
-  const saveBooking = () => {
+  const saveBooking = async () => {
     const form = bookingFormRef.current;
     if (!form) return;
     const customerSelect = form.querySelector("#bookingCustomer") as HTMLSelectElement;
@@ -208,22 +210,22 @@ export default function CommandPage() {
     const checkinInput = form.querySelector("#bookingCheckin") as HTMLInputElement;
     const checkoutInput = form.querySelector("#bookingCheckout") as HTMLInputElement;
     const guestsInput = form.querySelector("#bookingGuests") as HTMLInputElement;
-    const notesInput = form.querySelector("#bookingNotes") as HTMLTextAreaElement;
+    const statusSelect = form.querySelector("#bookingStatus") as HTMLSelectElement;
 
-    const customerId = parseInt(customerSelect?.value || "0");
-    const roomId = parseInt(roomSelect?.value || "0");
+    const customerId = customerSelect?.value || "";
+    const roomId = roomSelect?.value || "";
     const checkin = checkinInput?.value || "";
     const checkout = checkoutInput?.value || "";
-    const guests = parseInt(guestsInput?.value || "2");
-    const note = notesInput?.value || "";
+    const guests = parseInt(guestsInput?.value || "1");
+    const status = statusSelect?.value || "pending";
 
     if (!customerId || !roomId || !checkin || !checkout) {
       showToast("Vui lòng điền đầy đủ thông tin", "error");
       return;
     }
 
-    const customer = customers.find((c) => c.id === customerId);
-    const room = rooms.find((r) => r.id === roomId);
+    const customer = mockCustomers.find((c) => c.id === customerId);
+    const room = mockRooms.find((r) => r.roomid === roomId);
     if (!customer || !room) return;
 
     const days = Math.max(
@@ -232,60 +234,58 @@ export default function CommandPage() {
         (new Date(checkout).getTime() - new Date(checkin).getTime()) / (1000 * 60 * 60 * 24),
       ),
     );
-    const total = room.price * days;
+    const total = (room.roomprice || 0) * days;
 
-    if (editBookingId) {
-      setBookings((prev) =>
-        prev.map((b) =>
-          b.id === editBookingId
-            ? { ...b, customerId, customer: customer.name, roomId, room: room.name, checkin, checkout, guests, total, note }
-            : b,
-        ),
-      );
+    const bookingData = {
+      bookingnumber: editMockBookingId ? mockBookings.find((b) => b.bookingid === editMockBookingId)?.bookingnumber || Math.floor(Math.random() * 1000) : Math.floor(Math.random() * 1000),
+      bookingcustomer: customer.name,
+      bookingcustomerid: customer.id,
+      bookingroomid: room.roomid,
+      bookingroomNumber: room.roomnumber || "",
+      bookingroomType: room.roomtype || "",
+      bookingcheckin: new Date(checkin).getTime(),
+      bookingcheckout: new Date(checkout).getTime(),
+      bookingguest: guests,
+      bookingroomStatus: status,
+      bookingtotalMoney: total,
+      bookingnote: "",
+    };
+
+    if (editMockBookingId) {
+      await updateMockBooking(editMockBookingId, bookingData);
       showToast("Cập nhật đặt phòng thành công");
     } else {
-      const newId = Math.max(...bookings.map((b) => b.id), 0) + 1;
-      setBookings((prev) => [
-        ...prev,
-        {
-          id: newId,
-          code: `BK${String(newId).padStart(3, "0")}`,
-          customerId,
-          customer: customer.name,
-          roomId,
-          room: room.name,
-          checkin,
-          checkout,
-          guests,
-          total,
-          note,
-          status: "pending" as const,
-        },
-      ]);
+      await createMockBooking(bookingData);
       showToast("Thêm đặt phòng thành công");
     }
+
     closeBookingModal();
   };
 
-  const deleteBooking = (id: number) => {
-    openDeleteModal("Xóa đặt phòng", "Bạn có chắc chắn muốn xóa đặt phòng này?", () => {
-      setBookings((prev) => prev.filter((b) => b.id !== id));
-      showToast("Đã xóa đặt phòng");
-    });
-  };
-
   // ─── ROOM CRUD ───────────────────────────────────────────────────────────
-  const openRoomModal = (id: number | null = null) => {
-    setEditRoomId(id);
+  const openRoomModal = (id: string | null = null) => {
+    setEditMockRoomId(id);
     setIsRoomModalOpen(true);
   };
 
   const closeRoomModal = () => {
     setIsRoomModalOpen(false);
-    setEditRoomId(null);
+    setEditMockRoomId(null);
   };
 
-  const saveRoom = () => {
+  const getRoomImageUrl = (url: string) => {
+    const trimmed = url.trim();
+    const recognizedImageUrl = /^(https?:\/\/.*\.(png|jpe?g|gif|bmp|webp|svg)(\?.*)?)$/i.test(trimmed);
+    const knownHost = /(picsum\.photos|catbox\.moe|imgur\.com|i\.imgur\.com|cdn\.discordapp\.com)/i.test(trimmed);
+
+    if (!trimmed || (!recognizedImageUrl && !knownHost)) {
+      return `https://picsum.photos/seed/${Date.now()}${Math.random().toString(36).slice(2)}/400/300`;
+    }
+
+    return trimmed;
+  };
+
+  const saveRoom = async () => {
     const form = roomFormRef.current;
     if (!form) return;
     const nameInput = form.querySelector("#roomName") as HTMLInputElement;
@@ -294,6 +294,7 @@ export default function CommandPage() {
     const priceInput = form.querySelector("#roomPrice") as HTMLInputElement;
     const areaInput = form.querySelector("#roomArea") as HTMLInputElement;
     const capacityInput = form.querySelector("#roomCapacity") as HTMLInputElement;
+    const imageInput = form.querySelector("#roomImage") as HTMLInputElement;
     const statusSelect = form.querySelector("#roomStatus") as HTMLSelectElement;
     const descInput = form.querySelector("#roomDesc") as HTMLTextAreaElement;
     const amenityWifi = form.querySelector("#amenityWifi") as HTMLInputElement;
@@ -317,33 +318,27 @@ export default function CommandPage() {
     if (amenityBath?.checked) amenities.push("bath");
 
     const roomData = {
-      name,
-      number,
-      type: typeSelect?.value || "Standard",
-      price,
-      area: parseInt(areaInput?.value || "0"),
-      capacity: parseInt(capacityInput?.value || "2"),
-      status: statusSelect?.value || "available",
-      amenities,
-      desc: descInput?.value || "",
+      roomnumber: number,
+      roomname: name,
+      roomtype: typeSelect?.value || "Standard",
+      roomprice: price,
+      roomarea: parseInt(areaInput?.value || "0"),
+      roomcapacity: parseInt(capacityInput?.value || "2"),
+      roomstatus: statusSelect?.value || "available",
+      roomamenities: amenities,
+      roomdescription: descInput?.value || "",
+      roomimage: getRoomImageUrl(imageInput?.value || ""),
     };
 
-    if (editRoomId) {
-      setRooms((prev) => prev.map((r) => (r.id === editRoomId ? { ...r, ...roomData } : r)));
+    if (editMockRoomId) {
+      await updateMockRoom(editMockRoomId, roomData);
       showToast("Cập nhật phòng thành công");
     } else {
-      const newId = Math.max(...rooms.map((r) => r.id), 0) + 1;
-      setRooms((prev) => [...prev, { id: newId, ...roomData }]);
+      await createMockRoom(roomData);
       showToast("Thêm phòng thành công");
     }
-    closeRoomModal();
-  };
 
-  const deleteRoom = (id: number) => {
-    openDeleteModal("Xóa phòng", "Bạn có chắc chắn muốn xóa phòng này?", () => {
-      setRooms((prev) => prev.filter((r) => r.id !== id));
-      showToast("Đã xóa phòng");
-    });
+    closeRoomModal();
   };
 
   // ─── PROMOTION CRUD ──────────────────────────────────────────────────────
@@ -402,6 +397,47 @@ export default function CommandPage() {
       setPromotions((prev) => prev.filter((p) => p.id !== id));
       showToast("Đã xóa khuyến mãi");
     });
+  };
+
+  const openCustomerModal = (id: string | null = null) => {
+    setEditCustomerId(id);
+    setIsCustomerModalOpen(true);
+  };
+
+  const closeCustomerModal = () => {
+    setIsCustomerModalOpen(false);
+    setEditCustomerId(null);
+  };
+
+  const saveCustomer = async () => {
+    const form = customerFormRef.current;
+    if (!form) return;
+
+    const nameInput = form.querySelector("#customerName") as HTMLInputElement;
+    const emailInput = form.querySelector("#customerEmail") as HTMLInputElement;
+    const phoneInput = form.querySelector("#customerPhone") as HTMLInputElement;
+    const addressInput = form.querySelector("#customerAddress") as HTMLInputElement;
+
+    const name = nameInput?.value || "";
+    const email = emailInput?.value || "";
+    const phone = phoneInput?.value || "";
+    const address = addressInput?.value || "";
+
+    if (!name || !email || !phone || !address) {
+      showToast("Vui lòng điền đầy đủ thông tin", "error");
+      return;
+    }
+
+    if (editCustomerId) {
+      const updatedData = { name, email, phone, address };
+      await updateMockCustomer(editCustomerId, updatedData);
+      showToast("Cập nhật khách hàng thành công");
+    } else {
+      await createMockCustomer({ name, email, phone, address });
+      showToast("Thêm khách hàng thành công");
+    }
+
+    closeCustomerModal();
   };
 
   // ─── BRANCH CRUD ─────────────────────────────────────────────────────────
@@ -602,22 +638,7 @@ export default function CommandPage() {
             <div className="flex justify-between">
               <h1 className="text-2xl font-bold">Quản lý đặt phòng (MockAPI)</h1>
               <button
-                onClick={() => {
-                  const bookingData = {
-                    bookingnumber: Math.floor(Math.random() * 1000),
-                    bookingcustomer: `Khách hàng ${Date.now()}`,
-                    bookingcustomerid: Math.floor(Math.random() * 100),
-                    bookingroomType: "Standard",
-                    bookingroomNumber: Math.floor(Math.random() * 100),
-                    bookingcheckin: Date.now(),
-                    bookingcheckout: Date.now() + 86400000 * 2, // 2 days later
-                    bookingguest: Math.floor(Math.random() * 4) + 1,
-                    bookingroomStatus: "pending",
-                    bookingtotalMoney: Math.floor(Math.random() * 5000000) + 1000000,
-                    bookingnote: "Đặt phòng qua MockAPI"
-                  };
-                  createMockBooking(bookingData);
-                }}
+                onClick={() => openBookingModal(null)}
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
                 disabled={loading}
               >
@@ -666,13 +687,7 @@ export default function CommandPage() {
                         <td className="px-6 py-4 text-sm text-right">{formatCurrency(booking.bookingtotalMoney)}</td>
                         <td className="px-6 py-4 text-center">
                           <button
-                            onClick={() => {
-                              const updatedData = {
-                                ...booking,
-                                bookingroomStatus: booking.bookingroomStatus === "pending" ? "confirmed" : "pending"
-                              };
-                              updateMockBooking(booking.bookingid, updatedData);
-                            }}
+                            onClick={() => openBookingModal(booking.bookingid)}
                             className="text-blue-600 hover:text-blue-800 mr-3"
                           >
                             <i className="fas fa-edit"></i>
@@ -699,21 +714,7 @@ export default function CommandPage() {
             <div className="flex justify-between">
               <h1 className="text-2xl font-bold">Quản lý phòng (MockAPI)</h1>
               <button
-                onClick={() => {
-                  const roomData = {
-                    roomnumber: Math.floor(Math.random() * 1000),
-                    roomname: `Phòng ${Math.floor(Math.random() * 1000)}`,
-                    roomtype: "Standard",
-                    roomprice: Math.floor(Math.random() * 5000000) + 1000000,
-                    roomarea: Math.floor(Math.random() * 50) + 20,
-                    roomcapacity: Math.floor(Math.random() * 4) + 1,
-                    roomstatus: "available",
-                    roomamenities: ["wifi", "tv", "ac"],
-                    roomdescription: "Phòng nghỉ dưỡng thoải mái với đầy đủ tiện nghi",
-                    roomimage: `https://picsum.photos/seed/${Date.now()}/400/300`
-                  };
-                  createMockRoom(roomData);
-                }}
+                onClick={() => openRoomModal(null)}
                 className="bg-emerald-600 text-white px-4 py-2 rounded-lg"
                 disabled={loading}
               >
@@ -786,13 +787,7 @@ export default function CommandPage() {
                         </div>
                         <div className="flex justify-between mt-3 pt-3 border-t border-slate-700">
                           <button
-                            onClick={() => {
-                              const updatedData = {
-                                ...room,
-                                roomstatus: room.roomstatus === "available" ? "occupied" : "available"
-                              };
-                              updateMockRoom(room.roomid, updatedData);
-                            }}
+                            onClick={() => openRoomModal(room.roomid)}
                             className="text-blue-600 hover:text-blue-800"
                           >
                             <i className="fas fa-edit mr-1"></i>Sửa
@@ -929,15 +924,7 @@ export default function CommandPage() {
             <div className="flex justify-between">
               <h1 className="text-2xl font-bold">Quản lý khách hàng (MockAPI)</h1>
               <button
-                onClick={() => {
-                  const customerData = {
-                    name: `Khách hàng ${Date.now()}`,
-                    email: `customer${Date.now()}@example.com`,
-                    phone: `090${Math.floor(Math.random() * 10000000)}`,
-                    address: "Hanoi, Vietnam"
-                  };
-                  createMockCustomer(customerData);
-                }}
+                onClick={() => openCustomerModal(null)}
                 className="bg-green-600 text-white px-4 py-2 rounded-lg"
                 disabled={loading}
               >
@@ -972,13 +959,7 @@ export default function CommandPage() {
                         <td className="px-6 py-4 text-sm">{customer.address}</td>
                         <td className="px-6 py-4 text-center">
                           <button
-                            onClick={() => {
-                              const updatedData = {
-                                ...customer,
-                                name: `${customer.name} (Updated)`
-                              };
-                              updateMockCustomer(customer.id, updatedData);
-                            }}
+                            onClick={() => openCustomerModal(customer.id)}
                             className="text-blue-600 hover:text-blue-800 mr-3"
                           >
                             <i className="fas fa-edit"></i>
@@ -1045,360 +1026,52 @@ export default function CommandPage() {
         <div className="max-w-7xl mx-auto">{renderContent()}</div>
       </main>
 
-      {/* BOOKING MODAL */}
-      {isBookingModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div
-            className="bg-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative modal-enter border border-slate-700"
-            ref={bookingFormRef}
-          >
-            <button onClick={closeBookingModal} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-10">
-              <i className="fas fa-times text-2xl"></i>
-            </button>
-            <div className="p-6 border-b border-slate-700">
-              <h2 className="text-xl font-bold">
-                {editBookingId ? "Sửa đặt phòng" : "Thêm đặt phòng mới"}
-              </h2>
-            </div>
-            <div className="p-6 space-y-4">
-              {(() => {
-                const booking = editBookingId ? bookings.find((b) => b.id === editBookingId) : null;
-                return (
-                  <>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Khách hàng *</label>
-                        <select id="bookingCustomer" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={booking?.customerId || ""}>
-                          <option value="">Chọn khách hàng</option>
-                          {customers.map((c) => (
-                            <option key={c.id} value={c.id}>{c.name}</option>
-                          ))}
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Phòng *</label>
-                        <select id="bookingRoom" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={booking?.roomId || ""}>
-                          <option value="">Chọn phòng</option>
-                          {rooms
-                            .filter((r) => r.status === "available" || (booking && booking.roomId === r.id))
-                            .map((r) => (
-                              <option key={r.id} value={r.id} data-price={r.price}>
-                                {r.name} - {formatCurrency(r.price)}
-                              </option>
-                            ))}
-                        </select>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Ngày nhận *</label>
-                        <input type="date" id="bookingCheckin" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={booking?.checkin || ""} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Ngày trả *</label>
-                        <input type="date" id="bookingCheckout" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={booking?.checkout || ""} />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Số khách</label>
-                        <input type="number" id="bookingGuests" defaultValue={booking?.guests || 2} className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Mã khuyến mãi</label>
-                        <input type="text" id="bookingPromo" placeholder="Nhập mã" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Ghi chú</label>
-                      <textarea id="bookingNotes" rows={2} className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={booking?.note || ""}></textarea>
-                    </div>
-                  </>
-                );
-              })()}
-            </div>
-            <div className="p-6 border-t border-slate-700 flex justify-end gap-3">
-              <button onClick={closeBookingModal} className="px-4 py-2 border border-slate-600 rounded-lg">Hủy</button>
-              <button onClick={saveBooking} className="px-4 py-2 bg-emerald-600 text-white rounded-lg">Lưu</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <AdminBookingModal
+        isOpen={isBookingModalOpen}
+        onClose={closeBookingModal}
+        onSave={saveBooking}
+        formRef={bookingFormRef}
+        editBookingId={editMockBookingId}
+        bookings={mockBookings}
+        customers={mockCustomers}
+        rooms={mockRooms}
+      />
 
-      {/* ROOM MODAL */}
-      {isRoomModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div
-            className="bg-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative modal-enter border border-slate-700"
-            ref={roomFormRef}
-          >
-            <button onClick={closeRoomModal} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-              <i className="fas fa-times text-2xl"></i>
-            </button>
-            <div className="p-6 border-b border-slate-700">
-              <h2 className="text-xl font-bold">
-                {editRoomId ? "Sửa phòng" : "Thêm phòng mới"}
-              </h2>
-            </div>
-            <div className="p-6 space-y-4">
-              {(() => {
-                const room = editRoomId ? rooms.find((r) => r.id === editRoomId) : null;
-                return (
-                  <>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Tên phòng *</label>
-                        <input type="text" id="roomName" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={room?.name || ""} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Số phòng *</label>
-                        <input type="text" id="roomNumber" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={room?.number || ""} />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Loại phòng</label>
-                        <select id="roomType" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={room?.type || "Standard"}>
-                          <option>Standard</option>
-                          <option>Deluxe</option>
-                          <option>Suite</option>
-                          <option>Family</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Giá/đêm *</label>
-                        <input type="number" id="roomPrice" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={room?.price || ""} />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Diện tích (m²)</label>
-                        <input type="number" id="roomArea" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={room?.area || ""} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Sức chứa</label>
-                        <input type="number" id="roomCapacity" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={room?.capacity || 2} />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Tiện ích</label>
-                      <div className="flex gap-4">
-                        <label><input type="checkbox" id="amenityWifi" defaultChecked={room?.amenities.includes("wifi") ?? true} /> WiFi</label>
-                        <label><input type="checkbox" id="amenityTv" defaultChecked={room?.amenities.includes("tv") ?? true} /> TV</label>
-                        <label><input type="checkbox" id="amenityAc" defaultChecked={room?.amenities.includes("ac") ?? true} /> Điều hòa</label>
-                        <label><input type="checkbox" id="amenityBath" defaultChecked={room?.amenities.includes("bath") ?? false} /> Bồn tắm</label>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Trạng thái</label>
-                      <select id="roomStatus" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={room?.status || "available"}>
-                        <option value="available">Phòng trống</option>
-                        <option value="occupied">Đang có khách</option>
-                        <option value="maintenance">Đang bảo trì</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Mô tả</label>
-                      <textarea id="roomDesc" rows={2} className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={room?.desc || ""}></textarea>
-                    </div>
-                  </>
-                );
-              })()}
-            </div>
-            <div className="p-6 border-t border-slate-700 flex justify-end gap-3">
-              <button onClick={closeRoomModal} className="px-4 py-2 border border-slate-600 rounded-lg">Hủy</button>
-              <button onClick={saveRoom} className="px-4 py-2 bg-emerald-600 text-white rounded-lg">Lưu</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <AdminRoomModal
+        isOpen={isRoomModalOpen}
+        onClose={closeRoomModal}
+        onSave={saveRoom}
+        formRef={roomFormRef}
+        editRoomId={editMockRoomId}
+        rooms={mockRooms}
+      />
 
-      {/* PROMOTION MODAL */}
-      {isPromotionModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div
-            className="bg-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative modal-enter border border-slate-700"
-            ref={promotionFormRef}
-          >
-            <button onClick={closePromotionModal} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-10">
-              <i className="fas fa-times text-2xl"></i>
-            </button>
-            <div className="p-6 border-b border-slate-700">
-              <h2 className="text-xl font-bold">
-                {editPromotionId ? "Sửa khuyến mãi" : "Thêm khuyến mãi mới"}
-              </h2>
-            </div>
-            <div className="p-6 space-y-4">
-              {(() => {
-                const promo = editPromotionId ? promotions.find((p) => p.id === editPromotionId) : null;
-                return (
-                  <>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Tên khuyến mãi *</label>
-                        <input type="text" id="promoName" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={promo?.name || ""} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Mã khuyến mãi *</label>
-                        <input type="text" id="promoCode" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={promo?.code || ""} />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Loại</label>
-                        <select id="promoType" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={promo?.type || "percent"}>
-                          <option value="percent">Phần trăm (%)</option>
-                          <option value="fixed">Cố định (VND)</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Giá trị *</label>
-                        <input type="number" id="promoValue" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={promo?.value || ""} />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Ngày bắt đầu *</label>
-                        <input type="date" id="promoStart" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={promo?.start || ""} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Ngày kết thúc *</label>
-                        <input type="date" id="promoEnd" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={promo?.end || ""} />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Trạng thái</label>
-                      <select id="promoStatus" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={promo?.status || "active"}>
-                        <option value="active">Kích hoạt</option>
-                        <option value="inactive">Vô hiệu</option>
-                      </select>
-                    </div>
-                  </>
-                );
-              })()}
-            </div>
-            <div className="p-6 border-t border-slate-700 flex justify-end gap-3">
-              <button onClick={closePromotionModal} className="px-4 py-2 border border-slate-600 rounded-lg">Hủy</button>
-              <button onClick={savePromotion} className="px-4 py-2 bg-amber-600 text-white rounded-lg">Lưu</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <AdminPromotionModal
+        isOpen={isPromotionModalOpen}
+        onClose={closePromotionModal}
+        onSave={savePromotion}
+        formRef={promotionFormRef}
+        editPromotionId={editPromotionId}
+        promotions={promotions}
+      />
 
-      {/* BRANCH MODAL */}
-      {isBranchModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div
-            className="bg-slate-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative modal-enter border border-slate-700"
-            ref={branchFormRef}
-          >
-            <button onClick={closeBranchModal} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-10">
-              <i className="fas fa-times text-2xl"></i>
-            </button>
-            <div className="p-6 border-b border-slate-700">
-              <h2 className="text-xl font-bold">
-                {editBranchId ? "Sửa chi nhánh" : "Thêm chi nhánh mới"}
-              </h2>
-            </div>
-            <div className="p-6 space-y-4 max-h-[calc(90vh-200px)] overflow-y-auto">
-              {(() => {
-                const branch = editBranchId ? branches.find((b) => b.id === editBranchId) : null;
-                return (
-                  <>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Tên chi nhánh *</label>
-                        <input type="text" id="branchName" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.name || ""} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Loại</label>
-                        <select id="branchType" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.type || "Hotel"}>
-                          <option value="Hotel">Khách sạn</option>
-                          <option value="Resort">Khu nghỉ dưỡng</option>
-                          <option value="Villa">Biệt thự</option>
-                          <option value="Apartment">Căn hộ</option>
-                          <option value="MixedUse">Hỗn hợp</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Sao</label>
-                        <input type="number" id="branchStar" min="1" max="5" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.starRating || 3} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Trạng thái</label>
-                        <select id="branchStatus" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.status || "Active"}>
-                          <option value="Active">Hoạt động</option>
-                          <option value="Maintenance">Bảo trì</option>
-                          <option value="Reconstruction">Tái xây dựng</option>
-                          <option value="Unavailable">Không khả dụng</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Địa chỉ *</label>
-                      <input type="text" id="branchAddress" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.address || ""} />
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Thành phố *</label>
-                        <input type="text" id="branchCity" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.city || ""} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Quốc gia *</label>
-                        <input type="text" id="branchCountry" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.country || ""} />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-3 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Tầng</label>
-                        <input type="number" id="branchFloors" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.totalFloors || 1} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Số phòng</label>
-                        <input type="number" id="branchRooms" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.totalRooms || 0} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Diện tích (m²)</label>
-                        <input type="number" id="branchArea" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.totalArea || 0} />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-3 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Thang máy</label>
-                        <input type="number" id="branchElevators" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.elevatorCount || 0} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Chỗ đỗ xe</label>
-                        <input type="number" id="branchParking" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.parkingCapacity || 0} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Nhân viên</label>
-                        <input type="number" id="branchStaff" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.staffCount || 0} />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Quản lý bởi</label>
-                        <input type="text" id="branchManager" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.managedBy || ""} />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Ngày khai trương</label>
-                        <input type="date" id="branchOpeningDate" className="w-full border rounded-lg px-4 py-2 bg-slate-700 border-slate-700" defaultValue={branch?.openingDate || ""} />
-                      </div>
-                    </div>
-                  </>
-                );
-              })()}
-            </div>
-            <div className="p-6 border-t border-slate-700 flex justify-end gap-3">
-              <button onClick={closeBranchModal} className="px-4 py-2 border border-slate-600 rounded-lg">Hủy</button>
-              <button onClick={saveBranch} className="px-4 py-2 bg-purple-600 text-white rounded-lg">Lưu</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <AdminBranchModal
+        isOpen={isBranchModalOpen}
+        onClose={closeBranchModal}
+        onSave={saveBranch}
+        formRef={branchFormRef}
+        editBranchId={editBranchId}
+        branches={branches}
+      />
+
+      <AdminCustomerModal
+        isOpen={isCustomerModalOpen}
+        onClose={closeCustomerModal}
+        onSave={saveCustomer}
+        formRef={customerFormRef}
+        editCustomerId={editCustomerId}
+        customers={mockCustomers}
+      />
 
       {/* DELETE CONFIRMATION MODAL */}
       {isDeleteModalOpen && deleteModalData && (
