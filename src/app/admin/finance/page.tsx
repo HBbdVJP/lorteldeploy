@@ -353,7 +353,7 @@ const statusColor = (s: TaxBill["status"]) => {
   if (s === "Quá hạn") return "bg-red-100 text-red-700";
   if (s === "Sắp đến hạn") return "bg-amber-100 text-amber-700";
   if (s === "Đã thanh toán") return "bg-green-100 text-green-700";
-  return "bg-slate-100 text-slate-600";
+  return "bg-slate-100 text-white";
 };
 
 const catColor = (c: RefSheet["cat"]) =>
@@ -362,19 +362,19 @@ const catColor = (c: RefSheet["cat"]) =>
     Lương: "bg-blue-100 text-blue-700",
     "Bảo hiểm": "bg-purple-100 text-purple-700",
     "Quyết toán": "bg-amber-100 text-amber-700",
-  })[c] ?? "bg-slate-100 text-slate-600";
+  })[c] ?? "bg-slate-100 text-white";
 
 const badgeColor = (b: string) =>
   ({
     Mới: "bg-green-100 text-green-700",
     "Cập nhật": "bg-blue-100 text-blue-700",
     "Thảo luận": "bg-purple-100 text-purple-700",
-    "Chính sách": "bg-slate-200 text-slate-600",
+    "Chính sách": "bg-slate-200 text-white",
     "Hỏi đáp": "bg-amber-100 text-amber-700",
     "Hướng dẫn": "bg-teal-100 text-teal-700",
     "Tin tức": "bg-orange-100 text-orange-700",
     "Phân tích": "bg-rose-100 text-rose-700",
-  })[b] ?? "bg-slate-100 text-slate-600";
+  })[b] ?? "bg-slate-100 text-white";
 
 const salaryChartData = {
   labels: ["T1", "T2", "T3", "T4", "T5", "T6"],
@@ -558,13 +558,13 @@ export default function FinancePage() {
         <section className="flex-1 overflow-hidden p-5 flex flex-col gap-4">
           {/* Branch Selector */}
           <div className="shrink-0">
-            <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">
+            <label className="block text-[10px] font-bold text-white uppercase tracking-widest mb-1">
               Chi nhánh đang xem
             </label>
             <select
               value={branch}
               onChange={(e) => setBranch(e.target.value)}
-              className="w-72 bg-slate-800 border border-slate-700 text-slate-700 text-[11px] font-bold uppercase rounded p-2 focus:ring-1 focus:ring-blue-500 outline-none cursor-pointer"
+              className="w-72 bg-slate-800 border border-slate-700 text-white text-[11px] font-bold uppercase rounded p-2 focus:ring-1 focus:ring-blue-500 outline-none cursor-pointer"
             >
               <option value="br-001">Riverside Premium</option>
               <option value="br-002">City Center Luxury</option>
@@ -699,10 +699,10 @@ export default function FinancePage() {
               {/* KPI Row */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 shrink-0">
                 <div className="bg-slate-800 rounded border border-slate-700 p-4 hover:-translate-y-0.5 hover:shadow-md transition-all">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                  <p className="text-[9px] font-black text-white uppercase tracking-widest mb-1">
                     Tổng quỹ lương T6
                   </p>
-                  <p className="font-mono font-bold text-2xl text-slate-900 tracking-tight">
+                  <p className="font-mono font-bold text-2xl text-white tracking-tight">
                     4.82 Tỷ
                   </p>
                   <p className="text-[10px] text-green-600 mt-1 font-bold">
@@ -710,18 +710,18 @@ export default function FinancePage() {
                   </p>
                 </div>
                 <div className="bg-slate-800 rounded border border-slate-700 p-4 hover:-translate-y-0.5 hover:shadow-md transition-all">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                  <p className="text-[9px] font-black text-white uppercase tracking-widest mb-1">
                     Lương TB / nhân viên
                   </p>
-                  <p className="font-mono font-bold text-2xl text-slate-900 tracking-tight">
+                  <p className="font-mono font-bold text-2xl text-white tracking-tight">
                     18.9 Triệu
                   </p>
-                  <p className="text-[10px] text-slate-400 mt-1 font-bold">
+                  <p className="text-[10px] text-white mt-1 font-bold">
                     124 nhân sự active
                   </p>
                 </div>
                 <div className="bg-slate-800 rounded border border-slate-700 p-4 hover:-translate-y-0.5 hover:shadow-md transition-all">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                  <p className="text-[9px] font-black text-white uppercase tracking-widest mb-1">
                     Thưởng KPI tháng
                   </p>
                   <p className="font-mono font-bold text-2xl text-amber-600 tracking-tight">
@@ -732,13 +732,13 @@ export default function FinancePage() {
                   </p>
                 </div>
                 <div className="bg-slate-800 rounded border border-slate-700 p-4 hover:-translate-y-0.5 hover:shadow-md transition-all">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                  <p className="text-[9px] font-black text-white uppercase tracking-widest mb-1">
                     Trạng thái chi trả
                   </p>
                   <p className="font-mono font-bold text-2xl text-green-600 tracking-tight">
                     Hoàn tất
                   </p>
-                  <p className="text-[10px] text-slate-400 mt-1 font-bold">
+                  <p className="text-[10px] text-white mt-1 font-bold">
                     Ngày 25/06/2026
                   </p>
                 </div>
@@ -748,7 +748,7 @@ export default function FinancePage() {
               <div className="flex gap-4 flex-1 overflow-hidden min-h-0">
                 {/* Bar chart */}
                 <div className="bg-slate-800 rounded border border-slate-700 p-4 flex flex-col w-72 shrink-0">
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">
+                  <p className="text-[10px] font-black text-white uppercase tracking-widest mb-3">
                     Lương 6 tháng gần nhất (triệu VND)
                   </p>
                   <div className="flex-1 min-h-0 relative">
@@ -759,7 +759,7 @@ export default function FinancePage() {
                 {/* Department Table */}
                 <div className="bg-slate-800 rounded border border-slate-700 flex-1 flex flex-col overflow-hidden">
                   <div className="p-3 border-b border-slate-700 bg-slate-800 flex justify-between items-center shrink-0">
-                    <h3 className="font-bold text-xs uppercase tracking-tighter text-slate-700">
+                    <h3 className="font-bold text-xs uppercase tracking-tighter text-white">
                       Chi tiết lương theo phòng ban
                     </h3>
                     <button
@@ -771,7 +771,7 @@ export default function FinancePage() {
                   </div>
                   <div className="flex-1 overflow-y-auto">
                     <table className="w-full text-[11px] text-left">
-                      <thead className="bg-slate-100 text-slate-600 sticky top-0 uppercase font-black">
+                      <thead className="bg-slate-100 text-white sticky top-0 uppercase font-black">
                         <tr>
                           <th className="p-3 border-b">Phòng ban</th>
                           <th className="p-3 border-b text-center">Nhân sự</th>
@@ -787,16 +787,16 @@ export default function FinancePage() {
                       <tbody className="divide-y">
                         {salaryDepts.map((d, i) => (
                           <tr key={i} className="hover:bg-slate-50 transition">
-                            <td className="p-3 font-bold text-slate-700">
+                            <td className="p-3 font-bold text-white">
                               {d.dept}
                             </td>
-                            <td className="p-3 text-center font-mono text-slate-600">
+                            <td className="p-3 text-center font-mono text-white">
                               {d.count}
                             </td>
                             <td className="p-3 text-right font-mono font-bold text-blue-600">
                               {d.total}
                             </td>
-                            <td className="p-3 text-right font-mono text-slate-600">
+                            <td className="p-3 text-right font-mono text-white">
                               {d.avg}
                             </td>
                             <td className="p-3 text-center">
@@ -822,7 +822,7 @@ export default function FinancePage() {
               {/* Summary pills */}
               <div className="grid grid-cols-3 gap-3 shrink-0">
                 <div className="bg-slate-800 rounded border border-slate-700 p-4 border-l-4 border-l-red-500 hover:-translate-y-0.5 hover:shadow-md transition-all">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                  <p className="text-[9px] font-black text-white uppercase tracking-widest mb-1">
                     Hóa đơn quá hạn
                   </p>
                   <p className="font-mono font-bold text-3xl text-red-600">
@@ -830,7 +830,7 @@ export default function FinancePage() {
                   </p>
                 </div>
                 <div className="bg-slate-800 rounded border border-slate-700 p-4 border-l-4 border-l-amber-500 hover:-translate-y-0.5 hover:shadow-md transition-all">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                  <p className="text-[9px] font-black text-white uppercase tracking-widest mb-1">
                     Đến hạn trong 7 ngày
                   </p>
                   <p className="font-mono font-bold text-3xl text-amber-600">
@@ -838,7 +838,7 @@ export default function FinancePage() {
                   </p>
                 </div>
                 <div className="bg-slate-800 rounded border border-slate-700 p-4 border-l-4 border-l-green-500 hover:-translate-y-0.5 hover:shadow-md transition-all">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                  <p className="text-[9px] font-black text-white uppercase tracking-widest mb-1">
                     Đã thanh toán T6
                   </p>
                   <p className="font-mono font-bold text-3xl text-green-600">
@@ -850,11 +850,11 @@ export default function FinancePage() {
               {/* Bills Table */}
               <div className="bg-slate-800 rounded border border-slate-700 flex-1 flex flex-col overflow-hidden">
                 <div className="p-3 border-b border-slate-700 bg-slate-800 flex justify-between items-center shrink-0">
-                  <h3 className="font-bold text-xs uppercase tracking-tighter text-slate-700">
+                  <h3 className="font-bold text-xs uppercase tracking-tighter text-white">
                     Danh sách thuế &amp; hoá đơn
                   </h3>
                   <div className="flex items-center gap-2">
-                    <select className="border rounded text-[10px] font-bold px-2 py-1 text-slate-600 outline-none">
+                    <select className="border rounded text-[10px] font-bold px-2 py-1 text-white outline-none">
                       <option>Tất cả trạng thái</option>
                       <option>Quá hạn</option>
                       <option>Sắp đến hạn</option>
@@ -870,7 +870,7 @@ export default function FinancePage() {
                 </div>
                 <div className="flex-1 overflow-y-auto">
                   <table className="w-full text-[11px] text-left">
-                    <thead className="bg-slate-100 text-slate-600 sticky top-0 uppercase font-black">
+                    <thead className="bg-slate-100 text-white sticky top-0 uppercase font-black">
                       <tr>
                         <th className="p-3 border-b">Mã HĐ</th>
                         <th className="p-3 border-b">Loại</th>
@@ -884,17 +884,17 @@ export default function FinancePage() {
                     <tbody className="divide-y">
                       {taxBills.map((d) => (
                         <tr key={d.id} className="hover:bg-slate-50 transition">
-                          <td className="p-3 font-mono text-slate-500">
+                          <td className="p-3 font-mono text-white">
                             {d.id}
                           </td>
-                          <td className="p-3 font-bold text-slate-700">
+                          <td className="p-3 font-bold text-white">
                             {d.type}
                           </td>
-                          <td className="p-3 text-slate-600">{d.issuer}</td>
-                          <td className="p-3 text-right font-mono font-bold text-slate-800">
+                          <td className="p-3 text-white">{d.issuer}</td>
+                          <td className="p-3 text-right font-mono font-bold text-white">
                             {d.amount} ₫
                           </td>
-                          <td className="p-3 text-center font-mono text-slate-600">
+                          <td className="p-3 text-center font-mono text-white">
                             {d.due}
                           </td>
                           <td className="p-3 text-center">
@@ -913,7 +913,7 @@ export default function FinancePage() {
                                 Đã nộp
                               </button>
                             ) : (
-                              <span className="text-[9px] text-slate-300 font-bold uppercase">
+                              <span className="text-[9px] text-white font-bold uppercase">
                                 —
                               </span>
                             )}
@@ -937,9 +937,9 @@ export default function FinancePage() {
                   placeholder="Tìm kiếm biểu mẫu..."
                   value={sheetSearch}
                   onChange={(e) => setSheetSearch(e.target.value)}
-                  className="flex-1 border rounded p-2 text-sm outline-none focus:ring-1 focus:ring-blue-500 text-slate-700 bg-white"
+                  className="flex-1 border rounded p-2 text-sm outline-none focus:ring-1 focus:ring-blue-500 text-white bg-white"
                 />
-                <select className="border rounded text-[10px] font-bold px-3 py-2 text-slate-600 outline-none bg-white">
+                <select className="border rounded text-[10px] font-bold px-3 py-2 text-white outline-none bg-white">
                   <option>Tất cả loại</option>
                   <option>Lương</option>
                   <option>Thuế</option>
@@ -957,7 +957,7 @@ export default function FinancePage() {
                       className="bg-slate-800 rounded border border-slate-700 p-4 flex flex-col gap-2 hover:bg-slate-50 transition"
                     >
                       <div className="flex items-start justify-between gap-2">
-                        <p className="text-[11px] font-black text-slate-800 leading-snug">
+                        <p className="text-[11px] font-black text-white leading-snug">
                           {s.title}
                         </p>
                         <span
@@ -966,11 +966,11 @@ export default function FinancePage() {
                           {s.cat}
                         </span>
                       </div>
-                      <p className="text-[10px] text-slate-500 leading-relaxed">
+                      <p className="text-[10px] text-white leading-relaxed">
                         {s.desc}
                       </p>
                       <div className="flex items-center justify-between mt-auto pt-2 border-t">
-                        <span className="text-[9px] font-mono text-slate-400">
+                        <span className="text-[9px] font-mono text-white">
                           Cập nhật: {s.updated}
                         </span>
                         <button
@@ -985,7 +985,7 @@ export default function FinancePage() {
                     </div>
                   ))}
                   {filteredSheets.length === 0 && (
-                    <p className="text-[11px] text-slate-400 font-bold col-span-3 py-8 text-center">
+                    <p className="text-[11px] text-white font-bold col-span-3 py-8 text-center">
                       Không tìm thấy biểu mẫu nào.
                     </p>
                   )}
@@ -999,7 +999,7 @@ export default function FinancePage() {
             <div className="flex-1 flex flex-col gap-4 overflow-hidden">
               {/* Filter chips */}
               <div className="flex items-center gap-2 shrink-0 flex-wrap">
-                <span className="text-[10px] font-black text-slate-400 uppercase mr-1">
+                <span className="text-[10px] font-black text-white uppercase mr-1">
                   Lọc:
                 </span>
                 {[
@@ -1015,7 +1015,7 @@ export default function FinancePage() {
                     className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase transition ${
                       forumFilter === f.key
                         ? "bg-slate-800 text-white"
-                        : "bg-slate-200 text-slate-600 hover:bg-slate-300"
+                        : "bg-slate-200 text-white hover:bg-slate-300"
                     }`}
                   >
                     {f.label}
@@ -1027,7 +1027,7 @@ export default function FinancePage() {
                 {/* News Feed */}
                 <div className="flex-1 overflow-y-auto space-y-2">
                   {filteredForum.length === 0 && (
-                    <p className="text-[11px] text-slate-400 font-bold p-4">
+                    <p className="text-[11px] text-white font-bold p-4">
                       Không có bài viết nào.
                     </p>
                   )}
@@ -1042,17 +1042,17 @@ export default function FinancePage() {
                         >
                           {p.badge}
                         </span>
-                        <span className="text-[9px] font-bold text-slate-400 uppercase">
+                        <span className="text-[9px] font-bold text-white uppercase">
                           {p.author}
                         </span>
-                        <span className="text-[9px] font-mono text-slate-300 ml-auto">
+                        <span className="text-[9px] font-mono text-white ml-auto">
                           {p.date}
                         </span>
                       </div>
-                      <h4 className="text-[12px] font-black text-slate-800 mb-1">
+                      <h4 className="text-[12px] font-black text-white mb-1">
                         {p.title}
                       </h4>
-                      <p className="text-[10px] text-slate-500 leading-relaxed">
+                      <p className="text-[10px] text-white leading-relaxed">
                         {p.body}
                       </p>
                     </div>
@@ -1062,7 +1062,7 @@ export default function FinancePage() {
                 {/* Sidebar: Pinned + Deadlines */}
                 <div className="w-64 shrink-0 space-y-4 overflow-y-auto">
                   <div className="bg-slate-800 rounded border border-slate-700 p-4">
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">
+                    <p className="text-[10px] font-black text-white uppercase tracking-widest mb-3">
                       📌 Ghim quan trọng
                     </p>
                     <div className="space-y-2">
@@ -1071,10 +1071,10 @@ export default function FinancePage() {
                           key={p.id}
                           className="border-b pb-2 last:border-0 cursor-pointer"
                         >
-                          <p className="text-[10px] font-bold text-slate-700 hover:text-blue-600 leading-snug transition">
+                          <p className="text-[10px] font-bold text-white hover:text-blue-600 leading-snug transition">
                             {p.title}
                           </p>
-                          <p className="text-[9px] font-mono text-slate-400 mt-0.5">
+                          <p className="text-[9px] font-mono text-white mt-0.5">
                             {p.date}
                           </p>
                         </div>
@@ -1085,7 +1085,7 @@ export default function FinancePage() {
                     <p className="text-[10px] font-black text-amber-400 uppercase tracking-widest mb-3">
                       Hiệu lực sắp tới
                     </p>
-                    <ul className="space-y-2 text-[10px] text-slate-300 font-bold">
+                    <ul className="space-y-2 text-[10px] text-white font-bold">
                       <li className="flex justify-between">
                         <span>Lương tối thiểu mới</span>
                         <span className="text-amber-400">01/07/2026</span>
@@ -1112,12 +1112,12 @@ export default function FinancePage() {
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
           <div className="bg-slate-800 rounded-lg shadow-xl border border-slate-700 w-full max-w-md overflow-hidden">
             <div className="p-4 border-b bg-slate-50 flex justify-between items-center">
-              <h3 className="font-black text-xs uppercase tracking-widest text-slate-800">
+              <h3 className="font-black text-xs uppercase tracking-widest text-white">
                 Thêm hoá đơn / Khoản thuế mới
               </h3>
               <button
                 onClick={() => setIsBillModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 text-lg"
+                className="text-white hover:text-white text-lg"
               >
                 ✕
               </button>
@@ -1125,7 +1125,7 @@ export default function FinancePage() {
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
+                  <label className="block text-[10px] font-bold text-white uppercase mb-1">
                     Loại
                   </label>
                   <select
@@ -1143,7 +1143,7 @@ export default function FinancePage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
+                  <label className="block text-[10px] font-bold text-white uppercase mb-1">
                     Đơn vị phát hành
                   </label>
                   <input
@@ -1159,7 +1159,7 @@ export default function FinancePage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
+                  <label className="block text-[10px] font-bold text-white uppercase mb-1">
                     Số tiền (VND)
                   </label>
                   <input
@@ -1173,7 +1173,7 @@ export default function FinancePage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
+                  <label className="block text-[10px] font-bold text-white uppercase mb-1">
                     Hạn nộp
                   </label>
                   <input
