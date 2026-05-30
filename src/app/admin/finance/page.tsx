@@ -574,9 +574,9 @@ export default function FinancePage() {
 
           {/* ─── TAB 0: OVERVIEW ─── */}
           {activeTab === "overview" && (
-            <div className="space-y-6">
+            <div className="space-y-6 text-white">
               <h1 className="text-2xl font-bold">Báo cáo & Thống kê</h1>
-              <div className="bg-white p-4 rounded-xl shadow-sm dark:bg-gray-800">
+              <div className="bg-black p-4 rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
                   <select className="border border-slate-700 rounded-lg px-2">
                     <option value="revenue">Doanh thu</option>
@@ -600,10 +600,10 @@ export default function FinancePage() {
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="bg-white p-5 rounded-xl shadow-sm dark:bg-gray-800">
-                  <h3 className="font-bold mb-3">
+                  <h3 className="font-bold mb-3 text-white">
                     Doanh thu theo tháng (Triệu VNĐ)
                   </h3>
-                  <div className="h-50">
+                  <div className="h-50 text-white">
                     <Bar
                       data={{
                         labels: [
@@ -633,8 +633,8 @@ export default function FinancePage() {
                   </div>
                 </div>
                 <div className="bg-white p-5 rounded-xl shadow-sm dark:bg-gray-800">
-                  <h3 className="font-bold mb-3">Trạng thái đặt phòng</h3>
-                  <div className="h-50">
+                  <h3 className="font-bold mb-3 text-white">Trạng thái đặt phòng</h3>
+                  <div className="h-50 text-white">
                     <Doughnut
                       data={{
                         labels: ["Đã xác nhận", "Chờ xác nhận", "Hoàn thành"],
@@ -650,7 +650,7 @@ export default function FinancePage() {
                   </div>
                 </div>
               </div>
-              <div className="bg-white p-5 rounded-xl shadow-sm dark:bg-gray-800">
+              <div className="bg-white p-5 rounded-xl shadow-sm dark:bg-gray-800 text-white">
                 <h3 className="font-bold mb-3">Top khách hàng thân thiết</h3>
                 <div className="space-y-3">
                   {[...customers]
@@ -672,7 +672,7 @@ export default function FinancePage() {
                     ))}
                 </div>
               </div>
-              <div className="bg-white p-5 rounded-xl shadow-sm dark:bg-gray-800">
+              <div className="bg-white p-5 rounded-xl shadow-sm dark:bg-gray-800 text-white">
                 <h3 className="font-bold mb-3">Xuất báo cáo</h3>
                 <div className="flex gap-3">
                   <button
@@ -1014,8 +1014,8 @@ export default function FinancePage() {
                     onClick={() => setForumFilter(f.key)}
                     className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase transition ${
                       forumFilter === f.key
-                        ? "bg-slate-800 text-white"
-                        : "bg-slate-200 text-white hover:bg-slate-300"
+                      ? "bg-slate-800 text-white font-bold" // Khi ĐƯỢC CHỌN: Nền tối, chữ trắng
+                      : "bg-slate-200 text-black font-black hover:bg-slate-300" // Khi KHÔNG CHỌN: Nền xám, chữ đen + font siêu dày
                     }`}
                   >
                     {f.label}
