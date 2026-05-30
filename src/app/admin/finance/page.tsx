@@ -377,13 +377,16 @@ const badgeColor = (b: string) =>
   })[b] ?? "bg-slate-100 text-white";
 
 const salaryChartData = {
-  labels: ["T1", "T2", "T3", "T4", "T5", "T6"],
+  labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],
   datasets: [
     {
-      label: "Quỹ lương (M VND)",
-      data: [4120, 4250, 4310, 4550, 4670, 4820],
-      backgroundColor: "#1e293b",
-      borderRadius: 4,
+      label: 'Lương',
+      // Màu Emerald 500 của Tailwind: #10b981
+      backgroundColor: '#10b981', 
+      // Nếu muốn có hiệu ứng hover sáng hơn (Emerald 400)
+      hoverBackgroundColor: '#34d399',
+      borderRadius: 4, // Bo góc cho cột đẹp hơn
+      data: [15, 18, 12, 20, 25, 22],
     },
   ],
 };
@@ -578,13 +581,13 @@ export default function FinancePage() {
               <h1 className="text-2xl font-bold">Báo cáo & Thống kê</h1>
               <div className="bg-black p-4 rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                  <select className="border border-slate-700 rounded-lg px-2">
+                  <select className="border border-slate-700 rounded-lg px-2 text-black">
                     <option value="revenue">Doanh thu</option>
                     <option value="bookings">Đặt phòng</option>
                   </select>
                   <select
                     defaultValue="month"
-                    className="border border-slate-700 rounded-lg px-2"
+                    className="border border-slate-700 rounded-lg px-2 text-black"
                   >
                     <option value="week">Tuần này</option>
                     <option value="month">Tháng này</option>
@@ -773,30 +776,26 @@ export default function FinancePage() {
                     <table className="w-full text-[11px] text-left">
                       <thead className="bg-slate-100 text-white sticky top-0 uppercase font-black">
                         <tr>
-                          <th className="p-3 border-b">Phòng ban</th>
-                          <th className="p-3 border-b text-center">Nhân sự</th>
-                          <th className="p-3 border-b text-right">
-                            Tổng lương
-                          </th>
-                          <th className="p-3 border-b text-right">Lương TB</th>
-                          <th className="p-3 border-b text-center">
-                            Trạng thái
-                          </th>
+                          <th className="p-3 border-b text-black">Phòng ban</th>
+                          <th className="p-3 border-b text-center text-black">Nhân sự</th>
+                          <th className="p-3 border-b text-right text-black">Tổng lương</th>
+                          <th className="p-3 border-b text-right text-black">Lương TB</th>
+                          <th className="p-3 border-b text-center text-black">Trạng thái</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y">
                         {salaryDepts.map((d, i) => (
                           <tr key={i} className="hover:bg-slate-50 transition">
-                            <td className="p-3 font-bold text-white">
+                            <td className="p-3 font-bold text-white group-hover:text-black">
                               {d.dept}
                             </td>
-                            <td className="p-3 text-center font-mono text-white">
+                            <td className="p-3 text-center font-mono text-white group-hover:text-black">
                               {d.count}
                             </td>
-                            <td className="p-3 text-right font-mono font-bold text-blue-600">
+                            <td className="p-3 text-right font-mono font-bold text-blue-600 group-hover:text-black">
                               {d.total}
                             </td>
-                            <td className="p-3 text-right font-mono text-white">
+                            <td className="p-3 text-right font-mono text-white group-hover:text-black">
                               {d.avg}
                             </td>
                             <td className="p-3 text-center">
@@ -872,29 +871,29 @@ export default function FinancePage() {
                   <table className="w-full text-[11px] text-left">
                     <thead className="bg-slate-100 text-white sticky top-0 uppercase font-black">
                       <tr>
-                        <th className="p-3 border-b">Mã HĐ</th>
-                        <th className="p-3 border-b">Loại</th>
-                        <th className="p-3 border-b">Đơn vị phát hành</th>
-                        <th className="p-3 border-b text-right">Số tiền</th>
-                        <th className="p-3 border-b text-center">Hạn nộp</th>
-                        <th className="p-3 border-b text-center">Trạng thái</th>
-                        <th className="p-3 border-b text-center">Thao tác</th>
+                        <th className="p-3 border-b text-black">Mã HĐ</th>
+                        <th className="p-3 border-b text-black">Loại</th>
+                        <th className="p-3 border-b text-black">Đơn vị phát hành</th>
+                        <th className="p-3 border-b text-right text-black">Số tiền</th>
+                        <th className="p-3 border-b text-center text-black">Hạn nộp</th>
+                        <th className="p-3 border-b text-center text-black">Trạng thái</th>
+                        <th className="p-3 border-b text-center text-black">Thao tác</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y">
                       {taxBills.map((d) => (
                         <tr key={d.id} className="hover:bg-slate-50 transition">
-                          <td className="p-3 font-mono text-white">
+                          <td className="p-3 font-mono text-white group-hover:text-black">
                             {d.id}
                           </td>
-                          <td className="p-3 font-bold text-white">
+                          <td className="p-3 font-bold text-white group-hover:text-black">
                             {d.type}
                           </td>
                           <td className="p-3 text-white">{d.issuer}</td>
-                          <td className="p-3 text-right font-mono font-bold text-white">
+                          <td className="p-3 text-right font-mono font-bold text-white group-hover:text-black">
                             {d.amount} ₫
                           </td>
-                          <td className="p-3 text-center font-mono text-white">
+                          <td className="p-3 text-center font-mono text-white group-hover:text-black">
                             {d.due}
                           </td>
                           <td className="p-3 text-center">
