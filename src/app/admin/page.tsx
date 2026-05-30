@@ -277,7 +277,7 @@ export default function AdminPage() {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <div>
-                <h1 className="text-2xl font-bold">Tổng quan</h1>
+                <h1 className="text-2xl font-bold text-white">Tổng quan</h1>
                 <p className="text-gray-500 text-sm">
                   Xem tổng quan hoạt động kinh doanh
                 </p>
@@ -372,10 +372,10 @@ export default function AdminPage() {
                   ))}
                 </div>
                 <div className="mt-4 pt-4 border-t border-slate-700">
-                  <h4 className="font-medium text-sm mb-2">Tỉ lệ lấp đầy</h4>
+                  <h4 className="font-medium text-sm mb-2 text-white">Tỉ lệ lấp đầy</h4>
                   <div className="flex gap-4">
                     <div className="flex-1">
-                      <div className="flex justify-between text-xs">
+                      <div className="flex justify-between text-xs text-white">
                         <span>Hôm nay</span>
                         <span>{Math.round((occupiedRooms / rooms.length) * 100)}%</span>
                       </div>
@@ -394,7 +394,7 @@ export default function AdminPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-slate-800 rounded-xl shadow-sm border border-slate-700">
                 <div className="px-6 py-4 border-b border-slate-700 flex justify-between">
-                  <h3 className="font-bold">Đặt phòng gần đây</h3>
+                  <h3 className="font-bold text-white">Đặt phòng gần đây</h3>
                   <a
                     href="#"
                     onClick={() => setActiveTab("bookings")}
@@ -405,7 +405,7 @@ export default function AdminPage() {
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="bg-slate-800">
+                    <thead className="bg-slate-800 text-white">
                       <tr>
                         <th className="px-4 py-3 text-left text-xs">Mã</th>
                         <th className="px-4 py-3 text-left text-xs">Khách</th>
@@ -440,7 +440,7 @@ export default function AdminPage() {
                   </table>
                 </div>
               </div>
-              <div className="bg-slate-800 rounded-xl shadow-sm border border-slate-700">
+              <div className="bg-slate-800 rounded-xl shadow-sm border border-slate-700 text-white">
                 <div className="px-6 py-4 border-b border-slate-700">
                   <h3 className="font-bold">Hoạt động gần đây</h3>
                 </div>
